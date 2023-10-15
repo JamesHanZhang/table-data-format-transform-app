@@ -1,0 +1,17 @@
+{
+    "params": {
+        "input_sep": ",",
+        "output_sep": ",",
+        "input_sheet": "Sheet1",
+        "output_sheet": "Sheet1",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\input_dataset",
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\output_dataset"
+    },
+    "basic_params": {
+        "input_encoding": "utf-8",
+        "output_encoding": "utf-8",
+        "quote_none": false,
+        "quote_as_object": true,
+        "chunksize": 10000
+    }
+}

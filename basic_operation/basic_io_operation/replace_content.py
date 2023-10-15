@@ -44,9 +44,9 @@ class ReplaceContent(FindChildPaths):
         return
 
 if __name__ == '__main__':
-    parent_path = "D:\\Integrated Knowledge Management\\BaiduSyncdisk\\DATA-ANALYSIS-PROJECT"
-    target_content = "check_if_null_in_series"
-    substitution = "check_if_null_in_series"
+    parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT"
+    target_content = ""
+    substitution = ""
     encoding = "utf-8"
     rc = ReplaceContent(encoding)
     rc.sub_type_path_common_content(parent_path, target_content, substitution)

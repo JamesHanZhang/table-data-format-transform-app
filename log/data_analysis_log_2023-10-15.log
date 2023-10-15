@@ -1,0 +1,48 @@
+
+*****************************************
+***           PROGRAM STARTS          ***
+***        DATA-ANALYSIS-PROJECT      ***
+***            VERSION:2.01           ***
+***         AUTHOR: JamesHanZhang     ***
+***        jameshanzhang@foxmail.com  ***
+*****************************************
+UTC/GMT+8hours:2023-10-15 19:36:10.542464
+***************************************************
+[PROGRAM STARTS]: program starts...
+UTC/GMT+8hours:2023-10-15 19:36:10.546453
+[INITIALIZATION] initialize the default parameters for processing.
+UTC/GMT+8hours:2023-10-15 19:36:10.552437
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+UTC/GMT+8hours:2023-10-15 19:36:10.556426
+[IMPORT DATA]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\input_dataset\03.input_test.csv is imported.
+UTC/GMT+8hours:2023-10-15 19:36:10.562410
+[ParseError]: ParseError detected not by read_csv, but by self made method.
+Error tokenizing data. C error: EOF inside string starting at row 7.
+
+UTC/GMT+8hours:2023-10-15 19:36:10.567398
+[ERROR LINES EXTRACTION] error lines and correct lines are separated into 2 files for further reading.
+UTC/GMT+8hours:2023-10-15 19:36:10.575378
+[COST TIME] the program <import from csv> costed time: 0:00:00.022941
+UTC/GMT+8hours:2023-10-15 19:36:10.583356
+[COLUMN TYPE CONVERSION]: Table's column types have been changed based on following structure: 
+    | original column | target value |
+    | --------------- | ------------- |
+    |    'YEAR'    |    'object'    |
+    |    'TRAN_NUMBER'    |    'int64'    |
+UTC/GMT+8hours:2023-10-15 19:36:10.587859
+[COST TIME] the program <change column types> costed time: 0:00:00.007494
+UTC/GMT+8hours:2023-10-15 19:36:14.864969
+[IMAGE OUTPUT] image is stored as: D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\output_dataset\西北_各地交易记录.png
+UTC/GMT+8hours:2023-10-15 19:36:14.864969
+[COST TIME] the program <store fig> costed time: 0:00:02.799286
+UTC/GMT+8hours:2023-10-15 19:36:14.965233
+[IMAGE OUTPUT] image is stored as: D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\output_dataset\西南_各地交易记录.png
+UTC/GMT+8hours:2023-10-15 19:36:14.984187
+[COST TIME] the program <store fig> costed time: 0:00:00.113233
+UTC/GMT+8hours:2023-10-15 19:36:14.997668
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:04.451215
+***************************************************
+
+
+

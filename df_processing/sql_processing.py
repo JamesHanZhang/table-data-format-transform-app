@@ -8,6 +8,7 @@
 
 from sqlite3 import connect
 import pandas as pd
+from across_process import SysLog
 
 class SqlProcessing:
     def __init__(self):
@@ -22,6 +23,7 @@ class SqlProcessing:
         result = pd.read_sql(query, self.conn)
         return result
 
+    @SysLog().direct_show_log("[SORT ORDER]sort the order of the dataframe.")
     def sort_df(self, table_name, order_attrs: list[tuple[str, str]]) -> pd.DataFrame:
         """
         :param order_attrs: tuple inside must be like (attr_name, 'ASC') or (attr_name, 'DESC')

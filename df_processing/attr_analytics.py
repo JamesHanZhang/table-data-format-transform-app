@@ -1,4 +1,6 @@
 import pandas as pd
+from across_process import SysLog
+from tqdm import tqdm
 
 class AttrAnalytics:
     def __init__(self):
@@ -13,7 +15,7 @@ class AttrAnalytics:
         df = df.reset_index(drop=True)
         row_num = df.index.size
         new_col = list()
-        for pos in range(row_num):
+        for pos in tqdm(range(row_num),desc="[ATTR CREATION] new attribute is being created..."):
             new_col.append(func(df, pos, *args, **kwargs))
         return new_col
 

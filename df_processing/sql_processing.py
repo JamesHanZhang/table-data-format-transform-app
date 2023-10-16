@@ -21,3 +21,18 @@ class SqlProcessing:
         # example: query = "SELECT * FROM test"
         result = pd.read_sql(query, self.conn)
         return result
+
+    def sort_df(self, table_name, order_attrs: list[tuple[str, str]]) -> pd.DataFrame:
+        """
+        :param order_attrs: tuple inside must be like (attr_name, 'ASC') or (attr_name, 'DESC')
+        """
+        # 校验
+        requirement = ['ASC', 'DESC', 'asc', 'desc']
+        for each in order_attrs:
+            if each[1] not in requirement:
+                raise ValueError(f"the second part of the tuple must be chosen from list {str(requirement)}")
+        # 执行
+        order_part = ", ".join([f"{str(order_attr[0])} {str(order_attr[1])}" for order_attr in order_attrs])
+        query = f"SELECT * FROM {table_name} ORDER BY {order_part};"
+        df = self.exe_query(query)
+        return df

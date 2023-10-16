@@ -1,6 +1,5 @@
 """
 *****************************************
-***           PROGRAM STARTS          ***
 ***        DATA-ANALYSIS-PROJECT      ***
 ***         AUTHOR: JamesHanZhang     ***
 ***        jameshanzhang@foxmail.com  ***

@@ -10,7 +10,8 @@ import os
 # self-made modules
 from basic_operation import IoMethods
 import default_properties as prop
-import df_properties as dfprop
+import parameters
+import properties
 from across_process.resources_operation import ResourcesOperation
 from across_process.sys_log import SysLog
 
@@ -21,20 +22,20 @@ class IntegratedParameters:
 
     @SysLog().direct_show_log("[INITIALIZATION] initialize the default parameters for processing.")
     def init_params(self):
-        self.input_path = self.get_abspath(prop.INPUT_PATH, dfprop.input_path)
-        self.output_path = self.get_abspath(prop.OUTPUT_PATH, dfprop.output_path)
+        self.input_path = self.get_abspath(prop.INPUT_PATH, parameters.input_path)
+        self.output_path = self.get_abspath(prop.OUTPUT_PATH, parameters.output_path)
         self.basic_params = {
-            "input_encoding": dfprop.INPUT_ENCODING,
-            "output_encoding": dfprop.OUTPUT_ENCODING,
-            "quote_none": dfprop.QUOTE_NONE,
-            "quote_as_object": dfprop.QUOTE_AS_OBJECT,
-            "chunksize": dfprop.CHUNKSIZE
+            "input_encoding": properties.INPUT_ENCODING,
+            "output_encoding": properties.OUTPUT_ENCODING,
+            "quote_none": properties.QUOTE_NONE,
+            "quote_as_object": properties.QUOTE_AS_OBJECT,
+            "chunksize": properties.CHUNKSIZE
         }
         self.params = {
-            "input_sep": dfprop.input_sep,
-            "output_sep": dfprop.output_sep,
-            "input_sheet": dfprop.input_sheet,
-            "output_sheet": dfprop.output_sheet,
+            "input_sep": parameters.input_sep,
+            "output_sep": parameters.output_sep,
+            "input_sheet": parameters.input_sheet,
+            "output_sheet": parameters.output_sheet,
             "input_path": self.input_path,
             "output_path": self.output_path
         }

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from tqdm import tqdm
 from across_process import SysLog
 
@@ -105,7 +106,8 @@ class AttrAnalytics:
                 # 如果输入的参数数量不等于某个函数所需的参数数量，则会报错，所以各个函数参数数量要保持一致
                 this_col_result = func(df[col], *args, **kwargs)
             except (KeyError) as reason:
-                this_col_result = None
+                # null value in pandas is denoted as NaN, which from numpy is np.nan
+                this_col_result = np.nan
             new_row.append(this_col_result)
         new_row_df = pd.DataFrame(columns=cols,index=[0],data=[new_row])
         return new_row_df

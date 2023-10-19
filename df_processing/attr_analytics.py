@@ -1,11 +1,13 @@
 import pandas as pd
 from tqdm import tqdm
+from across_process import SysLog
 
 class AttrAnalytics:
     def __init__(self):
         pass
 
     @staticmethod
+    @SysLog().calculate_cost_time("<concat dataframes>")
     def concat_dfs(*dfs: pd.DataFrame) -> pd.DataFrame:
         """
         concat multi df together in order of the input df order.
@@ -16,6 +18,7 @@ class AttrAnalytics:
         return df
 
     @classmethod
+    @SysLog().calculate_cost_time("<attribute creation via df and index>")
     def create_attr_by_df_pos_arg(cls, func, df: pd.DataFrame, *args, **kwargs) -> list:
         """
         :param func: function must contain at least 2 arguments in order: DataFrame, position of index
@@ -29,6 +32,7 @@ class AttrAnalytics:
         return new_col
 
     @classmethod
+    @SysLog().calculate_cost_time("<attribute creation via series processing>")
     def create_attr_by_series_arg(cls, func, df: pd.DataFrame) -> pd.Series:
         """
         :param func: function must and only contain one argument: series in pd.Series type and return one element in series
@@ -37,6 +41,7 @@ class AttrAnalytics:
         return new_series
 
     @classmethod
+    @SysLog().calculate_cost_time("<attribute creation via element processing>")
     def create_attr_by_element_arg(cls, func, series: pd.Series) -> pd.Series:
         """
         to only use 1 series of dataframe to create a new attribute
@@ -46,6 +51,7 @@ class AttrAnalytics:
         return new_series
 
     @classmethod
+    @SysLog().calculate_cost_time("<row creation via same func without args>")
     def same_func_create_row(cls, func, df: pd.DataFrame) -> pd.DataFrame:
         """
         :param func: function must and only contain one argument: series in pd.Series type and return one element in series
@@ -59,6 +65,7 @@ class AttrAnalytics:
         return new_row_df
 
     @classmethod
+    @SysLog().calculate_cost_time("<row creation via same func with args>")
     def same_args_func_create_row(cls, func, df: pd.DataFrame, *args, **kwargs) -> pd.DataFrame:
         """
         :param func: first arg in func must be pd.Series
@@ -73,6 +80,7 @@ class AttrAnalytics:
         return new_row_df
 
     @classmethod
+    @SysLog().calculate_cost_time("<row creation via multi-funcs with same amount of args>")
     def multi_funcs_create_row(cls, attr_func_pairs: dict, df: pd.DataFrame, *args, **kwargs) -> pd.DataFrame:
         """
         :param attr_func_pairs: dict[str,list[func, dict]], 1st arg in func must be pd.Series

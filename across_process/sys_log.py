@@ -22,7 +22,10 @@ class SysLog:
         today = datetime.date.today()
         self.sys_log_file = "data_analysis_log_{0}.log".format(today)
         self.sys_log_path = self.join_path(self.log_path, self.sys_log_file)
-    def join_path(self, mother_path, child_path):
+        self.mk_log_dir_if_no_dir()
+
+    @staticmethod
+    def join_path(mother_path, child_path):
         if child_path != "" and child_path[0] in ['/','\\']:
             child_path = child_path[1:]
         full_path = os.path.join(mother_path, child_path)
@@ -33,6 +36,33 @@ class SysLog:
         str_time = f"{self.time_zone}:{current_time}\n"
         return str_time
 
+    @staticmethod
+    def check_if_path_exists(dir_path, pop_error=True):
+        # 判断路径是否存在
+        if_exists = os.path.isdir(dir_path)
+        if if_exists is False and pop_error is True:
+            raise FileNotFoundError(f"the path {dir_path} doesn't exist.")
+        elif if_exists is False and pop_error is False:
+            return False
+        return True
+
+    @staticmethod
+    def path_mkdir(path):
+        # 创建路径
+        try:
+            os.makedirs(path)
+        except FileExistsError as reason:
+            pass
+        finally:
+            return path
+
+    def mk_log_dir_if_no_dir(self):
+        # 如果没有log的文件夹，则创建log的文件夹
+        if_exists = self.check_if_path_exists(self.log_path,pop_error=False)
+        if if_exists is False:
+            self.path_mkdir(self.log_path)
+        return
+
     @classmethod
     def write_log(cls, log_content) -> str:
         # 修饰符classmethod将方法转静态类后需要内部实例化，方可正常调用类内部的self数据
@@ -42,6 +72,7 @@ class SysLog:
         with open(log.sys_log_path, mode='a+', encoding='utf-8') as f:
             f.write(content)
         return content
+
     @classmethod
     def show_log(cls, log_content) -> None:
         content = cls.write_log(log_content)

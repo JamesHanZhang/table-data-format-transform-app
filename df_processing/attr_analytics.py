@@ -117,7 +117,11 @@ class AttrAnalytics:
 
 if __name__ == "__main__":
     df = pd.DataFrame({'A': [1, 2], 'B': [10, 20]})
+    print("original dataframe")
     print(df)
+
+    #########################
+    print("try AttrAnalytics.create_attr_by_df_pos_arg")
     def new_col(df, pos, num):
         res = df['A'][pos]+df['B'][pos]+num
         return res
@@ -129,7 +133,8 @@ if __name__ == "__main__":
     0  1  10  111
     1  2  20  122
     """
-
+    ########################
+    print("try AttrAnalytics.create_attr_by_series_arg")
     def new_series(series: pd.Series) -> str:
         element = str(series.A) + " as output"
         return element
@@ -141,6 +146,8 @@ if __name__ == "__main__":
     0  1  10  111  1 as output
     1  2  20  122  2 as output
     """
+    #########################
+    print("try AttrAnalytics.same_func_create_row")
     def new_row(series: pd.Series) -> int:
         element = sum(series)
         return element
@@ -149,9 +156,14 @@ if __name__ == "__main__":
     a_row = AttrAnalytics.same_func_create_row(new_row, df)
     print(f"create a new row sum the num in each column")
     print(a_row)
+
+    ###########################
+    print("try AttrAnalytics.same_args_func_create_row")
     a_row = AttrAnalytics.same_args_func_create_row(new_row,df)
     print(a_row)
 
+    ##########################
+    print("try AttrAnalytics.multi_funcs_create_row")
     def new_row(series: pd.Series, num=None) -> int:
         element = sum(series)
         return element
@@ -171,7 +183,8 @@ if __name__ == "__main__":
     print("concat")
     print(df)
 
-
+    ######################################
+    print("try AttrAnalytics.create_attr_by_element_arg")
     def new_element(element):
         element = element + 1000
         return element

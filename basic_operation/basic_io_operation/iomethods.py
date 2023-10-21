@@ -59,9 +59,18 @@ class IoMethods(object):
         file.write(content)
         file.close()
 
+    @staticmethod
+    def check_if_path_exists(dir_path, pop_error=True):
+        # 判断路径是否存在
+        if_exists = os.path.isdir(dir_path)
+        if if_exists is False and pop_error is True:
+            raise FileNotFoundError(f"the path {dir_path} doesn't exist.")
+        elif if_exists is False and pop_error is False:
+            return False
+        return True
 
-    @classmethod
-    def check_if_file_exists(cls, full_path, pop_error=True):
+    @staticmethod
+    def check_if_file_exists(full_path, pop_error=True):
         # 判断文件是否存在
         if_exists = os.path.isfile(full_path)
         if if_exists is False and pop_error is True:
@@ -70,8 +79,8 @@ class IoMethods(object):
             return False
         return True
 
-    @classmethod
-    def remove_file(cls, full_path):
+    @staticmethod
+    def remove_file(full_path):
         # 删除文件
         try:
             os.remove(full_path)
@@ -79,8 +88,8 @@ class IoMethods(object):
             pass
         return True
 
-    @classmethod
-    def path_mkdir(cls, path):
+    @staticmethod
+    def path_mkdir(path):
         # 创建路径
         try:
             os.makedirs(path)
@@ -97,20 +106,29 @@ class IoMethods(object):
         full_path = os.path.normpath(full_path)
         return full_path
 
-    @classmethod
-    def get_file_extension(cls, file_name):
+    @staticmethod
+    def get_dir_from_file_path(file_path):
+        # 如果文件路径没有后缀名，则默认为路径
+        if IoMethods.get_file_extension(file_path) == "":
+            if file_path[-1] not in ['/','\\']:
+                file_path += '\\'
+        path = os.path.dirname(file_path)
+        return path
+
+    @staticmethod
+    def get_file_extension(file_name):
         file_name = os.path.basename(file_name)
         extension = os.path.splitext(file_name)[1]
         return extension
 
-    @classmethod
-    def get_main_file_name(cls, file_name: str) -> str:
+    @staticmethod
+    def get_main_file_name(file_name: str) -> str:
         file_name = os.path.basename(file_name)
         file_name = os.path.splitext(file_name)[0]
         return file_name
 
-    @classmethod
-    def get_last_folder_on_path(cls, path: str) -> str:
+    @staticmethod
+    def get_last_folder_on_path(path: str) -> str:
         last_folder = os.path.basename(os.path.normpath(path))
         return last_folder
 
@@ -130,17 +148,16 @@ class IoMethods(object):
             if cls.get_last_folder_on_path(full_path) == target_folder:
                 return full_path
         return None
-    @classmethod
-    def get_current_path(cls):
+    @staticmethod
+    def get_current_path():
         path = os.path.dirname(sys.path[0])
         return path
 
-    @classmethod
-    def get_folders_on_path(cls, path) -> list[str]:
+    @staticmethod
+    def get_folders_on_path(path) -> list[str]:
         path = os.path.normpath(path)
         if "/" in path:
             folder_list = path.split('/')
         else:
             folder_list = path.split('\\')
         return folder_list
-

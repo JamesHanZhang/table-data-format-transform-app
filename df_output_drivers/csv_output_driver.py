@@ -9,6 +9,7 @@
 # self-made modules
 from df_output_drivers.df_output_driver import DfOutputDriver
 from across_process import SysLog
+from basic_operation import IoMethods
 
 class CsvOutputDriver(DfOutputDriver):
     def __init__(self):
@@ -35,6 +36,7 @@ class CsvOutputDriver(DfOutputDriver):
         if output_encoding != "":
             self.output_encoding = output_encoding
 
+        IoMethods.mkdir_if_no_dir(self.output_path)
         # 获得参数
         type = '.csv'
         output_file = self.set_file_extension(output_file, type)

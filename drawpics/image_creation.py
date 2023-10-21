@@ -28,7 +28,9 @@ class ImageCreation:
         self.error_if_not_required(extension, output_type_list, "output_file's extension")
         if output_path is not None:
             self.output_path = output_path
+        IoMethods.mkdir_if_no_dir(self.output_path)
         full_output_path = IoMethods.join_path(self.output_path, output_file)
+
         fig.write_image(full_output_path)
         self.log.show_log(f'[IMAGE OUTPUT] image is stored as: {full_output_path}')
         return

@@ -52,6 +52,7 @@ class ResourcesOperation():
     def store_params_as_json(self, json_file: str, dict_content: dict) -> None:
         if json_file[-5:] != ".json":
             json_file += ".json"
+        self.iom.mkdir_if_no_dir(self.resources_path)
         full_path = self.iom.join_path(self.resources_path, json_file)
 
         # 防止中文转义为ascii符号，要添加ensure_ascii=False,同时打开文件以encoding='utf-8'打开

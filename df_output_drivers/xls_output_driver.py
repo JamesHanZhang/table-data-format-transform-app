@@ -10,6 +10,7 @@ import pandas as pd
 # self-made modules
 from df_output_drivers.df_output_driver import DfOutputDriver
 from across_process import SysLog
+from basic_operation import IoMethods
 
 class XlsOutputDriver(DfOutputDriver):
     def __init__(self):
@@ -36,6 +37,7 @@ class XlsOutputDriver(DfOutputDriver):
             self.output_path = output_path
         if output_sheet != "":
             self.output_sheet = output_sheet
+        IoMethods.mkdir_if_no_dir(self.output_path)
 
         type = '.xlsx'
         output_file = self.set_file_extension(output_file, type)

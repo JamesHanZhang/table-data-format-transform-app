@@ -98,6 +98,12 @@ class IoMethods(object):
         finally:
             return path
 
+    @classmethod
+    def mkdir_if_no_dir(cls, path: str):
+        if_exists = cls.check_if_path_exists(path, pop_error=False)
+        if if_exists is False:
+            cls.path_mkdir(path)
+
     @staticmethod
     def join_path(mother_path, child_path) -> str:
         if child_path != "" and child_path[0] in ['/', '\\']:

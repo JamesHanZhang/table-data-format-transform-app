@@ -18,7 +18,6 @@ class DfOutput(object):
     def __init__(self):
         self.table_properties = ResourcesOperation.read_default_setting()
         self.output_path = self.table_properties['params']['output_path']
-
     def output_on_extension(self, df, output_file, output_path="", overwrite=True):
         if output_path != "":
             self.output_path = output_path

@@ -21,6 +21,10 @@ class DfOutputDriver(object):
 
         self.iom = IoMethods(self.output_encoding)
 
+    def drop_empty_lines_from_df(self, df):
+        df, empty_lines_count = NullProcessing.drop_empty_lines(df)
+        return df
+
     def set_file_extension(self, file_name, type: str=".csv") -> str:
         # 规定文件拓展名
         extension = self.iom.get_file_extension(file_name)

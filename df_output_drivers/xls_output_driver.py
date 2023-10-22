@@ -18,6 +18,8 @@ class XlsOutputDriver(DfOutputDriver):
         self.output_sheet = self.table_properties['params']['output_sheet']
 
     def store_as_excel(self, df, full_output_path, overwrite: bool):
+        # 去掉空行
+        df = self.drop_empty_lines_from_df(df)
         # 根据overwrite判断是添加到原有文件，还是重写，当overwrite==True，则重写，False则添加到原文件下
         if overwrite is True or self.iom.check_if_file_exists(full_output_path, False) is False:
             df.to_excel(full_output_path, sheet_name=self.output_sheet, index=False, encoding=self.output_encoding,
@@ -31,13 +33,17 @@ class XlsOutputDriver(DfOutputDriver):
             writer.close()
         return
 
-    @SysLog().calculate_cost_time("<store as excel>")
-    def store_all_as_excel(self, df, output_file, output_path="", output_sheet="", overwrite=True):
+    def init_xls_output_params(self, output_path, output_sheet):
         if output_path != "":
             self.output_path = output_path
         if output_sheet != "":
             self.output_sheet = output_sheet
         IoMethods.mkdir_if_no_dir(self.output_path)
+        return
+
+    @SysLog().calculate_cost_time("<store as excel>")
+    def store_all_as_excel(self, df, output_file, output_path="", output_sheet="", overwrite=True):
+        self.init_xls_output_params(output_path, output_sheet)
 
         type = '.xlsx'
         output_file = self.set_file_extension(output_file, type)

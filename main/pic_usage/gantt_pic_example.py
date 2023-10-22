@@ -9,7 +9,7 @@ ip.init_params()
 
 # 导入表
 dc = DfCreation()
-df = dc.import_as_df("02.input_test.csv")
+df = dc.import_on_extension("02.input_test.csv")
 
 # 作图
 gantt = GanttCreation()

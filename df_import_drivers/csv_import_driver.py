@@ -21,6 +21,7 @@ class CsvImportDriver(DfImportDriver):
         self.input_encoding = self.table_properties['basic_params']['input_encoding']
         self.input_sep = self.table_properties['params']['input_sep']
         self.quote_none = self.table_properties['basic_params']['quote_none']
+        self.chunksize = self.table_properties['basic_params']['chunksize']
 
     def decide_quote_none(self):
         if self.quote_none is True:
@@ -219,35 +220,47 @@ class CsvImportDriver(DfImportDriver):
             self.log.show_log(msg)
         return del_error_csv
 
-    @SysLog().calculate_cost_time("<import from csv>")
-    def import_csv(self, input_file,input_path = "", input_sep="",input_encoding=""):
+    def init_csv_reader_params(self, input_file: str, input_path= "", input_sep="", input_encoding="") -> str:
         if input_path != "":
             self.input_path = input_path
         if input_sep != "":
             self.input_sep = input_sep
         if input_encoding != "":
             self.input_encoding = input_encoding
-
         full_input_path = self.iom.join_path(self.input_path, input_file)
         self.iom.check_if_file_exists(full_input_path)
 
         # 通过quote_as_object判断，是否把所有类型转为object再次进行读取，以保证得到完整数据
-        preserves = self.decide_df_dtypes(full_input_path)
-
-        msg = "[IMPORT DATA]: data from {a} is imported.".format(a=full_input_path)
-        self.log.show_log(msg)
-
+        self.preserves = self.decide_df_dtypes(full_input_path)
         # 判断是否严格判断引号为分隔符的一部分(贴近分隔符的时候)，还是视为数据内容录入
-        quoting = self.decide_quote_none()
+        self.quoting = self.decide_quote_none()
+
         try:
-            df = pd.read_csv(full_input_path,sep=self.input_sep, encoding=self.input_encoding, dtype=preserves, quoting=quoting, on_bad_lines='error')
             # 第一行必须为准确的列数，否则会默认识别为后半部分符合HEADER列数要求的部分数据，然后后面凡是没有的则包None，就错误了，所以这里引入更敏感的parser_error发觉方法
             self.raise_parse_error(full_input_path)
         except (pd.errors.ParserError) as reason:
             # 保存无错集到del_error_csv
-            del_error_csv= self.sep_out_error_lines(full_input_path, reason)
-            # 直接提取无错集里的数据
-            df = pd.read_csv(del_error_csv, sep=self.input_sep, encoding=self.input_encoding, dtype=preserves, quoting=quoting, on_bad_lines='warn')
-        # 去掉空行
-        df = self.drop_empty_lines_from_df(df)
+            full_input_path = self.sep_out_error_lines(full_input_path, reason)
+
+        return full_input_path
+
+
+    @SysLog().calculate_cost_time("<import from csv>")
+    def fully_import_csv(self, input_file: str, input_path="", input_sep="", input_encoding="") -> pd.DataFrame:
+        full_input_path = self.init_csv_reader_params(input_file, input_path, input_sep, input_encoding)
+        df = pd.read_csv(full_input_path, sep=self.input_sep, encoding=self.input_encoding, dtype=self.preserves,
+                         quoting=self.quoting, on_bad_lines='warn')
+        msg = "[IMPORT CSV]: data from {a} is fully imported.".format(a=full_input_path)
+        self.log.show_log(msg)
         return df
+
+    @SysLog().calculate_cost_time("<csv reading generator created>")
+    def circular_import_csv(self, input_file: str, input_path="", input_sep="", input_encoding=""):
+        full_input_path = self.init_csv_reader_params(input_file, input_path, input_sep, input_encoding)
+        # generate the generator of csv reading method for importing big csv
+        chunk_reader = pd.read_csv(full_input_path, sep=self.input_sep, encoding=self.input_encoding,
+                                   chunksize=self.chunksize, dtype=self.preserves, quoting=self.quoting,
+                                   on_bad_lines='warn')
+        msg = "[IMPORT CSV]: data from {a} is imported as reader generator for circular import in chunk size.".format(a=full_input_path)
+        self.log.show_log(msg)
+        return chunk_reader

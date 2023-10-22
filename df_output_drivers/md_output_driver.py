@@ -17,6 +17,9 @@ class MdOutputDriver(DfOutputDriver):
         super().__init__()
 
     def store_as_md(self, df, full_output_path, overwrite):
+        # 去掉空行
+        df = self.drop_empty_lines_from_df(df)
+
         # 将空值替换为空字符串
         df = NullProcessing.replace_null_with_emtpy_str(df)
         # 根据overwrite判断是添加到原有文件，还是重写，当overwrite==True，则重写，False则添加到原文件下
@@ -33,11 +36,15 @@ class MdOutputDriver(DfOutputDriver):
         self.iom.store_file(full_output_path, str_content, overwrite)
         return
 
-    @SysLog().calculate_cost_time("<store as markdown>")
-    def store_all_as_md(self, df, output_file, output_path="", overwrite=True):
+    def init_md_output_params(self, output_path):
         if output_path != "":
             self.output_path = output_path
         IoMethods.mkdir_if_no_dir(self.output_path)
+        return
+
+    @SysLog().calculate_cost_time("<store as markdown>")
+    def store_all_as_md(self, df, output_file, output_path="", overwrite=True):
+        self.init_md_output_params(output_path)
         # 获得参数
         type = '.md'
         output_file = self.set_file_extension(output_file, type)

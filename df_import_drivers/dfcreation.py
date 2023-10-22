@@ -16,9 +16,14 @@ class DfCreation:
     def __init__(self):
         self.log = SysLog()
 
+        self.csv_extensions = ['.csv']
+        self.md_extensions = ['.md']
+        self.xls_extensions = ['.xls', '.xlsx', '.xltx', '.xlsm', '.xlt', '.xltm', '.xlam', '.xla']
+        self.supported_extensions = self.csv_extensions + self.md_extensions + self.xls_extensions
+
     def check_extension(self, input_file: str) -> str:
         extension = IoMethods.get_file_extension(input_file)
-        if extension not in ['.csv', '.md', '.xls', '.xlsx', '.xltx', '.xlsm', '.xlt', '.xltm', '.xlam', '.xla']:
+        if extension not in self.supported_extensions:
             msg = "[TypeError]: the input file type is limited in these choices:" \
                   "             [Excel, CSV, MarkDown].\n" \
                   "             And the input file {a}'s extension doesn't follow the rules of these types.\n" \
@@ -29,23 +34,27 @@ class DfCreation:
 
     def import_as_df(self, input_file, input_path):
         extension = self.check_extension(input_file)
-        if extension == ".csv":
+        if extension in self.csv_extensions:
             impdriver = CsvImportDriver()
             df = impdriver.fully_import_csv(input_file, input_path)
-        elif extension in ['.xls', '.xlsx', '.xltx', '.xlsm', '.xlt', '.xltm', '.xlam', '.xla']:
+        elif extension in self.xls_extensions:
             impdriver = XlsImportDriver()
             df = impdriver.fully_import_excel(input_file, input_path)
-        elif extension == ".md":
+        elif extension in self.md_extensions:
             impdriver = MdImportDriver()
             df = impdriver.fully_import_md(input_file, input_path)
         return df
 
     def import_as_df_generator(self, input_file, input_path):
         extension = self.check_extension(input_file)
-        circular_reading_types = ['.csv']
-        if extension == ".csv":
+        circular_reading_types = self.csv_extensions + self.xls_extensions
+        if extension in self.csv_extensions:
             impdriver = CsvImportDriver()
             chunk_reader = impdriver.circular_import_csv(input_file, input_path)
+        elif extension in self.xls_extensions:
+            impdriver = XlsImportDriver()
+            chunk_reader = impdriver.circular_import_excel(input_file, input_path)
+
         else:
             msg = f"only {str(circular_reading_types)} can be imported as generator for processing data piece by piece."
             raise TypeError(msg)

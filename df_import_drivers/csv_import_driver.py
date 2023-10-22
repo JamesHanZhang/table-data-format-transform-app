@@ -21,7 +21,7 @@ class CsvImportDriver(DfImportDriver):
         self.input_encoding = self.table_properties['basic_params']['input_encoding']
         self.input_sep = self.table_properties['params']['input_sep']
         self.quote_none = self.table_properties['basic_params']['quote_none']
-        self.chunksize = self.table_properties['basic_params']['chunksize']
+
 
     def decide_quote_none(self):
         if self.quote_none is True:
@@ -261,6 +261,7 @@ class CsvImportDriver(DfImportDriver):
         chunk_reader = pd.read_csv(full_input_path, sep=self.input_sep, encoding=self.input_encoding,
                                    chunksize=self.chunksize, dtype=self.preserves, quoting=self.quoting,
                                    on_bad_lines='warn')
-        msg = "[IMPORT CSV]: data from {a} is imported as reader generator for circular import in chunk size.".format(a=full_input_path)
+        msg = f"[IMPORT CSV]: data from {full_input_path} is imported as reader generator for " \
+              f"circular import in chunk size {str(self.chunksize)}."
         self.log.show_log(msg)
         return chunk_reader

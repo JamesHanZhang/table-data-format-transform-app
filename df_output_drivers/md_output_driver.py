@@ -33,7 +33,7 @@ class MdOutputDriver(DfOutputDriver):
         list_content = str_content.split("\n")
         list_content = list_content[2:]
         str_content = '\n' + '\n'.join(list_content)
-        self.iom.store_file(full_output_path, str_content, overwrite)
+        self.iom.store_file(full_output_path, str_content, overwrite=overwrite)
         return
 
     def init_md_output_params(self, output_path):

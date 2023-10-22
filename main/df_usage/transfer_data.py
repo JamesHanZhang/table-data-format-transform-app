@@ -10,9 +10,16 @@ dc = DfCreation()
 do = DfOutput()
 
 # 直接以generator的形式读取，适合大数据
-df_reader = dc.import_on_extension("01.input_test.csv",if_circular=True)
-for df in df_reader:
+chunk_reader = dc.import_on_extension("02.input_test.xlsx", if_circular=True)
+count = 0
+for df in chunk_reader:
+    print(f"time for circular reading: {str(count)}")
     print(df)
+    count+=1
 
     # 导出
-    do.output_on_extension(df, "test.md")
+    if count == 1:
+        overwrite = True
+    else:
+        overwrite = False
+    do.output_on_extension(df, "test.md", overwrite=overwrite)

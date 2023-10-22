@@ -26,6 +26,7 @@ class DfImportDriver(object):
         self.input_path = self.table_properties['params']['input_path']
         self.quote_as_object = self.table_properties['basic_params']['quote_as_object']
         self.input_encoding = self.table_properties['basic_params']['input_encoding']
+        self.chunksize = self.table_properties['basic_params']['chunksize']
 
         self.iom = IoMethods(self.input_encoding)
 

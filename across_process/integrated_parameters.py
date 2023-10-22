@@ -20,7 +20,7 @@ class IntegratedParameters:
         self.ro = ResourcesOperation()
         self.log = SysLog()
 
-    @SysLog().direct_show_log("[INITIALIZATION] initialize the default parameters for processing.")
+    @SysLog().direct_show_log("[PARAMS INITIALIZATION] initialize the default parameters for processing.")
     def init_params(self):
         self.input_path = self.get_abspath(prop.INPUT_PATH, parameters.input_path)
         self.output_path = self.get_abspath(prop.OUTPUT_PATH, parameters.output_path)

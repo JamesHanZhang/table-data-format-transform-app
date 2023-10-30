@@ -1,17 +1,43 @@
 {
-    "params": {
-        "input_sep": ",",
-        "output_sep": ",",
-        "input_sheet": "Sheet1",
-        "output_sheet": "Sheet1",
+    "import_params": {
         "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\input_dataset",
-        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\output_dataset"
-    },
-    "basic_params": {
         "input_encoding": "utf-8",
-        "output_encoding": "utf-8",
-        "quote_none": false,
         "quote_as_object": true,
-        "chunksize": 10000
+        "if_circular": false,
+        "chunksize": 10000,
+        "csv_import_params": {
+            "input_sep": ",",
+            "character_size": 5000000,
+            "quote_none": false,
+            "sep_to_sub_multi_char_sep": ";",
+            "repl_to_sub_sep": "."
+        },
+        "xls_import_params": {
+            "input_sheet": "Sheet1"
+        }
+    },
+    "output_params": {
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\output_dataset",
+        "output_encoding": "gb18030",
+        "chunksize": 10000,
+        "if_sep": false,
+        "only_one_chunk": false,
+        "overwrite": true,
+        "csv_output_params": {
+            "output_sep": ",",
+            "repl_to_sub_sep": " "
+        },
+        "xls_output_params": {
+            "output_sheet": "Sheet1"
+        },
+        "sql_output_params": {
+            "database": "oracle",
+            "database_options": [
+                "oracle",
+                "gbase",
+                "mysql"
+            ],
+            "repl_to_sub_comma": ";"
+        }
     }
 }

@@ -1,7 +1,6 @@
-from drawpics import *
-from df_import_drivers import DfCreation
-from across_process import *
-from df_processing import *
+from analysis_modules.drawpics import *
+from analysis_modules.df_import_drivers import DfCreation
+from analysis_modules.params_monitor import *
 
 # 初始化参数
 start_time = start_program()

@@ -98,6 +98,41 @@ class FindChildPaths(IoMethods):
                 child_files_in_type.append(each_path)
         return child_files_in_type
 
+    @classmethod
+    def gain_child_path_file_pairs(cls, input_path: str) -> dict[str, list[str]]:
+        """
+        以字典的形式返回所有路径下的子文件名称
+        :return: dict[路径, 子文件列表]
+        """
+        folder_paths = cls.gain_child_folder_paths_dfs(input_path)
+        child_path_file_pairs = dict()
+        # 返回母文件夹下的文件
+        child_path_file_pairs[input_path] = cls.files_under_archive(input_path)
+        # 返回子文件夹下的文件路径
+        for each_path in folder_paths:
+            child_path_file_pairs[each_path] = cls.files_under_archive(each_path)
+        return child_path_file_pairs
+
+    @classmethod
+    def gain_child_certain_type_path_file_pairs(cls, input_path: str, extension: str = '.xlsx') -> dict[str, list[str]]:
+        """
+        以字典的形式返回符号文件类型要求的，所有路径下的子文件名称
+        :return: dict[路径, 子文件列表]
+        """
+        child_path_file_pairs = cls.gain_child_path_file_pairs(input_path)
+        certain_type_path_file_pairs = dict()
+        for each_path in child_path_file_pairs.keys():
+            certain_type_path_file_pairs[each_path] = list()
+            for each_file in child_path_file_pairs[each_path]:
+                each_extension = cls.get_file_extension(each_file)
+                if each_extension == extension:
+                    certain_type_path_file_pairs[each_path].append(each_file)
+
+            if len(certain_type_path_file_pairs[each_path]) == 0:
+                # 删除空列
+                certain_type_path_file_pairs.pop(each_path, None)
+        return certain_type_path_file_pairs
+
 
 if __name__ == "__main__":
     input_path = "D:\\Integrated Knowledge Management\\BaiduSyncdisk\\All Knowledge Management(MD)\\Leben Plannung von ZSH"

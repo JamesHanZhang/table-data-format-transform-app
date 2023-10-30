@@ -1,25 +1,14 @@
-from across_process import *
-from df_import_drivers import DfCreation
-from df_output_drivers import DfOutput
-from df_processing import *
+from analysis_modules import *
 
 # 初始化
-ip = IntegratedParameters()
-ip.init_params()
+start_time = start_program()
+import_params, output_params = IntegrateParams.get_params_from_settings()
 dc = DfCreation()
 do = DfOutput()
 
 # 直接以generator的形式读取，适合大数据
-chunk_reader = dc.import_on_extension("02.input_test.xlsx", if_circular=True)
-count = 0
-for df in chunk_reader:
-    print(f"time for circular reading: {str(count)}")
-    print(df)
-    count+=1
+df = dc.import_on_extension(import_params, "02.input_test.xlsx")
+print(df)
+do.output_on_extension(df, output_params, "test.csv")
 
-    # 导出
-    if count == 1:
-        overwrite = True
-    else:
-        overwrite = False
-    do.output_on_extension(df, "test.md", overwrite=overwrite)
+end_program(start_time)

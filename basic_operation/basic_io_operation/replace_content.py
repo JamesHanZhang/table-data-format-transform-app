@@ -48,6 +48,7 @@ if __name__ == '__main__':
     target_content = ""
     substitution = ""
     encoding = "utf-8"
+    extension = '.py'
     rc = ReplaceContent(encoding)
-    rc.sub_type_path_common_content(parent_path, target_content, substitution)
+    rc.sub_type_path_common_content(parent_path, target_content, substitution, extension)
 

@@ -1,0 +1,76 @@
+
+*****************************************
+***           PROGRAM STARTS          ***
+***        DATA-ANALYSIS-PROJECT      ***
+***            VERSION:2.01           ***
+***         AUTHOR: JamesHanZhang     ***
+***        jameshanzhang@foxmail.com  ***
+*****************************************
+UTC/GMT+8hours:2023-10-31 00:10:43.180738
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-10-31 00:10:43.184699
+[PARAMS] parameters initialization from settings.
+
+UTC/GMT+8hours:2023-10-31 00:10:43.444584
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-10-31 00:10:43.457549
+[IMPORT EXCEL]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\input_dataset\02.input_test.xlsx is fully imported via excel reading method.
+
+UTC/GMT+8hours:2023-10-31 00:10:43.463531
+[COST TIME] the program <import from excel> costed time: 0:00:00.269339
+
+UTC/GMT+8hours:2023-10-31 00:10:43.480487
+[CSV OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\output_dataset\test.csv
+
+UTC/GMT+8hours:2023-10-31 00:10:43.485530
+[COST TIME] the program <store as csv> costed time: 0:00:00.011029
+
+UTC/GMT+8hours:2023-10-31 00:10:43.490042
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.303797
+***************************************************
+
+
+
+
+
+*****************************************
+***           PROGRAM STARTS          ***
+***        DATA-ANALYSIS-PROJECT      ***
+***            VERSION:2.01           ***
+***         AUTHOR: JamesHanZhang     ***
+***        jameshanzhang@foxmail.com  ***
+*****************************************
+UTC/GMT+8hours:2023-10-31 00:11:33.704098
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-10-31 00:11:33.709122
+[PARAMS] parameters initialization from settings.
+
+UTC/GMT+8hours:2023-10-31 00:11:33.968444
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-10-31 00:11:33.981022
+[IMPORT EXCEL]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\input_dataset\02.input_test.xlsx is fully imported via excel reading method.
+
+UTC/GMT+8hours:2023-10-31 00:11:33.986018
+[COST TIME] the program <import from excel> costed time: 0:00:00.270949
+
+UTC/GMT+8hours:2023-10-31 00:11:34.003931
+[CSV OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\DATA-ANALYSIS-PROJECT\output_dataset\test.csv
+
+UTC/GMT+8hours:2023-10-31 00:11:34.009913
+[COST TIME] the program <store as csv> costed time: 0:00:00.012924
+
+UTC/GMT+8hours:2023-10-31 00:11:34.014901
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.305779
+***************************************************
+
+
+
+

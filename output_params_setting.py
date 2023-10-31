@@ -4,7 +4,7 @@ from import_params_setting import chunksize
 output_path = ""
 
 # 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
-output_encoding = ""
+output_encoding = "gb18030"
 
 # 判断是否要拆分，如拆分，则按照导入的chunksize的大小进行拆分
 if_sep = False
@@ -29,6 +29,10 @@ xls_output_params = {
 md_output_params = {}
 
 sql_output_params = {
+    # 导出表的基本信息 - 表名，默认值为temp_table
+    'table_name': 'temp_table',
+    # 导出表的基本信息 - 各字段长度，默认为空字典，导出时自动填充数据, dict[key: str, value: int]
+    'table_structure': {},
     # 选择导出的数据库类型
     'database': 'oracle',
     # DATABASE里的可选项，作用仅为提示DATABASE里可写的数据库引擎

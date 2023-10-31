@@ -2,8 +2,9 @@
 # 如添加子文件夹child_folder/split1，则实际路径为:../input_dataset/child_folder/split1
 input_path = ""
 
-# 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
-input_encoding = "utf-8"
+# 加载时的解码格式默认值：input_encoding = "utf-8" 或者中文环境下常用"gb18030"
+# 如果为""空值，则默认开启自动探测文件编码charset模式，会自动通过选取前10240bytes的数据进行校验检查
+input_encoding = ""
 
 # 确认是否直接导入（能保持数据类型），还是以字符串的形式导入（能尽量避免数据遗失）
 # True: 以字符串类型导入，False: 直接导入

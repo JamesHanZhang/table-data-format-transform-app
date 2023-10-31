@@ -11,7 +11,7 @@ class ImportParams(ParamsBasicSetting):
 
         # 初始化变量
         self.input_path = self.get_abspath(prop.INPUT_PATH, iparams.input_path)
-        self.input_encoding = self.get_default_value(prop.DEFAULT_ENCODING, iparams.input_encoding)
+        self.input_encoding = iparams.input_encoding
         self.quote_as_object = iparams.quote_as_object
         self.if_circular = iparams.if_circular
         self.chunksize = iparams.chunksize

@@ -7,6 +7,7 @@
 """
 
 import pandas as pd
+import chardet
 
 # self-made modules
 from analysis_modules.params_monitor import ResourcesOperation, SysLog, ImportParams
@@ -54,3 +55,35 @@ class DfImportDriver(object):
             self.input_path = input_path
         if input_encoding != "":
             self.input_encoding = input_encoding
+
+    @staticmethod
+    def detect_charset(file_path, chunk_size=10240):
+        detector = chardet.universaldetector.UniversalDetector()
+        try:
+            with open(file_path, 'rb') as f:
+                while True:
+                    chunk = f.read(chunk_size)
+                    if not chunk:
+                        break
+                    detector.feed(chunk)
+                    if detector.done:
+                        break
+        # 文件不能以text的形式读取
+        except (UnicodeDecodeError, IsADirectoryError, PermissionError, FileNotFoundError):
+            return
+
+        detector.close()
+        result = detector.result
+        encoding = result['encoding'].lower()
+        return encoding
+
+    def get_import_encoding(self, file_path, input_encoding):
+        if input_encoding != "":
+            return input_encoding
+        input_encoding = self.detect_charset(file_path)
+
+        # 重新定义应用类实例
+        self.iom = IoMethods(input_encoding)
+
+        self.log.show_log(f"[INPUT ENCODING DETECTION] file {file_path} charset detected automatically: {input_encoding}")
+        return input_encoding

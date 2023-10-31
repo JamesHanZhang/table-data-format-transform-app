@@ -228,6 +228,8 @@ class CsvImportDriver(DfImportDriver):
 
         full_input_path = self.iom.join_path(self.input_path, input_file)
         self.iom.check_if_file_exists(full_input_path)
+        # 如果没输入input_encoding，则开启自动检测
+        self.input_encoding = self.get_import_encoding(full_input_path, self.input_encoding)
 
         # 通过quote_as_object判断，是否把所有类型转为object再次进行读取，以保证得到完整数据
         self.preserves = self.decide_df_dtypes(full_input_path)

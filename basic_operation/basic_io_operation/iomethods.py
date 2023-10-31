@@ -14,6 +14,8 @@ from tqdm import tqdm
 
 class IoMethods(object):
     def __init__(self, encoding:str = "utf-8"):
+        if encoding == "":
+            self.encoding = 'utf-8'
         self.encoding = encoding
 
     def reset_encoding(self, encoding:str = "utf-8") -> None:

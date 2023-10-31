@@ -1,7 +1,7 @@
 {
     "import_params": {
         "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\input_dataset",
-        "input_encoding": "utf-8",
+        "input_encoding": "",
         "quote_as_object": true,
         "if_circular": false,
         "chunksize": 10000,
@@ -31,6 +31,8 @@
             "output_sheet": "Sheet1"
         },
         "sql_output_params": {
+            "table_name": "temp_table",
+            "table_structure": {},
             "database": "oracle",
             "database_options": [
                 "oracle",

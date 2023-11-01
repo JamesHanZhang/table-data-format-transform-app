@@ -55,6 +55,7 @@ class DfImportDriver(object):
             self.input_path = input_path
         if input_encoding != "":
             self.input_encoding = input_encoding
+            self.iom = IoMethods(input_encoding)
 
     @staticmethod
     def detect_charset(file_path, chunk_size=10240):

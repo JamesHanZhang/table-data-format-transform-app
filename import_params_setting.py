@@ -14,7 +14,7 @@ quote_as_object = True
 if_circular = False
 
 # 针对if_circular is True: 每次执行chunksize条数据；另，如果导出的时候要拆分为小片数据，也是依据该值进行拆分的
-chunksize = 10000
+chunksize = 50000
 
 
 csv_import_params = {

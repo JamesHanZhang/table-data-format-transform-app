@@ -120,6 +120,11 @@ class CsvImportDriver(DfImportDriver):
         self.log.show_log(msg)
         raise pd.errors.ParserError(msg)
 
+    def pos_reminder(self, pos, msg):
+        # 防止等待太久以为程序出了问题
+        if pos % self.chunksize == 0:
+            print(msg + f" for {str((pos // self.chunksize) +1)} part of data...")
+
     def raise_parse_error(self, full_input_path):
         # 自主搭建的CSV常无法准确识别column和各行的列数，因此需要验证一下
         # 如果column有5个，而第一行有7个，那么只有第一行的后5个会被录入，且不会报错
@@ -138,6 +143,8 @@ class CsvImportDriver(DfImportDriver):
                     self.direct_raise_parse_error(pos)
                 if not line:
                     break
+                # 打个标，免得等的时间太久人会着急
+                self.pos_reminder(pos, "[CHECK IF DIRTY DATA EXISTS] process for checking data running")
                 pos += 1
         return
 
@@ -161,10 +168,16 @@ class CsvImportDriver(DfImportDriver):
             new_first_line = self.repl_multi_char_sep(first_line)
             self.iom.store_file(repl_sep_csv, new_first_line, encoding=self.input_encoding, overwrite=True)
             part_lines = ""
+            pos = 0
             while True:
                 line = file.readline()
                 if not line:
                     break
+
+                # 打个标，免得等的时间太久人会着急
+                self.pos_reminder(pos, "[REPLACE MULTI-CHAR-SEP WITH SINGLE-CHAR-SEP] replacement running")
+                pos += 1
+
                 new_line = self.repl_multi_char_sep(line)
                 part_lines+=new_line
                 if len(part_lines) > self.character_size:
@@ -207,6 +220,7 @@ class CsvImportDriver(DfImportDriver):
             part_error_lines = ""
             part_correct_lines = ""
             error_mark = False
+            pos = 0
             while True:
                 # 直接进入下一条
                 # 通过指针一条一条地读取，返回的行末尾自带一个换行符
@@ -216,6 +230,10 @@ class CsvImportDriver(DfImportDriver):
                     print("\nthe process for storing csv file without error lines is finished.\n"
                           "and the process file was loaded into the processing and deleted already.\n")
                     break
+
+                # 打个标，免得等的时间太久人会着急
+                self.pos_reminder(pos, "[SEPARATE ERROR LINES OUT OF CORRECT LINES] separation running")
+                pos += 1
 
                 field_list = self.split_line(line)
 

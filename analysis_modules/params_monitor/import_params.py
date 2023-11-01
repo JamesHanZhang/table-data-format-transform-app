@@ -4,13 +4,14 @@ import copy
 from analysis_modules import default_properties as prop
 from analysis_modules.params_monitor.params_basic_setting import ParamsBasicSetting
 import import_params_setting as iparams
+from basic_operation import IoMethods
 
 class ImportParams(ParamsBasicSetting):
     def __init__(self):
         super().__init__()
 
         # 初始化变量
-        self.input_path = self.get_abspath(prop.INPUT_PATH, iparams.input_path)
+        self.input_path = self.get_abspath(IoMethods.get_folder_path_under_project('input_dataset',prop.PROJECT_NAME), iparams.input_path)
         self.input_encoding = iparams.input_encoding
         self.quote_as_object = iparams.quote_as_object
         self.if_circular = iparams.if_circular

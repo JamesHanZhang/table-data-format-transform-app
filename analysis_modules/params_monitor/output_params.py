@@ -4,13 +4,14 @@ import copy
 from analysis_modules import default_properties as prop
 from analysis_modules.params_monitor.params_basic_setting import ParamsBasicSetting
 import output_params_setting as oparams
+from basic_operation import IoMethods
 
 class OutputParams(ParamsBasicSetting):
     def __init__(self):
         super().__init__()
 
         # 初始化变量
-        self.output_path = self.get_abspath(prop.OUTPUT_PATH, oparams.output_path)
+        self.output_path = self.get_abspath(IoMethods.get_folder_path_under_project('output_dataset',prop.PROJECT_NAME), oparams.output_path)
         self.output_encoding = self.get_default_value(prop.DEFAULT_ENCODING, oparams.output_encoding)
         self.chunksize = oparams.chunksize # 默认OUTPUT的时候拆分成片也是按照INPUT的来算，方便过程处理
         self.if_sep = oparams.if_sep

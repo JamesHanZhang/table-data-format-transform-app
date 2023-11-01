@@ -21,7 +21,7 @@ from analysis_modules import default_properties as prop
 class ResourcesOperation():
     def __init__(self):
         self.iom = IoMethods()
-        self.resources_path = IoMethods.get_folder_path_under_project("resources", prop.PROJECT_NAME)
+        self.resources_path = prop.RESOURCES_PATH
 
     def list_resources(self) -> list[str]:
         file_list = [file for file in listdir(self.resources_path) if isfile(join(self.resources_path, file))]

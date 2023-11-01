@@ -141,6 +141,46 @@ class CsvImportDriver(DfImportDriver):
                 pos += 1
         return
 
+
+
+    def repl_multi_char_sep(self, line: str) -> str:
+        new_line = line.replace(self.sep_to_sub_multi_char_sep, self.repl_to_sub_sep)
+        new_line = new_line.replace(self.input_sep, self.sep_to_sub_multi_char_sep)
+        return new_line
+
+    def create_file_if_multi_char_sep(self, full_input_path):
+        # 将多字符分隔符替换成单字符
+        if len(self.input_sep) <= 1:
+            return full_input_path
+
+        input_path = os.path.dirname(full_input_path)
+        input_file = self.iom.get_main_file_name(full_input_path)
+        repl_sep_csv = self.iom.join_path(input_path, input_file+"_repl_sep.csv")
+        with open(full_input_path, mode='r+', encoding= self.input_encoding) as file:
+            first_line = file.readline()
+            new_first_line = self.repl_multi_char_sep(first_line)
+            self.iom.store_file(repl_sep_csv, new_first_line, encoding=self.input_encoding, overwrite=True)
+            part_lines = ""
+            while True:
+                line = file.readline()
+                if not line:
+                    break
+                new_line = self.repl_multi_char_sep(line)
+                part_lines+=new_line
+                if len(part_lines) > self.character_size:
+                    self.iom.store_file(repl_sep_csv, part_lines, encoding=self.input_encoding, overwrite=False)
+                    part_lines = ""
+            if len(part_lines) != 0:
+                self.iom.store_file(repl_sep_csv, part_lines, encoding=self.input_encoding, overwrite=False)
+
+        self.log.show_log(f"[REPLACE MULTI SEP FOR CSV] when facing multi-char as sep for csv reading, "
+                          f"the sep must firstly be replaced with one char sep, then it can be loaded as dataframe normally.\n"
+                          f"[NEW CSV FOR SEP REPLACEMENT] new csv {repl_sep_csv} created for loading csv.")
+        # 既然已经替换了分隔符，那么整体分隔符也要变
+        self.input_sep = self.sep_to_sub_multi_char_sep
+        return repl_sep_csv
+
+
     @SysLog().direct_show_log("[ERROR LINES EXTRACTION] error lines and correct lines are separated into 2 files for further reading.")
     def sep_out_error_lines(self, full_input_path, reason) -> str:
         """
@@ -160,9 +200,9 @@ class CsvImportDriver(DfImportDriver):
 
         with open(full_input_path, mode= 'r+', encoding = self.input_encoding) as file:
             first_line = file.readline()
-            self.iom.store_file(error_csv, first_line, overwrite=True)
+            self.iom.store_file(error_csv, first_line, encoding=self.input_encoding, overwrite=True)
             # 保存不带脏数据的副本
-            self.iom.store_file(del_error_csv, first_line, overwrite=True)
+            self.iom.store_file(del_error_csv, first_line, encoding=self.input_encoding, overwrite=True)
 
             part_error_lines = ""
             part_correct_lines = ""
@@ -197,16 +237,16 @@ class CsvImportDriver(DfImportDriver):
                     error_mark = True
 
                 if len(part_error_lines) > self.character_size:
-                    self.iom.store_file(error_csv, part_error_lines, overwrite=False)
+                    self.iom.store_file(error_csv, part_error_lines, encoding=self.input_encoding, overwrite=False)
                     part_error_lines = ""
                 if len(part_correct_lines) > self.character_size:
-                    self.iom.store_file(del_error_csv, part_correct_lines, overwrite=False)
+                    self.iom.store_file(del_error_csv, part_correct_lines, encoding=self.input_encoding, overwrite=False)
                     part_correct_lines = ""
             # 循环结束后的剩余的部分
             if len(part_error_lines) != 0:
-                self.iom.store_file(error_csv, part_error_lines, overwrite=False)
+                self.iom.store_file(error_csv, part_error_lines, encoding=self.input_encoding, overwrite=False)
             if len(part_correct_lines) != 0:
-                self.iom.store_file(del_error_csv, part_correct_lines, overwrite=False)
+                self.iom.store_file(del_error_csv, part_correct_lines, encoding=self.input_encoding, overwrite=False)
 
         if error_mark is False:
             self.iom.remove_file(error_csv)
@@ -242,6 +282,7 @@ class CsvImportDriver(DfImportDriver):
         except (pd.errors.ParserError) as reason:
             # 保存无错集到del_error_csv
             full_input_path = self.sep_out_error_lines(full_input_path, reason)
+        full_input_path = self.create_file_if_multi_char_sep(full_input_path)
 
         return full_input_path
 

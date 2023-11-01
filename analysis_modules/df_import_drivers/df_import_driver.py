@@ -80,8 +80,6 @@ class DfImportDriver(object):
         # 中文环境下常出现的问题
         if encoding in ['gbk', 'gb2312']:
             encoding = 'gb18030'
-        elif encoding in ['ascii']:
-            encoding = 'utf-8'
         return encoding
 
     def get_import_encoding(self, file_path, input_encoding):

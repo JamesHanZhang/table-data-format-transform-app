@@ -12,12 +12,11 @@ import os
 # self made modules
 # 底层类，尽可能不调用外包，仅以直接调用的方式调用参数，不走包调用
 from analysis_modules import default_properties as prop
-from basic_operation import IoMethods
 
 
 class SysLog:
     def __init__(self):
-        self.log_path = IoMethods.get_folder_path_under_project("log", prop.PROJECT_NAME)
+        self.log_path = prop.SYS_LOG_PATH
         self.time_zone = prop.TIME_ZONE
         self.start_words = prop.START_WORDS
 

@@ -76,6 +76,10 @@ class DfImportDriver(object):
         detector.close()
         result = detector.result
         encoding = result['encoding'].lower()
+
+        # 中文环境下常出现的问题
+        if encoding in ['gbk', 'gb2312']:
+            encoding = 'gb18030'
         return encoding
 
     def get_import_encoding(self, file_path, input_encoding):

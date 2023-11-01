@@ -173,5 +173,7 @@ class IoMethods(object):
     @staticmethod
     def get_folder_path_under_project(child_path, project_name):
         parent_path = IoMethods.search_upward_path(project_name)
+        if parent_path is None:
+            return None
         full_path = IoMethods.join_path(parent_path, child_path)
         return full_path

@@ -169,3 +169,9 @@ class IoMethods(object):
         else:
             folder_list = path.split('\\')
         return folder_list
+
+    @staticmethod
+    def get_folder_path_under_project(child_path, project_name):
+        parent_path = IoMethods.search_upward_path(project_name)
+        full_path = IoMethods.join_path(parent_path, child_path)
+        return full_path

@@ -50,10 +50,11 @@ class SqlOutput:
         :param base_num: 未开始时已导出的数据记录条数，用于多个文件的导入导出
         :param only_one_chunk: 是否只截取一个样例
         """
+        self.init_output_params(output_params, params_set)
         if if_sep is not None:
             self.if_sep = if_sep
         
-        if if_sep is True:
+        if self.if_sep is True:
             self.output_as_sql_in_pieces(df, output_params, params_set, table_name, output_path, output_encoding, only_one_chunk)
         else:
             self.output_as_sql(df, output_params, params_set, table_name, output_path, output_encoding, overwrite, chunk_no, base_num)

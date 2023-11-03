@@ -1,11 +1,12 @@
 # self-made modules
+import analysis_modules.default_properties as prop
 from analysis_modules.sql_output_drivers.sql_output_driver import SqlOutputDriver
 from analysis_modules.params_monitor import OutputParams
 
 
 class MySqlOutputDriver(SqlOutputDriver):
-    def __init__(self, output_params: OutputParams):
-        super().__init__(output_params)
+    def __init__(self, output_params: OutputParams, params_set: str=prop.DEFAULT_PARAMS_SET):
+        super().__init__(output_params, params_set)
         
         # 不同数据库的从pandas的类型到数据库的类型的转换
         # 需要依据数据库的不同，重写的变量
@@ -45,15 +46,25 @@ class MySqlOutputDriver(SqlOutputDriver):
         
         line_construct = list()
         var_list = self.var_list + ['timedelta64']
-        for col in columns:
+        for pos in range(len(columns)):
+            col = columns[pos]
             if str(dtypes[col]) in var_list:
                 line_construct.append(
-                    f"    {col} {self.db_types_format[str(dtypes[col])]}({str(self.table_structure[col])}) COMMENT '{self.column_comments[col]}'")
+                    f"    {col} {self.db_types_format[str(dtypes[col])]}({str(self.table_structure[col])})")
             else:
-                line_construct.append(f"    {col} {self.db_types_format[str(dtypes[col])]} COMMENT '{self.column_comments[col]}'")
+                line_construct.append(f"    {col} {self.db_types_format[str(dtypes[col])]}")
+            
+            try:
+                # 添加注释
+                line_construct[pos] += f" COMMENT '{self.column_comments[col]}'"
+            except (KeyError):
+                continue
+                
         line_construct = ',\n'.join(line_construct)
         
-        table_comment = f"COMMENT '{self.table_comment}'"
+        table_comment = ""
+        if self.table_comment != "":
+            table_comment = f" COMMENT '{self.table_comment}'"
         
-        table_creation_sql = f"{remark_note}CREATE TABLE {self.table_name}(\n{line_construct}\n) {table_comment};\n"
+        table_creation_sql = f"{remark_note}CREATE TABLE {self.table_name}(\n{line_construct}\n){table_comment};\n"
         return table_creation_sql

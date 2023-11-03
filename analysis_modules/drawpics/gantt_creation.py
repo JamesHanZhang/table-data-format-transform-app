@@ -5,18 +5,18 @@
 ***        jameshanzhang@foxmail.com  ***
 *****************************************
 """
-
+from analysis_modules.params_monitor import OutputParams
 from analysis_modules.drawpics.image_creation import ImageCreation
 from analysis_modules import default_properties as prop, drawpics
 from analysis_modules.df_processing import BasicProcessing
 from analysis_modules.params_monitor import SysLog
 
 class GanttCreation(ImageCreation):
-    def __init__(self):
+    def __init__(self, output_params: OutputParams):
         """
         :param df: 时间上必须满足YYYY-mm-dd的格式，或者YYYY-mm-dd h24:mi:ss的格式
         """
-        super().__init__()
+        super().__init__(output_params)
 
     def init_params(self,
                    task_col='Task',

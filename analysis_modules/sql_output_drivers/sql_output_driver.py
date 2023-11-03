@@ -27,7 +27,7 @@ class SqlOutputDriver(DfOutputDriver):
         self.repl_to_sub_comma = output_params.sql_output_params.repl_to_sub_comma
         
         # 默认设置的基本参数
-        self.commit_range = 1000
+        self.commit_range = 5000
 
         # 实例化
         self.nulp = NullProcessing()
@@ -108,7 +108,7 @@ class SqlOutputDriver(DfOutputDriver):
         :return: 为插入语句加注释，以及为ORACLE加commit语句来提交事务，其他的数据库都是默认自动提交模式的
         """
         if (row+1)%self.commit_range == 0:
-            start_row = base_num + row + 1 - self.commit_range
+            start_row = base_num + row + 2 - self.commit_range
         else:
             start_row = base_num + row + 1 - row % self.commit_range
         end_row = base_num + row + 1
@@ -261,7 +261,7 @@ class SqlOutputDriver(DfOutputDriver):
                 break
             else:
                 self.log.show_log(f"[SQL OUTPUT] sql based on database {self.database} created under the path: {self.output_path}")
-            return
+        return
         
 
 

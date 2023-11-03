@@ -45,14 +45,19 @@ class XlsOutputDriver(DfOutputDriver):
         return
 
     @SysLog().calculate_cost_time("<store as excel>")
-    def store_df_as_excel(self, df, output_file, output_path="", output_encoding="", output_sheet="", overwrite=None):
+    def store_df_as_excel(self, df, output_file, output_path="", output_encoding="", output_sheet="", overwrite:bool=None, chunk_no:int=""):
+        """
+        :param chunk_no: 如果是循环读取且带切片，可以根据这个值直接生成多个文件名
+        """
         self.init_xls_output_params(output_path, output_encoding, output_sheet)
+        if overwrite is not None:
+            self.overwrite = overwrite
 
         type = '.xlsx'
-        output_file = self.set_file_extension(output_file, type)
+        output_file = self.set_file_extension(output_file, str(chunk_no), type)
         full_output_path = self.iom.join_path(self.output_path, output_file)
 
-        self.store_as_excel(df, full_output_path, overwrite)
+        self.store_as_excel(df, full_output_path, self.overwrite)
         msg = "[EXCEL OUTPUT]: file created: {a}".format(a=full_output_path)
         self.log.show_log(msg)
         return
@@ -64,11 +69,11 @@ class XlsOutputDriver(DfOutputDriver):
             self.only_one_chunk = only_one_chunk
 
         pieces_count = self.count_sep_num(df)
-        # 当只需要一个切片，或者切片数量只有1的时候，默认直接转正常存储
+        # 当切片数量只有1的时候，默认直接转正常存储
         if pieces_count == 1:
             self.store_df_as_excel(df, output_file, output_path, output_encoding, output_sheet)
             return
-        for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="正在切片存储excel"):
+        for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="creating separation of excel..."):
             nth_chunk_df = self.get_nth_chunk_df(df, nth_chunk)
             nth_full_path = self.get_nth_chunk_full_output_path(output_file, nth_chunk, '.xlsx')
             self.store_as_excel(nth_chunk_df, nth_full_path, overwrite=True)

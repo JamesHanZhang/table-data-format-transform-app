@@ -45,14 +45,17 @@ class CsvOutputDriver(DfOutputDriver):
         return
 
     @SysLog().calculate_cost_time("<store as csv>")
-    def store_df_as_csv(self, df: pd.DataFrame, output_file: str, output_path="", output_sep="", output_encoding="", overwrite: bool=None):
+    def store_df_as_csv(self, df: pd.DataFrame, output_file: str, output_path="", output_sep="", output_encoding="", overwrite:bool=None, chunk_no:int=""):
+        """
+        :param chunk_no: 如果是循环读取且带切片，可以根据这个值直接生成多个文件名
+        """
         self.init_csv_output_params(output_path, output_sep, output_encoding)
         if overwrite is not None:
             self.overwrite = overwrite
 
         # 获得参数
         type = '.csv'
-        output_file = self.set_file_extension(output_file, type)
+        output_file = self.set_file_extension(output_file, str(chunk_no), type)
         full_output_path = IoMethods.join_path(self.output_path, output_file)
         self.store_as_csv(df, full_output_path, self.overwrite)
         msg = "[CSV OUTPUT]: file created: {a}".format(a=full_output_path)
@@ -60,17 +63,17 @@ class CsvOutputDriver(DfOutputDriver):
         return
 
     @SysLog().calculate_cost_time("<store as csv in pieces>")
-    def sep_df_as_multi_csv(self, df: pd.DataFrame, output_file: str, output_path="", output_sep="", output_encoding="", only_one_chunk=None):
+    def sep_df_as_multi_csv(self, df: pd.DataFrame, output_file: str, output_path="", output_sep="", output_encoding="", only_one_chunk:bool=None):
         self.init_csv_output_params(output_path, output_sep, output_encoding)
         if only_one_chunk is not None:
             self.only_one_chunk = only_one_chunk
 
         pieces_count = self.count_sep_num(df)
-        # 当只需要一个切片，或者切片数量只有1的时候，默认直接转正常存储
+        # 当切片数量只有1的时候，默认直接转正常存储
         if pieces_count == 1:
             self.store_df_as_csv(df, output_file, output_path, output_sep, output_encoding)
             return
-        for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="正在切片存储csv"):
+        for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="creating separation of csv..."):
             nth_chunk_df = self.get_nth_chunk_df(df, nth_chunk)
             nth_full_path = self.get_nth_chunk_full_output_path(output_file, nth_chunk, '.csv')
             self.store_as_csv(nth_chunk_df, nth_full_path, overwrite=True)

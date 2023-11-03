@@ -29,17 +29,22 @@ class DfOutputDriver(object):
         df, empty_lines_count = NullProcessing.drop_empty_lines(df)
         return df
 
-    def set_file_extension(self, file_name, type: str=".csv") -> str:
+    def set_file_extension(self, file_name, add_part:str="", type: str=".csv") -> str:
+        if add_part != "":
+            add_part = f"_{add_part}_slice"
+        
         # 规定文件拓展名
         extension = self.iom.get_file_extension(file_name)
         # 只有excel目前有多种导出拓展名
         if type == '.xlsx':
             if extension not in ['.xls', '.xlsx', '.xltx', '.xlsm', '.xlt', '.xltm', '.xlam', '.xla']:
                 file_name = self.iom.get_main_file_name(file_name)
-                file_name += '.xlsx'
-        elif extension != type:
-            file_name = self.iom.get_main_file_name(file_name)
-            file_name += type
+                file_name = file_name + add_part + '.xlsx'
+                return file_name
+
+        file_name = self.iom.get_main_file_name(file_name)
+        file_name = file_name + add_part + type
+        
         return file_name
 
     def count_sep_num(self, df:pd.DataFrame) -> int:
@@ -60,8 +65,7 @@ class DfOutputDriver(object):
         new_output_path = self.iom.join_path(self.output_path, main_file_name)
         self.iom.mkdir_if_no_dir(new_output_path)
 
-        new_file_name = main_file_name + "_" + str(nth_chunk)
-        new_file_name = self.set_file_extension(new_file_name, extension_type)
+        new_file_name = self.set_file_extension(main_file_name, str(nth_chunk), extension_type)
 
         full_output_path = self.iom.join_path(new_output_path, new_file_name)
         return full_output_path

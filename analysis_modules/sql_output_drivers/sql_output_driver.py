@@ -4,6 +4,7 @@ import math
 import numpy as np
 from tqdm import tqdm
 # self-made modules
+import analysis_modules.default_properties as prop
 from analysis_modules.params_monitor import ResourcesOperation, SysLog, OutputParams
 from basic_operation import IoMethods
 from analysis_modules.df_processing import NullProcessing
@@ -11,8 +12,9 @@ from analysis_modules.df_output_drivers.df_output_driver import DfOutputDriver
 
 
 class SqlOutputDriver(DfOutputDriver):
-    def __init__(self, output_params: OutputParams):
+    def __init__(self, output_params: OutputParams, params_set: str=prop.DEFAULT_PARAMS_SET):
         super().__init__(output_params)
+        self.params_set = params_set
 
         # SQL导出参数
         self.output_params = output_params
@@ -192,6 +194,7 @@ class SqlOutputDriver(DfOutputDriver):
                 self.table_structure[col] = col_max_len[col]
         # 结果赋值到参数表里
         self.output_params.sql_output_params.table_structure = self.table_structure
+        self.output_params.store_output_params(self.params_set)
         dtypes = df.dtypes.to_dict()
         table_creation_sql = self.construct_creation_cmd(columns, dtypes)
         self.iom.store_file(full_output_path, content=table_creation_sql, encoding=self.output_encoding, overwrite=True)

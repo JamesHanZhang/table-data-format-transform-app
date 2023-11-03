@@ -1,12 +1,13 @@
 
 # self-made modules
+import analysis_modules.default_properties as prop
 from analysis_modules.sql_output_drivers.sql_output_driver import SqlOutputDriver
 from analysis_modules.params_monitor import OutputParams
 
 
 class OracleOutputDriver(SqlOutputDriver):
-    def __init__(self, output_params: OutputParams):
-        super().__init__(output_params)
+    def __init__(self, output_params: OutputParams, params_set: str=prop.DEFAULT_PARAMS_SET):
+        super().__init__(output_params, params_set)
         
         # 不同数据库的从pandas的类型到数据库的类型的转换
         # 需要依据数据库的不同，重写的变量

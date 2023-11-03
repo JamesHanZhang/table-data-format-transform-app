@@ -11,7 +11,7 @@ class IntegrateParams:
 
     @staticmethod
     @SysLog().direct_show_log("[PARAMS] parameters initialization from settings.")
-    def get_params_from_settings(params_set: str = prop.DEFAULT_PARAMS_SET):
+    def get_params_from_settings(params_set: str = prop.DEFAULT_PARAMS_SET) -> tuple[ImportParams, OutputParams]:
         ro = ResourcesOperation()
         import_params = ImportParams()
         output_params = OutputParams()
@@ -22,7 +22,7 @@ class IntegrateParams:
 
     @staticmethod
     @SysLog().direct_show_log("[PARAMS] parameters initialization from settings.")
-    def get_params_from_resources(params_set: str=prop.DEFAULT_PARAMS_SET):
+    def get_params_from_resources(params_set: str=prop.DEFAULT_PARAMS_SET) -> tuple[ImportParams, OutputParams]:
         import_params = ImportParams()
         output_params = OutputParams()
         import_params.load_import_params(params_set)

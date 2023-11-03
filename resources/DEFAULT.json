@@ -6,7 +6,7 @@
         "if_circular": false,
         "chunksize": 100000,
         "csv_import_params": {
-            "input_sep": ",",
+            "input_sep": "||",
             "character_size": 5000000,
             "quote_none": false,
             "sep_to_sub_multi_char_sep": ";",
@@ -32,15 +32,23 @@
         },
         "sql_output_params": {
             "table_name": "table_for_temp_use",
-            "table_comment": "",
-            "table_structure": {},
-            "column_comments": {},
-            "database": "Oracle",
+            "table_comment": "临时表，可删除",
+            "table_structure": {
+                "TABLE_AFFILIATION": 6,
+                "MINDATE": 10,
+                "MAXDATE": 10,
+                "START_ODMS_DATE": 8,
+                "TO_INCT_DATE": 8
+            },
+            "column_comments": {
+                "TABLE_AFFILIATION": "归属地"
+            },
+            "database": "MySql",
             "database_options": [
                 "Oracle",
                 "GBase",
                 "MySql",
-                "PostgreSQL",
+                "PostgreSql",
                 "SqlServer"
             ],
             "repl_to_sub_comma": ";"

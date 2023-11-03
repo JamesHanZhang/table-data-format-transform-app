@@ -32,15 +32,17 @@ sql_output_params = {
     # 导出表的基本信息 - 表名，默认值为temp_table
     'table_name': 'table_for_temp_use',
     # 导出表的备注
-    'table_comment': '',
+    'table_comment': '临时表，可删除',
     # 导出表的基本信息 - 各字段长度，默认为空字典，导出时自动填充数据; 如填写则会和实际数据进行比较, dict[key: str, value: int]
     'table_structure': {},
     # 导出表的各个字段的备注, dict[str, str], key: column, value: comment for column. e.g. {'col1': 'comment1', 'col2': 'comment2'}
-    'column_comments': {},
+    'column_comments': {
+        'TABLE_AFFILIATION': '归属地'
+    },
     # 选择导出的数据库类型，请注意大小写必须严格遵循下面的可选项
-    'database': 'Oracle',
+    'database': 'MySql',
     # DATABASE里的可选项，作用仅为提示DATABASE里可写的数据库引擎
-    'database_options': ['Oracle', 'GBase', 'MySql', 'PostgreSQL', 'SqlServer'],
+    'database_options': ['Oracle', 'GBase', 'MySql', 'PostgreSql', 'SqlServer'],
     # 可能内容里有半角逗号，这个在插入语句中是不被允许的，所以要替换成其他符号
     'repl_to_sub_comma': ';',
 }

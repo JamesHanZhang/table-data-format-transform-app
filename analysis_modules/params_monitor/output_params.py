@@ -54,7 +54,9 @@ class OutputParams(ParamsBasicSetting):
 
         # sql params
         self.sql_output_params.table_name = output_params['sql_output_params']['table_name']
+        self.sql_output_params.table_comment = output_params['sql_output_params']['table_comment']
         self.sql_output_params.table_structure = output_params['sql_output_params']['table_structure']
+        self.sql_output_params.column_comments = output_params['sql_output_params']['column_comments']
         self.sql_output_params.database = output_params['sql_output_params']['database']
         self.sql_output_params.database_options = output_params['sql_output_params']['database_options']
         self.sql_output_params.repl_to_sub_comma = output_params['sql_output_params']['repl_to_sub_comma']
@@ -71,7 +73,9 @@ class OutputParams(ParamsBasicSetting):
     class SqlOutputParams:
         def __init__(self):
             self.table_name = oparams.sql_output_params['table_name']
+            self.table_comment = oparams.sql_output_params['table_comment']
             self.table_structure = oparams.sql_output_params['table_structure']
+            self.column_comments = oparams.sql_output_params['column_comments']
             self.database = oparams.sql_output_params['database']
             self.database_options = oparams.sql_output_params['database_options']
             self.repl_to_sub_comma = oparams.sql_output_params['repl_to_sub_comma']

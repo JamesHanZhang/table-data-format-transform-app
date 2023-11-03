@@ -45,13 +45,19 @@ class MdOutputDriver(DfOutputDriver):
         return
 
     @SysLog().calculate_cost_time("<store as markdown>")
-    def store_df_as_md(self, df, output_file, output_path="", overwrite=True):
+    def store_df_as_md(self, df, output_file, output_path="", overwrite:bool=None, chunk_no:int=""):
+        """
+        :param chunk_no: 如果是循环读取且带切片，可以根据这个值直接生成多个文件名
+        """
         self.init_md_output_params(output_path)
+        if overwrite is not None:
+            self.overwrite = overwrite
+            
         # 获得参数
         type = '.md'
-        output_file = self.set_file_extension(output_file, type)
+        output_file = self.set_file_extension(output_file, str(chunk_no), type)
         full_output_path = self.iom.join_path(self.output_path, output_file)
-        self.store_as_md(df, full_output_path, overwrite)
+        self.store_as_md(df, full_output_path, self.overwrite)
         msg = "[MARKDOWN OUTPUT]: file created: {a}".format(a=full_output_path)
         self.log.show_log(msg)
         return
@@ -67,7 +73,7 @@ class MdOutputDriver(DfOutputDriver):
         if pieces_count == 1:
             self.store_df_as_md(df, output_file, output_path)
             return
-        for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="正在切片存储markdown"):
+        for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="creating separation of markdown..."):
             nth_chunk_df = self.get_nth_chunk_df(df, nth_chunk)
             nth_full_path = self.get_nth_chunk_full_output_path(output_file, nth_chunk, '.md')
             self.store_as_md(nth_chunk_df, nth_full_path, overwrite=True)

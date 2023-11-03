@@ -21,17 +21,17 @@ class DfOutput(object):
         self.xls_extensions = ['.xls', '.xlsx', '.xltx', '.xlsm', '.xlt', '.xltm', '.xlam', '.xla']
         self.supported_extensions = self.csv_extensions + self.md_extensions + self.xls_extensions
 
-    def output_whole_df(self, df: pd.DataFrame, output_params: OutputParams,  output_file, output_path="", overwrite=None):
+    def output_whole_df(self, df: pd.DataFrame, output_params: OutputParams,  output_file, output_path="", overwrite:bool=None, chunk_no:int=""):
         extension = IoMethods.get_file_extension(output_file)
         if extension in self.xls_extensions:
             output_driver = XlsOutputDriver(output_params)
-            output_driver.store_df_as_excel(df, output_file, output_path=output_path, overwrite=overwrite)
+            output_driver.store_df_as_excel(df, output_file, output_path=output_path, overwrite=overwrite, chunk_no=chunk_no)
         elif extension in self.csv_extensions:
             output_driver = CsvOutputDriver(output_params)
-            output_driver.store_df_as_csv(df, output_file, output_path=output_path, overwrite=overwrite)
+            output_driver.store_df_as_csv(df, output_file, output_path=output_path, overwrite=overwrite, chunk_no=chunk_no)
         elif extension in self.md_extensions:
             output_driver = MdOutputDriver(output_params)
-            output_driver.store_df_as_md(df, output_file, output_path=output_path, overwrite=overwrite)
+            output_driver.store_df_as_md(df, output_file, output_path=output_path, overwrite=overwrite, chunk_no=chunk_no)
         else:
             msg = f"file name must contains extension {str(self.supported_extensions)} as required."
             raise NameError(msg)
@@ -53,11 +53,11 @@ class DfOutput(object):
             raise NameError(msg)
         return
 
-    def output_on_extension(self, df: pd.DataFrame, output_params: OutputParams,  output_file, output_path="", if_sep: bool=None):
+    def output_on_extension(self, df: pd.DataFrame, output_params: OutputParams,  output_file, output_path="", if_sep: bool=None, overwrite=None, only_one_chunk=None):
         if if_sep is None:
             if_sep = output_params.if_sep
         if if_sep is True:
-            self.output_df_in_pieces(df, output_params, output_file, output_path)
+            self.output_df_in_pieces(df, output_params, output_file, output_path, only_one_chunk)
         else:
-            self.output_whole_df(df, output_params, output_file, output_path)
+            self.output_whole_df(df, output_params, output_file, output_path, overwrite)
         return

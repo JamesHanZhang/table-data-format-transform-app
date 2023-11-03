@@ -25,6 +25,7 @@ class NullProcessing:
         if element in self.null_list or pd.isna(element):
             return "NULL"
         return element
+    
     def check_if_empty_line(self, df, pos, df_columns):
         df_line = df.iloc[pos]
         count_null = 0

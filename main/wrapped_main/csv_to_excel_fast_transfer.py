@@ -95,22 +95,22 @@ if chunksize is not None:
 
 df_reader = dc.import_as_df_generator(import_params, input_file, input_path)
 main_name = IoMethods.get_main_file_name(input_file)
-
+output_file = main_name + ".xlsx"
 
 count = 0
 for chunk in df_reader:
-    count +=1
-
-    if count == 1 or chunksize is not None:
+    if count == 0 or chunksize is not None:
         overwrite = True
     else:
         overwrite = False
 
     if chunksize is None:
-        output_file = main_name + '.xlsx'
+        chunk_no = ""
     else:
-        output_file = main_name + f"_slice_{count}.xlsx"
-    do.output_whole_df(chunk, output_params, output_file, input_path, overwrite)
+        chunk_no = count
+        
+    do.output_whole_df(chunk, output_params, output_file, input_path, overwrite=overwrite, chunk_no=chunk_no)
+    count += 1
 
 end_program(start_time)
 msg = f"导出所在路径为: {input_path}.\n" \

@@ -5,11 +5,11 @@
 ***        jameshanzhang@foxmail.com  ***
 *****************************************
 """
-from analysis_modules.params_monitor import OutputParams
+from analysis_modules.params_monitor import OutputParams, SysLog
 from analysis_modules.drawpics.image_creation import ImageCreation
-from analysis_modules import default_properties as prop, drawpics
+from analysis_modules import default_properties as prop
+from analysis_modules import drawpics
 from analysis_modules.df_processing import BasicProcessing
-from analysis_modules.params_monitor import SysLog
 
 class GanttCreation(ImageCreation):
     def __init__(self, output_params: OutputParams):

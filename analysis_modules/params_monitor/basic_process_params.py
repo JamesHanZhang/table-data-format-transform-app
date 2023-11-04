@@ -3,7 +3,19 @@ import copy
 # self-made modules
 from analysis_modules import default_properties as prop
 from analysis_modules.params_monitor.params_basic_setting import ParamsBasicSetting
-import basic_process_params_setting as bproparams
+import basic_process_params_setting as bproparams # 打包的时候要删除
+
+# pyinstaller打包专用, 将bproparams.去掉后, 将basic_process_params_setting.py放到主程序同目录下,
+# 打包后该主程序对于basic_process_params_setting.py强依赖, 可通过参数表修改程序
+
+############################ 以下专门为pyinstaller设置 ##################################
+# Relative path to the parameter script 以下打包的时候取消注释
+# script_path = './basic_process_params_setting.py'
+# # Execute the external parameter script
+# with open(script_path, encoding='utf-8') as f:
+#     exec(compile(f.read(), script_path, 'exec'))
+
+############################ 以上专门为pyinstaller设置 ##################################
 
 class BasicProcessParams(ParamsBasicSetting):
     def __init__(self):

@@ -8,16 +8,20 @@ from analysis_modules.df_processing import BasicProcessing
 from analysis_modules.df_output_drivers import DfOutput
 from analysis_modules.sql_output_drivers import SqlOutput
 
+
 def get_params(params_set, overwrite) -> tuple[ImportParams, OutputParams, BasicProcessParams]:
     if overwrite is True:
         import_params, output_params, basic_process_params = IntegrateParams.get_params_from_settings(params_set)
     else:
         import_params, output_params, basic_process_params = IntegrateParams.get_params_from_resources(params_set)
     return import_params, output_params, basic_process_params
+
+
 def get_params_set(params_set=prop.DEFAULT_PARAMS_SET):
     if params_set == "":
         params_set = prop.DEFAULT_PARAMS_SET
     return params_set
+
 
 def get_overwrite(check_overwrite):
     msg = None
@@ -32,15 +36,17 @@ def get_overwrite(check_overwrite):
         print("功能选择错误, 请重新选择!")
     return msg, overwrite
 
+
 def get_if_batch(check_batch):
     if_batch = None
-    if check_batch in ['YES','Y', 'y', 'yes', 'Yes']:
+    if check_batch in ['YES', 'Y', 'y', 'yes', 'Yes']:
         if_batch = True
     elif check_batch in ['NO', 'N', 'n', 'no', 'No']:
         if_batch = False
     else:
         print("功能选择错误, 请重新选择!")
     return if_batch
+
 
 def check_path(path):
     if os.path.isabs(path) is True:
@@ -50,6 +56,7 @@ def check_path(path):
     else:
         print("请输入绝对路径! 请重新输入参数!")
         return None
+
 
 ################################################### 参数 PARAMETERS #####################################################
 
@@ -75,16 +82,17 @@ while True:
         print("\n请在下面输入参数\n")
     else:
         print("\n请在下面重新输入参数\n")
-    run+=1
+    run += 1
     
     input_params_set = input("请输入参数表名, 直接回车则为默认值DEFAULT: ").strip()
     params_set = get_params_set(input_params_set)
     
-    check_overwrite = input("请选择:\n    1 根据调整好的参数执行程序;\n    2 根据已存在的json参数表执行程序;\n请输入数字: ").strip()
+    check_overwrite = input(
+        "请选择:\n    1 根据调整好的参数执行程序;\n    2 根据已存在的json参数表执行程序;\n请输入数字: ").strip()
     msg, overwrite = get_overwrite(check_overwrite)
     if msg is None:
         continue
-        
+    
     if overwrite is False:
         import_params, output_params, basic_process_params = get_params(params_set, overwrite)
         if_batch = import_params.batch_import_params.if_batch
@@ -97,13 +105,15 @@ while True:
         batch_msg = f"是否根据文件夹进行的批量导入: {check_batch}\n"
     else:
         batch_msg = ""
-        
-    input_path = input("请输入导入文件的绝对路径, 如为默认导入路径./input_dataset或参数表内的其他路径, 则请直接回车.\n请输入: ").strip()
+    
+    input_path = input(
+        "请输入导入文件的绝对路径, 如为默认导入路径./input_dataset或参数表内的其他路径, 则请直接回车.\n请输入: ").strip()
     input_path = check_path(input_path)
     if input_path is None:
         continue
     
-    output_path = input("请输入导出文件的绝对路径, 如为默认导出路径./output_dataset或参数表内的其他路径, 则请直接回车.\n请输入: ").strip()
+    output_path = input(
+        "请输入导出文件的绝对路径, 如为默认导出路径./output_dataset或参数表内的其他路径, 则请直接回车.\n请输入: ").strip()
     output_path = check_path(output_path)
     if output_path is None:
         continue
@@ -118,7 +128,7 @@ while True:
             continue
     else:
         input_file = "test.csv"
-        
+    
     output_file = input("请输入导出的EXCEL/MD/CSV文件名, 如本次不涉及, 可直接回车跳过: ").strip()
     
     if overwrite is True:
@@ -143,7 +153,6 @@ while True:
     if if_correct is True:
         break
 
-
 ################################################### 执行 EXECUTION ######################################################
 
 dc = DfCreation()
@@ -159,7 +168,6 @@ if overwrite is False:
     output_path = ""
     table_name = ""
 
-
 start_time = start_program()
 
 import_params, output_params, basic_process_params = get_params(params_set, overwrite)
@@ -169,7 +177,8 @@ pos = 0
 for chunk in chunk_reader:
     chunk = bp.basic_process_data(chunk, basic_process_params)
     do.output_on_activation(chunk, output_params, output_file, output_path, chunk_no=pos, params_set=params_set)
-    so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name, output_path=output_path, chunk_no=pos)
+    so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name,
+                                   output_path=output_path, chunk_no=pos)
     pos += 1
 
 end_program(start_time)

@@ -1,4 +1,3 @@
-
 from analysis_modules import default_properties as prop
 from analysis_modules.params_monitor import *
 from analysis_modules.df_import_drivers import DfCreation
@@ -62,10 +61,12 @@ if overwrite is False:
     output_path = ""
     table_name = ""
 
+
 def get_params_set(params_set):
     if params_set == "":
         params_set = prop.DEFAULT_PARAMS_SET
     return params_set
+
 
 def get_params(params_set, overwrite) -> tuple[ImportParams, OutputParams, BasicProcessParams]:
     if overwrite is True:
@@ -73,7 +74,8 @@ def get_params(params_set, overwrite) -> tuple[ImportParams, OutputParams, Basic
     else:
         import_params, output_params, basic_process_params = IntegrateParams.get_params_from_resources(params_set)
     return import_params, output_params, basic_process_params
-    
+
+
 start_time = start_program()
 
 params_set = get_params_set(params_set)
@@ -85,7 +87,8 @@ pos = 0
 for chunk in chunk_reader:
     chunk = bp.basic_process_data(chunk, basic_process_params)
     do.output_on_activation(chunk, output_params, output_file, output_path, chunk_no=pos, params_set=params_set)
-    so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name, output_path=output_path, chunk_no=pos)
+    so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name,
+                                   output_path=output_path, chunk_no=pos)
     pos += 1
 
 end_program(start_time)

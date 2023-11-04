@@ -1,4 +1,3 @@
-from import_params_setting import chunksize
 # 以下可添加绝对路径，如为空值""，则为默认导出路径output_dataset，也可添加默认路径下output_dataset的子文件夹，例如:
 # 如添加子文件夹child_folder/split1，则实际路径为:../output_dataset/child_folder/split1
 output_path = ""
@@ -8,6 +7,10 @@ output_encoding = "gb18030"
 
 # 判断是否要拆分，如拆分，则按照导入的chunksize的大小进行拆分
 if_sep = False
+
+# 针对if_circular is True: 每次执行chunksize条数据；另，如果导出的时候要拆分为小片数据，也是依据该值进行拆分的
+# 数值必须始终与import_params_setting.chunksize保持一致
+chunksize = 50000
 
 # 是否只是拆分出一个样例即可，默认为否，即拆分到底。如为真，则仅拆分出一个文件即停止，作为样例
 only_one_chunk = False

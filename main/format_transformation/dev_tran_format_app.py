@@ -81,18 +81,27 @@ start_time = start_program()
 params_set = get_params_set(params_set)
 import_params, output_params, basic_process_params = get_params(params_set, overwrite)
 
-chunk_reader = dc.circular_import_data(import_params, input_file, input_path, if_batch, params_set)
+if if_batch is None:
+    if_batch = import_params.batch_import_params.if_batch
 
-pos = 0
-for chunk in chunk_reader:
-    chunk = bp.basic_process_data(chunk, basic_process_params)
-    do.output_on_activation(chunk, output_params, output_file, output_path, chunk_no=pos, params_set=params_set)
-    so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name,
-                                   output_path=output_path, chunk_no=pos)
-    pos += 1
+if if_batch is False and import_params.if_circular is False:
+    df = dc.fully_import_data(import_params, input_file, input_path, if_batch, params_set)
+    df = bp.basic_process_data(df, basic_process_params)
+    do.output_on_activation(df, output_params, output_file, output_path, chunk_no="", params_set=params_set)
+    so.output_as_sql_on_activation(df, output_params, params_set=params_set, table_name=table_name,
+                                   output_path=output_path, chunk_no="")
 
-end_program(start_time)
-
+else:
+    chunk_reader = dc.circular_import_data(import_params, input_file, input_path, if_batch, params_set)
+    pos = 0
+    for chunk in chunk_reader:
+        chunk = bp.basic_process_data(chunk, basic_process_params)
+        do.output_on_activation(chunk, output_params, output_file, output_path, chunk_no=pos, params_set=params_set)
+        so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name,
+                                       output_path=output_path, chunk_no=pos)
+        pos += 1
+    
+    end_program(start_time)
 
 
 

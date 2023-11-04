@@ -43,7 +43,7 @@ class ImportParams(ParamsBasicSetting):
         self.if_circular = import_params['if_circular']
         self.chunksize = import_params['chunksize']
         
-        self.batch_import_params.activation = import_params['batch_import_params']['activation']
+        self.batch_import_params.if_batch = import_params['batch_import_params']['if_batch']
         self.batch_import_params.import_type = import_params['batch_import_params']['import_type']
         
         self.csv_import_params.input_sep = import_params['csv_import_params']['input_sep']
@@ -57,7 +57,7 @@ class ImportParams(ParamsBasicSetting):
     
     class BatchImportParams:
         def __init__(self):
-            self.activation = iparams.batch_import_params['activation']
+            self.if_batch = iparams.batch_import_params['if_batch']
             self.import_type = iparams.batch_import_params['import_type']
             
     class CsvImportParams:

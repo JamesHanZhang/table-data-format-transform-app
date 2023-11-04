@@ -6,7 +6,7 @@ input_path = ""
 batch_import_params = {
     # 判断是否根据导入路径批量导入数据, False表示单文件模式, 不批量导入
     # 仅支持多个同数据结构的文件导入合并为一
-    'activation': False,
+    'if_batch': False,
     # 设置批量导入的数据类型，例如imp_type = ".csv", 如果设置为""空值，则表示全部导入
     'import_type': '.csv',
 }

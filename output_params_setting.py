@@ -16,6 +16,7 @@ only_one_chunk = False
 overwrite = True
 
 csv_output_params = {
+    'activation': True,
     'output_sep': ',',
     # 可能内容里也有该分隔符，容易导致错误，所以内容里该分隔符的部分可以替换为新的符号
     'repl_to_sub_sep': ' ',
@@ -24,17 +25,20 @@ csv_output_params = {
 }
 
 xls_output_params = {
+    'activation': True,
     'output_sheet': 'Sheet1',
     # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
     'output_index_size': 0,
 }
 
 md_output_params = {
+    'activation': True,
     # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
     'output_index_size': 0,
 }
 
 sql_output_params = {
+    'activation': True,
     # 导出表的基本信息 - 表名，默认值为temp_table
     'table_name': 'table_for_temp_use',
     # 导出表的备注

@@ -1,13 +1,13 @@
 {
     "import_params": {
-        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\input_dataset",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\input_dataset\\batch_examples",
         "input_encoding": "",
         "quote_as_object": true,
-        "if_circular": false,
-        "chunksize": 50000,
+        "if_circular": true,
+        "chunksize": 3,
         "import_index_size": 0,
         "batch_import_params": {
-            "activation": false,
+            "if_batch": true,
             "import_type": ".csv"
         },
         "csv_import_params": {
@@ -22,28 +22,38 @@
         }
     },
     "output_params": {
-        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\output_dataset",
+        "output_path": "D:\\",
         "output_encoding": "gb18030",
-        "chunksize": 50000,
+        "chunksize": 3,
         "if_sep": false,
         "only_one_chunk": false,
         "overwrite": true,
         "md_output_params": {
-            "output_index_size": 0
+            "activation": true,
+            "output_index_size": 14
         },
         "csv_output_params": {
+            "activation": true,
             "output_sep": ",",
             "repl_to_sub_sep": " ",
-            "output_index_size": 0
+            "output_index_size": 14
         },
         "xls_output_params": {
+            "activation": true,
             "output_sheet": "Sheet1",
-            "output_index_size": 0
+            "output_index_size": 14
         },
         "sql_output_params": {
-            "table_name": "table_for_temp_use",
+            "activation": true,
+            "table_name": "temp_table",
             "table_comment": "临时表，可删除",
-            "table_structure": {},
+            "table_structure": {
+                "EMPLOYEE": 7,
+                "DEPART": 13,
+                "POSITION": 2,
+                "SEX": 6,
+                "SALARY": 7
+            },
             "column_comments": {
                 "TABLE_AFFILIATION": "归属地"
             },
@@ -56,7 +66,7 @@
                 "SqlServer"
             ],
             "repl_to_sub_comma": ";",
-            "output_index_size": 0
+            "output_index_size": 14
         }
     },
     "basic_process_params": {

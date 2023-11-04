@@ -48,18 +48,22 @@ class OutputParams(ParamsBasicSetting):
         self.overwrite = output_params['overwrite']
         
         # md params
+        self.md_output_params.activation = output_params['md_output_params']['activation']
         self.md_output_params.output_index_size = output_params['md_output_params']['output_index_size']
 
         # csv params
+        self.csv_output_params.activation = output_params['csv_output_params']['activation']
         self.csv_output_params.output_sep = output_params['csv_output_params']['output_sep']
         self.csv_output_params.repl_to_sub_sep = output_params['csv_output_params']['repl_to_sub_sep']
         self.csv_output_params.output_index_size = output_params['csv_output_params']['output_index_size']
         
         # xls params
+        self.xls_output_params.activation = output_params['xls_output_params']['activation']
         self.xls_output_params.output_sheet = output_params['xls_output_params']['output_sheet']
         self.xls_output_params.output_index_size = output_params['xls_output_params']['output_index_size']
         
         # sql params
+        self.sql_output_params.activation = output_params['sql_output_params']['activation']
         self.sql_output_params.table_name = output_params['sql_output_params']['table_name']
         self.sql_output_params.table_comment = output_params['sql_output_params']['table_comment']
         self.sql_output_params.table_structure = output_params['sql_output_params']['table_structure']
@@ -71,21 +75,25 @@ class OutputParams(ParamsBasicSetting):
 
     class CsvOutputParams:
         def __init__(self):
+            self.activation = oparams.csv_output_params['activation']
             self.output_sep = oparams.csv_output_params['output_sep']
             self.repl_to_sub_sep = oparams.csv_output_params['repl_to_sub_sep']
             self.output_index_size = oparams.csv_output_params['output_index_size']
 
     class XlsOutputParams:
         def __init__(self):
+            self.activation = oparams.xls_output_params['activation']
             self.output_sheet = oparams.xls_output_params['output_sheet']
             self.output_index_size = oparams.xls_output_params['output_index_size']
     
     class MdOutputParams:
         def __init__(self):
+            self.activation = oparams.md_output_params['activation']
             self.output_index_size = oparams.md_output_params['output_index_size']
 
     class SqlOutputParams:
         def __init__(self):
+            self.activation = oparams.sql_output_params['activation']
             self.table_name = oparams.sql_output_params['table_name']
             self.table_comment = oparams.sql_output_params['table_comment']
             self.table_structure = oparams.sql_output_params['table_structure']

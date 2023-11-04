@@ -17,18 +17,21 @@ class FindChildPaths(IoMethods):
         IoMethods.__init__(self, encoding)
     @classmethod
     def files_under_archive(cls, input_path: str) -> list[str]:
+        # 一层目录下的所有文件
         file_list: list[str] = [file for file in os.listdir(input_path) if
                                 os.path.isfile(os.path.join(input_path, file))]
         return file_list
 
     @classmethod
     def archives_under_archive(cls, input_path: str) -> list[str]:
+        # 一层目录下的所有文件夹
         archive_list: list[str] = [archive for archive in os.listdir(input_path) if
                                    os.path.isdir(os.path.join(input_path, archive))]
         return archive_list
 
     @classmethod
     def paths_under_archive(cls, input_path: str, is_file=True) -> list[str]:
+        # 一层目录下的所有文件或文件夹的路径
         if is_file is True:
             files = cls.files_under_archive(input_path)
         else:  # for folders
@@ -41,6 +44,7 @@ class FindChildPaths(IoMethods):
 
     @classmethod
     def gain_child_folder_paths_dfs(cls, input_path: str) -> list[str]:
+        # 该路径下的所有目录的路径
         folder_paths = cls.paths_under_archive(input_path, is_file=False)
         if folder_paths == []:
             return []
@@ -74,7 +78,7 @@ class FindChildPaths(IoMethods):
     @classmethod
     def gain_child_file_paths(cls, input_path: str) -> list[str]:
         """
-        获得所有路径下的子文件路径
+        获得该目录下层层嵌套的所有文件的路径
         """
         folder_paths = cls.gain_child_folder_paths_bfs(input_path)
         # 返回母文件夹下文件路径
@@ -88,7 +92,7 @@ class FindChildPaths(IoMethods):
     @classmethod
     def gain_child_certain_type_paths(cls, input_path: str, extension: str = '.py') -> list[str]:
         """
-        根据特定文件类型，获得所有该类型的所有子文件路径
+        获得该目录下层层嵌套的所有文件的路径（指定文件类型）
         """
         child_file_paths = cls.gain_child_file_paths(input_path)
         child_files_in_type = list()
@@ -117,9 +121,13 @@ class FindChildPaths(IoMethods):
     def gain_child_certain_type_path_file_pairs(cls, input_path: str, extension: str = '.xlsx') -> dict[str, list[str]]:
         """
         以字典的形式返回符号文件类型要求的，所有路径下的子文件名称
+        如果extension=""，则返回所有文件类型的文件路径
         :return: dict[路径, 子文件列表]
         """
         child_path_file_pairs = cls.gain_child_path_file_pairs(input_path)
+        if extension == "":
+            return child_path_file_pairs
+        
         certain_type_path_file_pairs = dict()
         for each_path in child_path_file_pairs.keys():
             certain_type_path_file_pairs[each_path] = list()

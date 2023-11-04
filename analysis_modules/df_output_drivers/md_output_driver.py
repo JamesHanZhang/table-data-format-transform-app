@@ -1,6 +1,6 @@
 """
 *****************************************
-***        DATA-ANALYSIS-PROJECT      ***
+***       DATA-CLEAN-ANALYSIS-TOOL    ***
 ***         AUTHOR: JamesHanZhang     ***
 ***        jameshanzhang@foxmail.com  ***
 *****************************************

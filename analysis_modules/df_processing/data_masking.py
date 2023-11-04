@@ -17,6 +17,7 @@ from analysis_modules import default_properties as prop
 class DataMasking:
     def __init__(self):
         self.null_list = prop.NULL_LIST
+        self.masking_type_choices = ['simple']
 
     def sub_asterisk(self, df, col):
         row_num = df.index.size
@@ -34,20 +35,25 @@ class DataMasking:
             new_element = element[:pos] + replacement * len(element[pos:])
             df[col][row] = new_element
         return df
+    
+    def check_if_func_contains(self, masking_type):
+        if masking_type not in self.masking_type_choices:
+            raise TypeError(f"[TypeError] data masking type not in the masking type choices provided: {str(self.masking_type_choices)}")
 
     @classmethod
     @SysLog().calculate_cost_time("<data masking>")
-    def data_masking(cls, df, simple_repl_cols, masking_type="simple"):
+    def data_masking(cls, df, masking_columns, masking_type="simple"):
         dma = cls()
         """
         :param df: dataframe
         :param simple_repl_cols: list type, columns need data masking
         :return: dataframe
         """
+        dma.check_if_func_contains(masking_type)
         # 简单替换脱敏
-        for col in tqdm(simple_repl_cols, desc="data masking for each column..."):
+        for col in tqdm(masking_columns, desc="data masking for each column..."):
             if masking_type == "simple":
                 df = dma.sub_asterisk(df, col)
         SysLog.show_log(
-            "[DATA MASKING]: data masking for certain columns {0} is finished.".format(str(simple_repl_cols)))
+            "[DATA MASKING]: data masking for certain columns {0} is finished.".format(str(masking_columns)))
         return df

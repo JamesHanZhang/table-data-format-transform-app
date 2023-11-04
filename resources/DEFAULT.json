@@ -4,7 +4,12 @@
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": false,
-        "chunksize": 2,
+        "chunksize": 50000,
+        "import_index_size": 0,
+        "batch_import_params": {
+            "activation": false,
+            "import_type": ".csv"
+        },
         "csv_import_params": {
             "input_sep": ",",
             "character_size": 5000000,
@@ -19,27 +24,30 @@
     "output_params": {
         "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\output_dataset",
         "output_encoding": "gb18030",
-        "chunksize": 2,
-        "if_sep": true,
-        "only_one_chunk": true,
+        "chunksize": 50000,
+        "if_sep": false,
+        "only_one_chunk": false,
         "overwrite": true,
+        "md_output_params": {
+            "output_index_size": 0
+        },
         "csv_output_params": {
             "output_sep": ",",
-            "repl_to_sub_sep": " "
+            "repl_to_sub_sep": " ",
+            "output_index_size": 0
         },
         "xls_output_params": {
-            "output_sheet": "Sheet1"
+            "output_sheet": "Sheet1",
+            "output_index_size": 0
         },
         "sql_output_params": {
             "table_name": "table_for_temp_use",
             "table_comment": "临时表，可删除",
-            "table_structure": {
-                "TABLE_AFFILIATION||MINDATE||MAXDATE||START_ODMS_DATE||TO_INCT_DATE": 50
-            },
+            "table_structure": {},
             "column_comments": {
                 "TABLE_AFFILIATION": "归属地"
             },
-            "database": "MySql",
+            "database": "Oracle",
             "database_options": [
                 "Oracle",
                 "GBase",
@@ -47,7 +55,47 @@
                 "PostgreSql",
                 "SqlServer"
             ],
-            "repl_to_sub_comma": ";"
+            "repl_to_sub_comma": ";",
+            "output_index_size": 0
+        }
+    },
+    "basic_process_params": {
+        "basic_processing_order": [
+            "change_names_previously",
+            "change_types_opt",
+            "pick_columns_opt",
+            "data_masking_opt",
+            "change_names_finally"
+        ],
+        "change_names_previously": {
+            "activation": false,
+            "change_names": {
+                "original_name": "new_name"
+            }
+        },
+        "change_names_finally": {
+            "activation": false,
+            "change_names": {
+                "original_name": "new_name"
+            }
+        },
+        "change_types_opt": {
+            "activation": false,
+            "change_types": {
+                "column_name": "type_in_pandas"
+            }
+        },
+        "pick_columns_opt": {
+            "activation": false,
+            "pick_columns": []
+        },
+        "data_masking_opt": {
+            "activation": false,
+            "masking_type": "simple",
+            "masking_type_choices": [
+                "simple"
+            ],
+            "masking_columns": []
         }
     }
 }

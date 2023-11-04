@@ -17,6 +17,7 @@ class OutputParams(ParamsBasicSetting):
         self.only_one_chunk = oparams.only_one_chunk
         # 只有在if_sep为False的情况下，才可以调整overwrite
         self.overwrite = oparams.overwrite if oparams.if_sep is False else True
+        self.md_output_params = self.MdOutputParams()
         self.csv_output_params = self.CsvOutputParams()
         self.xls_output_params = self.XlsOutputParams()
         self.sql_output_params = self.SqlOutputParams()
@@ -24,6 +25,7 @@ class OutputParams(ParamsBasicSetting):
     def get_output_params(self) -> dict:
         # 深拷贝: 完整将元素及嵌套的元素复制，确保没有共享引用;否则修改__dict__就是在修改该对象的元素
         params = copy.deepcopy(self.__dict__)
+        params['md_output_params'] = copy.deepcopy(self.md_output_params.__dict__)
         params['csv_output_params'] = copy.deepcopy(self.csv_output_params.__dict__)
         params['xls_output_params'] = copy.deepcopy(self.xls_output_params.__dict__)
         params['sql_output_params'] = copy.deepcopy(self.sql_output_params.__dict__)
@@ -44,14 +46,19 @@ class OutputParams(ParamsBasicSetting):
         self.if_sep = output_params['if_sep']
         self.only_one_chunk = output_params['only_one_chunk']
         self.overwrite = output_params['overwrite']
+        
+        # md params
+        self.md_output_params.output_index_size = output_params['md_output_params']['output_index_size']
 
         # csv params
         self.csv_output_params.output_sep = output_params['csv_output_params']['output_sep']
         self.csv_output_params.repl_to_sub_sep = output_params['csv_output_params']['repl_to_sub_sep']
-
+        self.csv_output_params.output_index_size = output_params['csv_output_params']['output_index_size']
+        
         # xls params
         self.xls_output_params.output_sheet = output_params['xls_output_params']['output_sheet']
-
+        self.xls_output_params.output_index_size = output_params['xls_output_params']['output_index_size']
+        
         # sql params
         self.sql_output_params.table_name = output_params['sql_output_params']['table_name']
         self.sql_output_params.table_comment = output_params['sql_output_params']['table_comment']
@@ -60,15 +67,22 @@ class OutputParams(ParamsBasicSetting):
         self.sql_output_params.database = output_params['sql_output_params']['database']
         self.sql_output_params.database_options = output_params['sql_output_params']['database_options']
         self.sql_output_params.repl_to_sub_comma = output_params['sql_output_params']['repl_to_sub_comma']
+        self.sql_output_params.output_index_size = output_params['sql_output_params']['output_index_size']
 
     class CsvOutputParams:
         def __init__(self):
             self.output_sep = oparams.csv_output_params['output_sep']
             self.repl_to_sub_sep = oparams.csv_output_params['repl_to_sub_sep']
+            self.output_index_size = oparams.csv_output_params['output_index_size']
 
     class XlsOutputParams:
         def __init__(self):
             self.output_sheet = oparams.xls_output_params['output_sheet']
+            self.output_index_size = oparams.xls_output_params['output_index_size']
+    
+    class MdOutputParams:
+        def __init__(self):
+            self.output_index_size = oparams.md_output_params['output_index_size']
 
     class SqlOutputParams:
         def __init__(self):
@@ -79,4 +93,5 @@ class OutputParams(ParamsBasicSetting):
             self.database = oparams.sql_output_params['database']
             self.database_options = oparams.sql_output_params['database_options']
             self.repl_to_sub_comma = oparams.sql_output_params['repl_to_sub_comma']
+            self.output_index_size = oparams.sql_output_params['output_index_size']
 

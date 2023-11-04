@@ -2,6 +2,15 @@
 # 如添加子文件夹child_folder/split1，则实际路径为:../input_dataset/child_folder/split1
 input_path = ""
 
+# 批量导入的参数
+batch_import_params = {
+    # 判断是否根据导入路径批量导入数据, False表示单文件模式, 不批量导入
+    # 仅支持多个同数据结构的文件导入合并为一
+    'activation': False,
+    # 设置批量导入的数据类型，例如imp_type = ".csv", 如果设置为""空值，则表示全部导入
+    'import_type': '.csv',
+}
+
 # 加载时的解码格式默认值：input_encoding = "utf-8" 或者中文环境下常用"gb18030"
 # 如果为""空值，则默认开启自动探测文件编码charset模式，会自动通过选取前10240bytes的数据进行校验检查
 input_encoding = ""
@@ -16,6 +25,9 @@ if_circular = False
 # 针对if_circular is True: 每次执行chunksize条数据；另，如果导出的时候要拆分为小片数据，也是依据该值进行拆分的
 chunksize = 50000
 
+
+# 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
+import_index_size = 0
 
 csv_import_params = {
     'input_sep': ',',

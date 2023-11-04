@@ -15,12 +15,15 @@ class ImportParams(ParamsBasicSetting):
         self.quote_as_object = iparams.quote_as_object
         self.if_circular = iparams.if_circular
         self.chunksize = iparams.chunksize
+        self.import_index_size = iparams.import_index_size
+        self.batch_import_params = self.BatchImportParams()
         self.csv_import_params = self.CsvImportParams()
         self.xls_import_params = self.XlsImportParams()
 
     def get_import_params(self) -> dict:
         # 深拷贝: 完整将元素及嵌套的元素复制，确保没有共享引用;否则修改__dict__就是在修改该对象的元素
         params = copy.deepcopy(self.__dict__)
+        params['batch_import_params'] = copy.deepcopy(self.batch_import_params.__dict__)
         params['csv_import_params'] = copy.deepcopy(self.csv_import_params.__dict__)
         params['xls_import_params'] = copy.deepcopy(self.xls_import_params.__dict__)
         return params
@@ -39,13 +42,24 @@ class ImportParams(ParamsBasicSetting):
         self.quote_as_object = import_params['quote_as_object']
         self.if_circular = import_params['if_circular']
         self.chunksize = import_params['chunksize']
+        
+        self.batch_import_params.activation = import_params['batch_import_params']['activation']
+        self.batch_import_params.import_type = import_params['batch_import_params']['import_type']
+        
         self.csv_import_params.input_sep = import_params['csv_import_params']['input_sep']
         self.csv_import_params.character_size = import_params['csv_import_params']['character_size']
         self.csv_import_params.quote_none = import_params['csv_import_params']['quote_none']
         self.csv_import_params.sep_to_sub_multi_char_sep = import_params['csv_import_params']['sep_to_sub_multi_char_sep']
         self.csv_import_params.repl_to_sub_sep = import_params['csv_import_params']['repl_to_sub_sep']
+        
         self.xls_import_params.input_sheet = import_params['xls_import_params']['input_sheet']
 
+    
+    class BatchImportParams:
+        def __init__(self):
+            self.activation = iparams.batch_import_params['activation']
+            self.import_type = iparams.batch_import_params['import_type']
+            
     class CsvImportParams:
         def __init__(self):
             self.input_sep = iparams.csv_import_params['input_sep']

@@ -5,10 +5,13 @@
 ***        jameshanzhang@foxmail.com  ***
 *****************************************
 """
+import pandas as pd
 
 from analysis_modules.params_monitor import SysLog
 from analysis_modules.df_processing.null_processing import NullProcessing
 from analysis_modules import default_properties as prop
+from analysis_modules.df_processing.data_masking import DataMasking
+from analysis_modules.params_monitor import BasicProcessParams
 
 
 class BasicProcessing:
@@ -130,3 +133,22 @@ class BasicProcessing:
         msg_log = f"[TABLE COLUMN NAMES CONVERSION]: Table columns' names have been changed based on following structure"
         SysLog.show_construct_log(msg_log, change_names)
         return df
+    
+    @classmethod
+    @SysLog().calculate_cost_time("<basic processing>")
+    def basic_process_data(cls, df: pd.DataFrame, basic_process_params: BasicProcessParams) -> pd.DataFrame:
+        dm = DataMasking()
+        for func_app in basic_process_params.basic_processing_order:
+            if func_app == 'change_names_previously' and basic_process_params.change_names_previously.activation is True:
+                df = cls.change_column_names(df, basic_process_params.change_names_previously.change_names)
+            elif func_app == 'change_names_finally' and basic_process_params.change_names_finally.activation is True:
+                df = cls.change_column_names(df, basic_process_params.change_names_finally.change_names)
+            elif func_app == 'change_types_opt' and basic_process_params.change_types_opt.activation is True:
+                df = cls.change_column_types(df, basic_process_params.change_types_opt.change_types)
+            elif func_app == 'pick_columns_opt' and basic_process_params.pick_columns_opt.activation is True:
+                df = cls.pick_columns(df, basic_process_params.pick_columns_opt.pick_columns)
+            elif func_app == 'data_masking_opt' and basic_process_params.data_masking_opt.activation is True:
+                df = dm.data_masking(df, basic_process_params.data_masking_opt.masking_columns, basic_process_params.data_masking_opt.masking_type)
+        return df
+
+

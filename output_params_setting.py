@@ -18,15 +18,21 @@ overwrite = True
 csv_output_params = {
     'output_sep': ',',
     # 可能内容里也有该分隔符，容易导致错误，所以内容里该分隔符的部分可以替换为新的符号
-    'repl_to_sub_sep': ' '
+    'repl_to_sub_sep': ' ',
+    # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
+    'output_index_size': 0,
 }
 
 xls_output_params = {
-    'output_sheet': 'Sheet1'
+    'output_sheet': 'Sheet1',
+    # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
+    'output_index_size': 0,
 }
 
-# 暂时没有参数需要调整
-md_output_params = {}
+md_output_params = {
+    # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
+    'output_index_size': 0,
+}
 
 sql_output_params = {
     # 导出表的基本信息 - 表名，默认值为temp_table
@@ -40,10 +46,12 @@ sql_output_params = {
         'TABLE_AFFILIATION': '归属地'
     },
     # 选择导出的数据库类型，请注意大小写必须严格遵循下面的可选项
-    'database': 'MySql',
+    'database': 'Oracle',
     # DATABASE里的可选项，作用仅为提示DATABASE里可写的数据库引擎
     'database_options': ['Oracle', 'GBase', 'MySql', 'PostgreSql', 'SqlServer'],
     # 可能内容里有半角逗号，这个在插入语句中是不被允许的，所以要替换成其他符号
     'repl_to_sub_comma': ';',
+    # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
+    'output_index_size': 0,
 }
 

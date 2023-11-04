@@ -28,16 +28,22 @@ class SqlOutput:
             self.sql_out_driver = SqlServerOutputDriver(output_params, params_set)
         else:
             raise TypeError("[TypeError] the database you choose didn't follow the rule in the list of database choices.")
+    def store_output_params(self, output_params: OutputParams, params_set:str, table_name, output_path, output_encoding):
+        if table_name != "":
+            output_params.sql_output_params.table_name = table_name
+        output_params.store_output_params(params_set)
     
     def output_as_sql(self, df: pd.DataFrame, output_params: OutputParams, params_set:str=prop.DEFAULT_PARAMS_SET, table_name="", output_path="",
                       output_encoding="", overwrite=None, chunk_no:int="", base_num=0):
         self.init_output_params(output_params, params_set)
+        self.store_output_params(output_params, params_set, table_name, output_path, output_encoding)
         self.sql_out_driver.store_df_as_sql(df, table_name, output_path, output_encoding, overwrite, chunk_no, base_num)
         return
     
     def output_as_sql_in_pieces(self, df: pd.DataFrame, output_params: OutputParams, params_set:str=prop.DEFAULT_PARAMS_SET,
                                 table_name="", output_path="", output_encoding="", only_one_chunk:bool=None):
         self.init_output_params(output_params, params_set)
+        self.store_output_params(output_params, params_set, table_name, output_path, output_encoding)
         self.sql_out_driver.sep_df_as_multi_sql(df, table_name, output_path, output_encoding, only_one_chunk)
         return
     

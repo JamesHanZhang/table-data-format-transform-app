@@ -76,8 +76,8 @@ class SqlOutputDriver(DfOutputDriver):
         :return: 构建建表语句的内容
         """
         return ""
-    
 
+    
     def element_processing(self, element, col, col_type):
         element = self.nulp.replace_null_value(element)
         num_types = self.int_list + self.float_list + self.bool_list
@@ -219,14 +219,11 @@ class SqlOutputDriver(DfOutputDriver):
         :param chunk_no: 用来在循环读取的时候给文件切片保存的时候修改导出名词，如为""，表示不涉及拆分
         """
         self.init_sql_output_params(table_name, output_path, output_encoding)
-        if type(overwrite) is bool:
+        if overwrite is not None:
             self.overwrite = overwrite
         
         add_part = ""
-        if str(chunk_no) != "":
-            # 说明是要拆分的，所以每个被拆分的文件应该是新建而非添加
-            self.overwrite = True
-            base_num = chunk_no * self.chunksize + base_num
+        if self.if_sep is True and str(chunk_no) != "":
             add_part = f"_{str(chunk_no)}_slice"
             
         table_creation_file = self.table_name + "_table_creation.sql"
@@ -264,4 +261,4 @@ class SqlOutputDriver(DfOutputDriver):
         return
         
 
-
+    

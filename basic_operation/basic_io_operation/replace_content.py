@@ -1,6 +1,6 @@
 """
 *****************************************
-***       DATA-CLEAN-ANALYSIS-TOOL    ***
+***       DATA-FORMAT-ANALYSIS-TOOL   ***
 ***         AUTHOR: JamesHanZhang     ***
 ***        jameshanzhang@foxmail.com  ***
 *****************************************
@@ -45,8 +45,8 @@ class ReplaceContent(FindChildPaths):
 
 if __name__ == '__main__':
     parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool"
-    target_content = ""
-    substitution = ""
+    target_content = "\*\*\*       DATA\-CLEAN\-ANALYSIS\-TOOL    \*\*\*"
+    substitution = "***       DATA-FORMAT-ANALYSIS-TOOL   ***"
     encoding = "utf-8"
     extension = '.py'
     rc = ReplaceContent(encoding)

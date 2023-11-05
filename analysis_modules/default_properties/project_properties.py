@@ -1,5 +1,5 @@
 # 项目名称
-PROJECT_NAME = "data-clean-analysis-tool"
+PROJECT_NAME = "data-format-analysis-tool"
 
 # 默认临时json参数文件
 DEFAULT_PARAMS_SET = "DEFAULT"
@@ -14,7 +14,7 @@ DEFAULT_ENCODING = 'gb18030'
 START_WORDS = """
 *****************************************
 ***           PROGRAM STARTS          ***
-***       DATA-CLEAN-ANALYSIS-TOOL    ***
+***       DATA-FORMAT-ANALYSIS-TOOL   ***
 ***            VERSION:2.01           ***
 ***         AUTHOR: JamesHanZhang     ***
 ***       jameshanzhang@foxmail.com   ***

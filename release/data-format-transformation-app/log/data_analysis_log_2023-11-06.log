@@ -1,0 +1,106 @@
+UTC/GMT+8hours:2023-11-06 00:18:32.929544
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-06 00:18:32.930547
+[PARAMS] parameters initialization from settings.
+
+
+*****************************************
+***           PROGRAM STARTS          ***
+***       DATA-FORMAT-ANALYSIS-TOOL   ***
+***            VERSION:2.01           ***
+***         AUTHOR: JamesHanZhang     ***
+***       jameshanzhang@foxmail.com   ***
+*****************************************
+UTC/GMT+8hours:2023-11-06 00:18:32.954462
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-06 00:18:32.959924
+[PARAMS] parameters initialization from settings.
+
+UTC/GMT+8hours:2023-11-06 00:19:38.528606
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-06 00:19:38.528606
+[PARAMS] parameters initialization from settings.
+
+
+*****************************************
+***           PROGRAM STARTS          ***
+***       DATA-FORMAT-ANALYSIS-TOOL   ***
+***            VERSION:2.01           ***
+***         AUTHOR: JamesHanZhang     ***
+***       jameshanzhang@foxmail.com   ***
+*****************************************
+UTC/GMT+8hours:2023-11-06 00:19:38.544813
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-06 00:19:38.550797
+[PARAMS] parameters initialization from settings.
+
+UTC/GMT+8hours:2023-11-06 00:19:38.565757
+[INPUT ENCODING DETECTION] file D:\CODE-PROJECTS\PYTHON-PROJECTS\data-format-analysis-tool\main\format_transformation\dist\input_dataset\03.input_test.csv charset detected automatically: utf-8
+
+UTC/GMT+8hours:2023-11-06 00:19:38.566757
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-11-06 00:19:38.572738
+[ParseError]: ParseError detected not by read_csv, but by self made method.
+Error tokenizing data. C error: EOF inside string starting at row 7.
+
+
+UTC/GMT+8hours:2023-11-06 00:19:38.576692
+[ERROR LINES EXTRACTION] error lines and correct lines are separated into 2 files for further reading.
+
+UTC/GMT+8hours:2023-11-06 00:19:38.583677
+[IMPORT CSV]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\data-format-analysis-tool\main\format_transformation\dist\input_dataset\03.input_test.csv is imported as reader generator for circular import in chunk size 50000.
+
+UTC/GMT+8hours:2023-11-06 00:19:38.587665
+[COST TIME] the program <csv reading generator created> costed time: 0:00:00.026895
+
+UTC/GMT+8hours:2023-11-06 00:19:38.594802
+[COST TIME] the program <basic processing> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-06 00:19:38.610122
+[CSV OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\data-format-analysis-tool\main\format_transformation\dist\output_dataset\test.csv
+
+UTC/GMT+8hours:2023-11-06 00:19:38.611119
+[COST TIME] the program <store as csv> costed time: 0:00:00.003992
+
+UTC/GMT+8hours:2023-11-06 00:19:38.839193
+[EXCEL OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\data-format-analysis-tool\main\format_transformation\dist\output_dataset\test.xlsx
+
+UTC/GMT+8hours:2023-11-06 00:19:38.839193
+[COST TIME] the program <store as excel> costed time: 0:00:00.216069
+
+UTC/GMT+8hours:2023-11-06 00:19:38.857106
+[MARKDOWN OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\data-format-analysis-tool\main\format_transformation\dist\output_dataset\test.md
+
+UTC/GMT+8hours:2023-11-06 00:19:38.858104
+[COST TIME] the program <store as markdown> costed time: 0:00:00.007952
+
+UTC/GMT+8hours:2023-11-06 00:19:38.884937
+[COST TIME] the program <store as sql table creation> costed time: 0:00:00.002996
+
+UTC/GMT+8hours:2023-11-06 00:19:38.884937
+[COST TIME] the program <store as sql insert commands> costed time: 0:00:00.019853
+
+UTC/GMT+8hours:2023-11-06 00:19:38.889923
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.339126
+***************************************************
+
+
+
+
+UTC/GMT+8hours:2023-11-06 00:19:38.894910
+######################## 程序已顺利结束执行 ################################
+
+
+

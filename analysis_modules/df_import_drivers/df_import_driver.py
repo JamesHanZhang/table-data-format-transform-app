@@ -18,13 +18,25 @@ class DfImportDriver(object):
         # 超过15位会使用科学计数法scientific notation导致省略15位以后的数据，需要预先设置
         pd.set_option('display.float_format', '{:.2f}'.format)
         self.log = SysLog()
-
+        self.input_file = import_params.input_file
         self.input_path = import_params.input_path
         self.input_encoding = import_params.input_encoding
         self.chunksize = import_params.chunksize
         self.quote_as_object = import_params.quote_as_object
 
         self.iom = IoMethods(self.input_encoding)
+    
+    def init_basic_import_params(self, input_file="", input_path="", input_encoding="", quote_as_object=None):
+        if input_file != "":
+            self.input_file = input_file
+        if input_path != "":
+            self.input_path = input_path
+        if input_encoding != "":
+            self.input_encoding = input_encoding
+            self.iom = IoMethods(input_encoding)
+        if quote_as_object is not None and type(quote_as_object) is bool:
+            self.quote_as_object = quote_as_object
+        return
 
     def drop_empty_lines_from_df(self, df):
         df, empty_lines_count = NullProcessing.drop_empty_lines(df)
@@ -50,12 +62,7 @@ class DfImportDriver(object):
         preserves = self.get_df_dtypes_by_preserves(preserves)
         return preserves
 
-    def init_basic_import_params(self, input_path, input_encoding):
-        if input_path != "":
-            self.input_path = input_path
-        if input_encoding != "":
-            self.input_encoding = input_encoding
-            self.iom = IoMethods(input_encoding)
+    
 
     @staticmethod
     def detect_charset(file_path, chunk_size=10240):

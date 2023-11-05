@@ -1,9 +1,4 @@
-from analysis_modules import default_properties as prop
-from analysis_modules.params_monitor import *
-from analysis_modules.df_import_drivers import DfCreation
-from analysis_modules.df_processing import BasicProcessing
-from analysis_modules.df_output_drivers import DfOutput
-from analysis_modules.sql_output_drivers import SqlOutput
+from analysis_modules import FormatTransformation
 
 print("######################## 欢迎使用数据格式转换软件 ###############################\n\n"
       "本程序需要和参数表搭配执行, 由参数表确定基本参数, 由互动界面确定常需修改的参数\n"
@@ -29,8 +24,13 @@ params_set = ""
 # overwrite=False, 是读取已保存的参数表
 overwrite = True
 
+# based_on_activation = True: 根据激活activation判断是否导出
+# based_on_activation = False: 根据导出文件名的拓展名判断是否导出
+# based_on_activation = None: 如导出文件没有拓展名, 自动按激活导出; 如导出文件有拓展名, 自动按拓展名导出
+based_on_activation = None
+
 # 是否根据文件夹批量导入文件, 如选择参数表默认值则为None
-if_batch = True
+if_batch = None
 
 # 导入的绝对路径, 如使用参数表路径或默认路径, 则不填写
 input_path = ""
@@ -38,7 +38,7 @@ input_path = ""
 # 导出的绝对路径, 如使用参数表路径或默认路径, 则不填写
 output_path = ""
 
-# 导入的文件名，如果是批量则不需要写，文件必须有后缀名! 例如: test.csv, test.xlsx, test.md...
+# 导入的文件名，如果是批量/或采取默认值则不需要写，文件必须有后缀名! 例如: test.csv, test.xlsx, test.md...
 input_file = ""
 
 # 导出的文件名, 如未激活XLS/MD/CSV导出功能, 可空置
@@ -49,59 +49,11 @@ table_name = ""
 
 ################################################### 执行 EXECUTION ######################################################
 
-dc = DfCreation()
-bp = BasicProcessing()
-do = DfOutput()
-so = SqlOutput()
-
-output_file = "test.csv" if output_file == "" else output_file
-if overwrite is False:
-    if_batch = None
-    input_path = ""
-    output_path = ""
-    table_name = ""
-
-
-def get_params_set(params_set):
-    if params_set == "":
-        params_set = prop.DEFAULT_PARAMS_SET
-    return params_set
-
-
-def get_params(params_set, overwrite) -> tuple[ImportParams, OutputParams, BasicProcessParams]:
-    if overwrite is True:
-        import_params, output_params, basic_process_params = IntegrateParams.get_params_from_settings(params_set)
-    else:
-        import_params, output_params, basic_process_params = IntegrateParams.get_params_from_resources(params_set)
-    return import_params, output_params, basic_process_params
-
-
-start_time = start_program()
-
-params_set = get_params_set(params_set)
-import_params, output_params, basic_process_params = get_params(params_set, overwrite)
-
-if if_batch is None:
-    if_batch = import_params.batch_import_params.if_batch
-
-if if_batch is False and import_params.if_circular is False:
-    df = dc.fully_import_data(import_params, input_file, input_path, if_batch, params_set)
-    df = bp.basic_process_data(df, basic_process_params)
-    do.output_on_activation(df, output_params, output_file, output_path, chunk_no="", params_set=params_set)
-    so.output_as_sql_on_activation(df, output_params, params_set=params_set, table_name=table_name,
-                                   output_path=output_path, chunk_no="")
-
-else:
-    chunk_reader = dc.circular_import_data(import_params, input_file, input_path, if_batch, params_set)
-    pos = 0
-    for chunk in chunk_reader:
-        chunk = bp.basic_process_data(chunk, basic_process_params)
-        do.output_on_activation(chunk, output_params, output_file, output_path, chunk_no=pos, params_set=params_set)
-        so.output_as_sql_on_activation(chunk, output_params, params_set=params_set, table_name=table_name,
-                                       output_path=output_path, chunk_no=pos)
-        pos += 1
-    
-    end_program(start_time)
+ft = FormatTransformation()
+ft.reset_params(params_set, overwrite=overwrite, based_on_activation=based_on_activation, if_batch=if_batch,
+                input_path=input_path, input_file=input_file, output_path=output_path, output_file=output_file,
+                table_name=table_name)
+ft.run_based_on_params_set(params_set, overwrite)
 
 
 

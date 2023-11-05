@@ -16,14 +16,19 @@ class XlsImportDriver(DfImportDriver):
     def __init__(self, import_params: ImportParams):
         super().__init__(import_params)
         self.input_sheet = import_params.xls_import_params.input_sheet
-
-    def init_xls_reader_params(self, input_file, input_path, input_sheet):
-        if input_path != "":
-            self.input_path = input_path
+        
+    
+    def init_xls_import_params(self, input_file="", input_path="", input_encoding="", quote_as_object=None,
+                               input_sheet=""):
+        self.init_basic_import_params(input_file, input_path, input_encoding, quote_as_object)
         if input_sheet != "":
             self.input_sheet = input_sheet
 
-        full_input_path = self.iom.join_path(self.input_path, input_file)
+    def init_xls_reader_params(self, input_file="", input_path="", input_sheet=""):
+        # 修订参数
+        self.init_xls_import_params(input_file=input_file, input_path=input_path, input_sheet=input_sheet)
+
+        full_input_path = self.iom.join_path(self.input_path, self.input_file)
         self.iom.check_if_file_exists(full_input_path)
 
         df = pd.read_excel(full_input_path, sheet_name=self.input_sheet, skiprows=0, nrows=10)
@@ -33,7 +38,7 @@ class XlsImportDriver(DfImportDriver):
         return full_input_path
 
     @SysLog().calculate_cost_time("<import from excel>")
-    def fully_import_excel(self, input_file, input_path="",input_sheet=""):
+    def fully_import_excel(self, input_file="", input_path="",input_sheet=""):
         full_input_path = self.init_xls_reader_params(input_file, input_path, input_sheet)
 
         df = pd.read_excel(full_input_path, sheet_name=self.input_sheet, names=self.df_columns, dtype=self.preserves)
@@ -43,7 +48,7 @@ class XlsImportDriver(DfImportDriver):
         return df
 
     @SysLog().calculate_cost_time("<excel reading generator created>")
-    def circular_import_excel(self, input_file, input_path="",input_sheet=""):
+    def circular_import_excel(self, input_file="", input_path="",input_sheet=""):
         full_input_path = self.init_xls_reader_params(input_file, input_path, input_sheet)
 
         msg = f"[IMPORT EXCEL]: data from {full_input_path} is imported as reader generator for " \

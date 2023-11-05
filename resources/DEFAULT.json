@@ -1,17 +1,18 @@
 {
     "import_params": {
-        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT\\input_dataset\\batch_examples",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool\\input_dataset",
+        "input_file": "02.input_test.csv",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
-        "chunksize": 3,
-        "import_index_size": 0,
+        "chunksize": 2,
+        "import_index_size": 4,
         "batch_import_params": {
-            "if_batch": true,
+            "if_batch": false,
             "import_type": ".csv"
         },
         "csv_import_params": {
-            "input_sep": ",",
+            "input_sep": "||",
             "character_size": 5000000,
             "quote_none": false,
             "sep_to_sub_multi_char_sep": ";",
@@ -22,37 +23,38 @@
         }
     },
     "output_params": {
-        "output_path": "D:\\",
-        "output_encoding": "gb18030",
-        "chunksize": 3,
-        "if_sep": false,
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool\\output_dataset",
+        "output_file": "test.sql",
+        "output_encoding": "utf-8",
+        "if_sep": true,
         "only_one_chunk": false,
         "overwrite": true,
+        "chunksize": 2,
         "md_output_params": {
             "activation": true,
-            "output_index_size": 14
+            "output_index_size": 0
         },
         "csv_output_params": {
             "activation": true,
             "output_sep": ",",
             "repl_to_sub_sep": " ",
-            "output_index_size": 14
+            "output_index_size": 0
         },
         "xls_output_params": {
             "activation": true,
             "output_sheet": "Sheet1",
-            "output_index_size": 14
+            "output_index_size": 0
         },
         "sql_output_params": {
             "activation": true,
-            "table_name": "temp_table",
+            "table_name": "test",
             "table_comment": "临时表，可删除",
             "table_structure": {
-                "EMPLOYEE": 7,
-                "DEPART": 13,
-                "POSITION": 2,
-                "SEX": 6,
-                "SALARY": 7
+                "TABLE_AFFILIATION": 6,
+                "MINDATE": 10,
+                "MAXDATE": 10,
+                "START_ODMS_DATE": 8,
+                "TO_INCT_DATE": 8
             },
             "column_comments": {
                 "TABLE_AFFILIATION": "归属地"
@@ -66,7 +68,7 @@
                 "SqlServer"
             ],
             "repl_to_sub_comma": ";",
-            "output_index_size": 14
+            "output_index_size": 4
         }
     },
     "basic_process_params": {

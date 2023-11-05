@@ -44,9 +44,9 @@ class ReplaceContent(FindChildPaths):
         return
 
 if __name__ == '__main__':
-    parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\DATA-ANALYSIS-PROJECT"
-    target_content = "\*\*\*        DATA\-ANALYSIS\-PROJECT      \*\*\*"
-    substitution = "***       DATA-CLEAN-ANALYSIS-TOOL    ***"
+    parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool"
+    target_content = ""
+    substitution = ""
     encoding = "utf-8"
     extension = '.py'
     rc = ReplaceContent(encoding)

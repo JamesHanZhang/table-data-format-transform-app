@@ -33,29 +33,38 @@ class CsvOutputDriver(DfOutputDriver):
                   encoding=self.output_encoding, float_format='%f', lineterminator='\n')
         return
 
-    def init_csv_output_params(self, output_path, output_sep, output_encoding):
-        if output_path != "":
-            self.output_path = output_path
+    def init_csv_output_params(self, output_file="", output_path="", output_encoding="", overwrite:bool=None,
+                                 if_sep:bool=None, only_one_chunk:bool=None, output_sep="", repl_to_sub_sep:str=None):
+        self.init_basic_output_params(output_file=output_file, output_path=output_path, output_encoding=output_encoding,
+                                      overwrite=overwrite, if_sep=if_sep, only_one_chunk=only_one_chunk)
         if output_sep != "":
             self.output_sep = output_sep
-        if output_encoding != "":
-            self.output_encoding = output_encoding
+        if repl_to_sub_sep is not None and type(repl_to_sub_sep) is str:
+            self.repl_to_sub_sep = repl_to_sub_sep
 
         IoMethods.mkdir_if_no_dir(self.output_path)
         return
 
     @SysLog().calculate_cost_time("<store as csv>")
-    def store_df_as_csv(self, df: pd.DataFrame, output_file: str, output_path="", output_sep="", output_encoding="", overwrite:bool=None, chunk_no:int=""):
+    def store_df_as_csv(self, df: pd.DataFrame, output_file="", output_path="", output_encoding="", overwrite:bool=None,
+                                 if_sep:bool=None, only_one_chunk:bool=None, output_sep="", repl_to_sub_sep:str=None,
+                            chunk_no:int=""):
         """
-        :param chunk_no: 如果是循环读取且带切片，可以根据这个值直接生成多个文件名
+        chunk_no is int and if_sep is False -> 循环添加
+        chunk_no is int and if_sep is True -> 循环切片
+        chunk_no is "" and if_sep is False -> 整体导入整体导出
+        chunk_no is "" and if_sep is True -> 外部调用该函数进行切片, 按照整体导入导出理解
         """
-        self.init_csv_output_params(output_path, output_sep, output_encoding)
-        if overwrite is not None:
-            self.overwrite = overwrite
-
+        self.init_csv_output_params(output_file=output_file, output_path=output_path, output_encoding=output_encoding,
+                                    overwrite=overwrite, if_sep=if_sep, only_one_chunk=only_one_chunk,
+                                    output_sep=output_sep, repl_to_sub_sep=repl_to_sub_sep)
+        output_file = self.decide_sep_or_add(self.output_file, self.if_sep, self.only_one_chunk, chunk_no)
+        if output_file is None:
+            return
+            
         # 获得参数
-        type = '.csv'
-        output_file = self.set_file_extension(output_file, str(chunk_no), type)
+        extends = '.csv'
+        output_file = self.set_file_extension(output_file, extends)
         full_output_path = IoMethods.join_path(self.output_path, output_file)
         self.store_as_csv(df, full_output_path, self.overwrite)
         msg = "[CSV OUTPUT]: file created: {a}".format(a=full_output_path)
@@ -63,26 +72,29 @@ class CsvOutputDriver(DfOutputDriver):
         return
 
     @SysLog().calculate_cost_time("<store as csv in pieces>")
-    def sep_df_as_multi_csv(self, df: pd.DataFrame, output_file: str, output_path="", output_sep="", output_encoding="", only_one_chunk:bool=None):
-        self.init_csv_output_params(output_path, output_sep, output_encoding)
-        if only_one_chunk is not None:
-            self.only_one_chunk = only_one_chunk
-
+    def sep_df_as_multi_csv(self, df: pd.DataFrame,  output_file="", output_path="", output_encoding="", overwrite:bool=None,
+                                 if_sep:bool=None, only_one_chunk:bool=None, output_sep="", repl_to_sub_sep:str=None):
+        """
+        仅支持非循环的整体切片
+        """
+        self.init_csv_output_params(output_file=output_file, output_path=output_path, output_encoding=output_encoding,
+                                    overwrite=overwrite, if_sep=if_sep, only_one_chunk=only_one_chunk,
+                                    output_sep=output_sep, repl_to_sub_sep=repl_to_sub_sep)
+        
+        
         pieces_count = self.count_sep_num(df)
         # 当切片数量只有1的时候，默认直接转正常存储
         if pieces_count == 1:
-            self.store_df_as_csv(df, output_file, output_path, output_sep, output_encoding)
+            self.store_df_as_csv(df)
             return
+        
+        # 保证在循环过程中不会被迭代覆盖掉原来的导出名
+        output_file = self.output_file
+        chunk_no = 0
         for nth_chunk in tqdm(range(pieces_count),position=True,leave=True,desc="creating separation of csv..."):
             nth_chunk_df = self.get_nth_chunk_df(df, nth_chunk)
-            nth_full_path = self.get_nth_chunk_full_output_path(output_file, nth_chunk, '.csv')
-            self.store_as_csv(nth_chunk_df, nth_full_path, overwrite=True)
-
-            if self.only_one_chunk is True and nth_chunk == 0:
-                self.log.show_log(f"[ONLY ONE CHUNK AS EXAMPLE]: file created: {nth_full_path}")
-                break
-            else:
-                self.log.show_log(f"[CSV SEPARATION OUTPUT]: file created: {nth_full_path}")
+            self.store_df_as_csv(nth_chunk_df, output_file=output_file, chunk_no=chunk_no)
+            chunk_no += 1
         return
 
 

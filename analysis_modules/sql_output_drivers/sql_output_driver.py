@@ -25,6 +25,8 @@ class SqlOutputDriver(DfOutputDriver):
         self.database = output_params.sql_output_params.database
         self.database_options = output_params.sql_output_params.database_options
         self.repl_to_sub_comma = output_params.sql_output_params.repl_to_sub_comma
+        # 最初的记录条数基底
+        self.original_base_num = output_params.sql_output_params.output_index_size
         
         # 默认设置的基本参数
         self.commit_range = 5000
@@ -52,6 +54,25 @@ class SqlOutputDriver(DfOutputDriver):
         self.float_list = ['float64', 'float32']
         self.bool_list = ['bool']
         self.time_list = ['datetime64', 'timedelta64']
+    
+    def init_sql_output_params(self, table_name="", output_path="", output_encoding="", overwrite: bool = None,
+                               if_sep: bool = None, only_one_chunk: bool = None, table_comment="",
+                               column_comments={}, database="", repl_to_sub_comma:str=None):
+        self.init_basic_output_params(output_path=output_path, output_encoding=output_encoding,
+                                      overwrite=overwrite, if_sep=if_sep, only_one_chunk=only_one_chunk)
+        if table_name != "":
+            table_name = IoMethods.get_main_file_name(table_name)
+            self.table_name = table_name
+        if table_comment != "":
+            self.table_comment = table_comment
+        if column_comments != {}:
+            self.column_comments = column_comments
+        if database in self.database_options:
+            self.database = database
+        if repl_to_sub_comma is not None and type(repl_to_sub_comma) is str:
+            self.repl_to_sub_comma = repl_to_sub_comma
+        
+        return
         
     
     def get_date_format_element(self, element, col, col_type):
@@ -200,37 +221,36 @@ class SqlOutputDriver(DfOutputDriver):
         self.iom.store_file(full_output_path, content=table_creation_sql, encoding=self.output_encoding, overwrite=True)
         return
     
-    def init_sql_output_params(self, table_name, output_path, output_encoding):
-        if table_name != "":
-            table_name = IoMethods.get_main_file_name(table_name)
-            self.table_name = table_name
-        if output_path != "":
-            self.output_path = output_path
-        if output_encoding != "":
-            self.output_encoding = output_encoding
-        
-        IoMethods.mkdir_if_no_dir(self.output_path)
-        return
+    
     
     @SysLog().calculate_cost_time("<store as sql insert commands>")
-    def store_df_as_sql(self, df: pd.DataFrame, table_name="", output_path="", output_encoding="", overwrite:bool=None, chunk_no:int="", base_num:int=0):
+    def store_df_as_sql(self, df: pd.DataFrame, table_name="", output_path="", output_encoding="", overwrite: bool = None,
+                               if_sep: bool = None, only_one_chunk: bool = None, table_comment="",
+                               column_comments={}, database="", repl_to_sub_comma:str=None, chunk_no:int=""):
         """
-        :param table_name: 导出的表名
-        :param chunk_no: 用来在循环读取的时候给文件切片保存的时候修改导出名词，如为""，表示不涉及拆分
+        chunk_no is int and if_sep is False -> 循环添加
+        chunk_no is int and if_sep is True -> 循环切片
+        chunk_no is "" and if_sep is False -> 整体导入整体导出
+        chunk_no is "" and if_sep is True -> 外部调用该函数进行切片, 按照整体导入导出理解
         """
-        self.init_sql_output_params(table_name, output_path, output_encoding)
-        if overwrite is not None:
-            self.overwrite = overwrite
+        self.init_sql_output_params(table_name=table_name, output_path=output_path,output_encoding=output_encoding,
+                                    overwrite=overwrite, if_sep=if_sep, only_one_chunk=only_one_chunk,
+                                    table_comment=table_comment, column_comments=column_comments, database=database,
+                                    repl_to_sub_comma=repl_to_sub_comma)
         
-        add_part = ""
-        if self.if_sep is True and str(chunk_no) != "":
-            add_part = f"_{str(chunk_no)}_slice"
+        # 不论是循环添加还是循环切片, 其中chunk_no值都是伴随着循环递增的, 而非循环状态, 直接依据导入的base_num初始值即可
+        base_num = self.chunksize * (0 if type(chunk_no) is str and chunk_no == "" else chunk_no) + self.original_base_num
+        
+        insert_file = self.decide_sep_or_add(self.table_name+"_table_insert", self.if_sep, self.only_one_chunk, chunk_no)
+        if insert_file is None:
+            # 只取第一个chunk为案例
+            return
             
         table_creation_file = self.table_name + "_table_creation.sql"
-        table_insertion_file = self.table_name + f"_table_insert{add_part}.sql"
+        table_insertion_file = insert_file + ".sql"
+        
         output_creation_path = IoMethods.join_path(self.output_path, table_creation_file)
         output_insertion_path = IoMethods.join_path(self.output_path, table_insertion_file)
-        
         
         
         self.create_table_insert_sql(df, output_insertion_path, self.overwrite, base_num)
@@ -238,26 +258,29 @@ class SqlOutputDriver(DfOutputDriver):
         return
     
     @SysLog().calculate_cost_time("<store as sql insert commands in pieces>")
-    def sep_df_as_multi_sql(self, df: pd.DataFrame, table_name="", output_path="", output_encoding="", only_one_chunk:bool=None):
+    def sep_df_as_multi_sql(self, df: pd.DataFrame, table_name="", output_path="", output_encoding="", overwrite: bool = None,
+                               if_sep: bool = None, only_one_chunk: bool = None, table_comment="", column_comments={},
+                            database="", repl_to_sub_comma:str=None):
         """
         :param df: 整体的dataframe，而非循环读取的dataframe
         """
-        if only_one_chunk is not None:
-            self.only_one_chunk = only_one_chunk
-
+        self.init_sql_output_params(table_name=table_name, output_path=output_path, output_encoding=output_encoding,
+                                    overwrite=overwrite, if_sep=if_sep, only_one_chunk=only_one_chunk,
+                                    table_comment=table_comment, column_comments=column_comments, database=database,
+                                    repl_to_sub_comma=repl_to_sub_comma)
+        
         pieces_count = self.count_sep_num(df)
         # 当切片数量只有1的时候，默认直接转正常存储
         if pieces_count == 1:
-            self.store_df_as_sql(df, table_name, output_path, output_encoding)
+            self.store_df_as_sql(df)
             return
-        for nth_chunk in tqdm(range(pieces_count), position=True, leave=True, desc="creating separation of sql insertion commands..."):
+        # 保证在循环过程中不会被迭代覆盖掉原来的导出名
+        table_name = self.table_name
+        chunk_no = 0
+        for nth_chunk in tqdm(range(pieces_count), position=True, leave=True, desc="creating separation of csv..."):
             nth_chunk_df = self.get_nth_chunk_df(df, nth_chunk)
-            self.store_df_as_sql(nth_chunk_df, table_name, output_path, output_encoding, chunk_no=nth_chunk)
-            if self.only_one_chunk is True and nth_chunk == 0:
-                self.log.show_log(f"[ONLY ONE CHUNK AS EXAMPLE]: file created under the path: {self.output_path}")
-                break
-            else:
-                self.log.show_log(f"[SQL OUTPUT] sql based on database {self.database} created under the path: {self.output_path}")
+            self.store_df_as_sql(nth_chunk_df, table_name=table_name, chunk_no=chunk_no)
+            chunk_no += 1
         return
         
 

@@ -2,6 +2,7 @@
 import copy
 # self-made modules
 from analysis_modules import default_properties as prop
+from analysis_modules.params_monitor.import_params import ImportParams
 from analysis_modules.params_monitor.params_basic_setting import ParamsBasicSetting
 import output_params_setting as oparams
 
@@ -11,16 +12,21 @@ class OutputParams(ParamsBasicSetting):
 
         # 初始化变量
         self.output_path = self.get_abspath(prop.OUTPUT_PATH, oparams.output_path)
-        self.output_encoding = self.get_default_value(prop.DEFAULT_ENCODING, oparams.output_encoding)
-        self.chunksize = oparams.chunksize # 默认OUTPUT的时候拆分成片也是按照INPUT的来算，方便过程处理
-        self.if_sep = oparams.if_sep
-        self.only_one_chunk = oparams.only_one_chunk
+        self.output_file = oparams.output_file
+        self.output_encoding = self.get_encoding(oparams.output_encoding, prop.DEFAULT_ENCODING)
+        self.if_sep = self.check_if_type(oparams.if_sep, 'if_sep')
+        self.only_one_chunk = self.check_if_type(oparams.only_one_chunk, 'only_one_chunk')
         # 只有在if_sep为False的情况下，才可以调整overwrite
-        self.overwrite = oparams.overwrite if oparams.if_sep is False else True
+        self.overwrite = self.check_if_type(oparams.overwrite, 'overwrite') if oparams.if_sep is False else True
+        self.get_params_from_import_params()
         self.md_output_params = self.MdOutputParams()
         self.csv_output_params = self.CsvOutputParams()
         self.xls_output_params = self.XlsOutputParams()
         self.sql_output_params = self.SqlOutputParams()
+        
+    def get_params_from_import_params(self):
+        import_params = ImportParams()
+        self.chunksize = import_params.chunksize
 
     def get_output_params(self) -> dict:
         # 深拷贝: 完整将元素及嵌套的元素复制，确保没有共享引用;否则修改__dict__就是在修改该对象的元素
@@ -41,6 +47,7 @@ class OutputParams(ParamsBasicSetting):
         process_params = self.read_process_params(params_set)
         output_params = process_params['output_params']
         self.output_path = output_params['output_path']
+        self.output_file = output_params['output_file']
         self.output_encoding = output_params['output_encoding']
         self.chunksize = output_params['chunksize']
         self.if_sep = output_params['if_sep']
@@ -102,4 +109,3 @@ class OutputParams(ParamsBasicSetting):
             self.database_options = oparams.sql_output_params['database_options']
             self.repl_to_sub_comma = oparams.sql_output_params['repl_to_sub_comma']
             self.output_index_size = oparams.sql_output_params['output_index_size']
-

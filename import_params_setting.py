@@ -2,6 +2,9 @@
 # 如添加子文件夹child_folder/split1，则实际路径为:../input_dataset/child_folder/split1
 input_path = ""
 
+# 导入的文件名(需携带拓展名, e.g. test.csv), 如果if_batch = True, 则采用批量导入的方式, 无需填写
+input_file = "03.input_test.csv"
+
 # 批量导入的参数
 batch_import_params = {
     # 判断是否根据导入路径批量导入数据, False表示单文件模式, 不批量导入
@@ -20,7 +23,7 @@ input_encoding = ""
 quote_as_object = True
 
 # 用于判断是否通过循环读取处理数据来处理大数据，默认值为False，表示一次读取所有数据返回df
-if_circular = False
+if_circular = True
 
 # 针对if_circular is True: 每次执行chunksize条数据；另，如果导出的时候要拆分为小片数据，也是依据该值进行拆分的
 chunksize = 50000

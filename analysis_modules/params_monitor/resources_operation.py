@@ -20,7 +20,7 @@ from analysis_modules import default_properties as prop
 
 class ResourcesOperation():
     def __init__(self):
-        self.iom = IoMethods()
+        self.iom = IoMethods('utf-8')
         self.resources_path = prop.RESOURCES_PATH
 
     def list_resources(self) -> list[str]:
@@ -29,6 +29,14 @@ class ResourcesOperation():
         for each_file in file_list:
             file_name_list.append(self.iom.get_main_file_name(each_file))
         return file_name_list
+    
+    @classmethod
+    def check_if_params_set_exists(cls, params_set):
+        ro = cls()
+        params_sets = ro.list_resources()
+        if params_set not in params_sets:
+            return False
+        return True
 
     @staticmethod
     def load_cls_as_json(cls: object) -> json:

@@ -24,6 +24,22 @@ class CsvImportDriver(DfImportDriver):
         self.sep_to_sub_multi_char_sep = import_params.csv_import_params.sep_to_sub_multi_char_sep
         self.repl_to_sub_sep = import_params.csv_import_params.repl_to_sub_sep
 
+    def init_csv_import_params(self, input_file="", input_path="", input_encoding="", quote_as_object=None,
+                               input_sep="", character_size=0, quote_none:bool=None, sep_to_sub_multi_char_sep="",
+                               repl_to_sub_sep:str=None):
+        self.init_basic_import_params(input_file, input_path, input_encoding,quote_as_object)
+        if input_sep != "":
+            self.input_sep = input_sep
+        if character_size > 0:
+            self.character_size = character_size
+        if quote_none is not None and type(quote_none) is bool:
+            self.quote_none = quote_none
+        if sep_to_sub_multi_char_sep != "":
+            self.sep_to_sub_multi_char_sep = sep_to_sub_multi_char_sep
+        if repl_to_sub_sep is not None and type(repl_to_sub_sep) is str:
+            self.repl_to_sub_sep = repl_to_sub_sep
+        
+    
     def decide_quote_none(self):
         if self.quote_none is True:
             # 忽视引号作为分隔符，以保证数据完整性
@@ -147,8 +163,6 @@ class CsvImportDriver(DfImportDriver):
                 self.pos_reminder(pos, "[CHECK IF DIRTY DATA EXISTS] process for checking data running")
                 pos += 1
         return
-
-
 
     def repl_multi_char_sep(self, line: str) -> str:
         new_line = line.replace(self.sep_to_sub_multi_char_sep, self.repl_to_sub_sep)
@@ -279,12 +293,17 @@ class CsvImportDriver(DfImportDriver):
             self.log.show_log(msg)
         return del_error_csv
 
-    def init_csv_reader_params(self, input_file: str, input_path= "", input_sep="", input_encoding="") -> str:
-        self.init_basic_import_params(input_path, input_encoding)
-        if input_sep != "":
-            self.input_sep = input_sep
+    def init_csv_reader_params(self, input_file="", input_path="", input_encoding="", quote_as_object=None,
+                               input_sep="", character_size=0, quote_none:bool=None, sep_to_sub_multi_char_sep="",
+                               repl_to_sub_sep:str=None) -> str:
+        # 更新参数表
+        self.init_csv_import_params(input_file=input_file,input_path=input_path,input_sep=input_sep,
+                                    input_encoding=input_encoding, quote_as_object=quote_as_object,
+                                    character_size=character_size, quote_none=quote_none,
+                                    sep_to_sub_multi_char_sep=sep_to_sub_multi_char_sep,
+                                    repl_to_sub_sep=repl_to_sub_sep)
 
-        full_input_path = self.iom.join_path(self.input_path, input_file)
+        full_input_path = self.iom.join_path(self.input_path, self.input_file)
         self.iom.check_if_file_exists(full_input_path)
         # 如果没输入input_encoding，则开启自动检测
         self.input_encoding = self.get_import_encoding(full_input_path, self.input_encoding)
@@ -306,8 +325,16 @@ class CsvImportDriver(DfImportDriver):
 
 
     @SysLog().calculate_cost_time("<import from csv>")
-    def fully_import_csv(self, input_file: str, input_path="", input_sep="", input_encoding="") -> pd.DataFrame:
-        full_input_path = self.init_csv_reader_params(input_file, input_path, input_sep, input_encoding)
+    def fully_import_csv(self, input_file="", input_path="", input_encoding="", quote_as_object=None,
+                               input_sep="", character_size=0, quote_none:bool=None, sep_to_sub_multi_char_sep="",
+                               repl_to_sub_sep:str=None) -> pd.DataFrame:
+        # 保证了所有参数都可修改
+        full_input_path = self.init_csv_reader_params(input_file=input_file,input_path=input_path,input_sep=input_sep,
+                                    input_encoding=input_encoding, quote_as_object=quote_as_object,
+                                    character_size=character_size, quote_none=quote_none,
+                                    sep_to_sub_multi_char_sep=sep_to_sub_multi_char_sep,
+                                    repl_to_sub_sep=repl_to_sub_sep)
+        
         df = pd.read_csv(full_input_path, sep=self.input_sep, encoding=self.input_encoding, dtype=self.preserves,
                          quoting=self.quoting, on_bad_lines='warn')
         msg = "[IMPORT CSV]: data from {a} is fully imported.".format(a=full_input_path)
@@ -315,8 +342,16 @@ class CsvImportDriver(DfImportDriver):
         return df
 
     @SysLog().calculate_cost_time("<csv reading generator created>")
-    def circular_import_csv(self, input_file: str, input_path="", input_sep="", input_encoding=""):
-        full_input_path = self.init_csv_reader_params(input_file, input_path, input_sep, input_encoding)
+    def circular_import_csv(self, input_file="", input_path="", input_encoding="", quote_as_object=None,
+                               input_sep="", character_size=0, quote_none:bool=None, sep_to_sub_multi_char_sep="",
+                               repl_to_sub_sep:str=None):
+        # 保证了所有参数都可修改
+        full_input_path = self.init_csv_reader_params(input_file=input_file,input_path=input_path,input_sep=input_sep,
+                                    input_encoding=input_encoding, quote_as_object=quote_as_object,
+                                    character_size=character_size, quote_none=quote_none,
+                                    sep_to_sub_multi_char_sep=sep_to_sub_multi_char_sep,
+                                    repl_to_sub_sep=repl_to_sub_sep)
+        
         # generate the generator of csv reading method for importing big csv
         chunk_reader = pd.read_csv(full_input_path, sep=self.input_sep, encoding=self.input_encoding,
                                    chunksize=self.chunksize, dtype=self.preserves, quoting=self.quoting,

@@ -7,20 +7,44 @@
 """
 
 import os
+import codecs
+import time
 import json
 # self-made modules
 from basic_operation import IoMethods
+from analysis_modules.params_monitor.sys_log import SysLog
 import analysis_modules.default_properties as prop
 from analysis_modules.params_monitor.resources_operation import ResourcesOperation
 
 class ParamsBasicSetting:
     def __init__(self):
         pass
-
-    def get_default_value(self, default_value, new_value):
-        if new_value in [None, ""]:
-            return default_value
-        return new_value
+    
+    def check_if_type(self, value, param_name, type=bool):
+        if isinstance(value, type):
+            return value
+        else:
+            msg = f"the parameter {param_name} you entered must be {str(type)} type!"
+            print(msg)
+            time.sleep(3)
+            raise TypeError(msg)
+    
+    def check_if_encoding(self, encoding, default_encoding):
+        # 如果为空则返空，有其他的处理方式
+        # 如果不为空但填错，则直接写默认值
+        if encoding == "":
+            return encoding
+        if codecs.lookup(encoding):
+            return encoding.lower()
+        SysLog.show_log(f"[INCORRECT ENCODING] rewrite the encoding '{encoding}' with default encoding '{default_encoding}'")
+        time.sleep(2)
+        return default_encoding.lower()
+    
+    def get_encoding(self, new_encoding, default_encoding):
+        if new_encoding is None or new_encoding == "":
+            return default_encoding.lower()
+        new_encoding = self.check_if_encoding(new_encoding, default_encoding)
+        return new_encoding
 
     def get_abspath(self, parent_path, target_path=""):
         # target_path为选填目录，绝对路径则直接采用，相对路径则接到默认目录parent_path下

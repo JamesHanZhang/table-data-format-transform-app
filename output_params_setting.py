@@ -2,15 +2,15 @@
 # 如添加子文件夹child_folder/split1，则实际路径为:../output_dataset/child_folder/split1
 output_path = ""
 
+# 导出的文件名, 如采用based_on_activation模式导出则不能携带拓展名, 否则必须携带拓展名
+# 文件名不要有`.`, 以免被误识别为拓展名
+output_file = "test"
+
 # 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
-output_encoding = "gb18030"
+output_encoding = "utf-8"
 
 # 判断是否要拆分，如拆分，则按照导入的chunksize的大小进行拆分
 if_sep = False
-
-# 针对if_circular is True: 每次执行chunksize条数据；另，如果导出的时候要拆分为小片数据，也是依据该值进行拆分的
-# 数值必须始终与import_params_setting.chunksize保持一致
-chunksize = 50000
 
 # 是否只是拆分出一个样例即可，默认为否，即拆分到底。如为真，则仅拆分出一个文件即停止，作为样例
 only_one_chunk = False

@@ -22,14 +22,17 @@ class ImportParams(ParamsBasicSetting):
 
         # 初始化变量
         self.input_path = self.get_abspath(prop.INPUT_PATH, iparams.input_path)
-        self.input_encoding = iparams.input_encoding
-        self.quote_as_object = iparams.quote_as_object
-        self.if_circular = iparams.if_circular
-        self.chunksize = iparams.chunksize
-        self.import_index_size = iparams.import_index_size
+        self.input_file = iparams.input_file
+        self.input_encoding = self.check_if_encoding(iparams.input_encoding, prop.DEFAULT_ENCODING)
+        self.quote_as_object = self.check_if_type(iparams.quote_as_object, 'quote_as_object')
+        self.if_circular = self.check_if_type(iparams.if_circular, 'if_circular')
+        self.chunksize = self.check_if_type(iparams.chunksize, 'chunksize', int)
+        self.import_index_size = self.check_if_type(iparams.import_index_size, 'import_index_size', int)
         self.batch_import_params = self.BatchImportParams()
         self.csv_import_params = self.CsvImportParams()
         self.xls_import_params = self.XlsImportParams()
+        if self.batch_import_params.if_batch is True:
+            self.input_file = ""
 
     def get_import_params(self) -> dict:
         # 深拷贝: 完整将元素及嵌套的元素复制，确保没有共享引用;否则修改__dict__就是在修改该对象的元素
@@ -49,6 +52,7 @@ class ImportParams(ParamsBasicSetting):
         process_params = self.read_process_params(params_set)
         import_params = process_params['import_params']
         self.input_path = import_params['input_path']
+        self.input_file = import_params['input_file']
         self.input_encoding = import_params['input_encoding']
         self.quote_as_object = import_params['quote_as_object']
         self.if_circular = import_params['if_circular']
@@ -82,4 +86,3 @@ class ImportParams(ParamsBasicSetting):
     class XlsImportParams:
         def __init__(self):
             self.input_sheet = iparams.xls_import_params['input_sheet']
-

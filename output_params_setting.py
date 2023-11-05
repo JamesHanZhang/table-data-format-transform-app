@@ -45,12 +45,12 @@ sql_output_params = {
     # 导出表的基本信息 - 表名，默认值为temp_table
     'table_name': 'table_for_temp_use',
     # 导出表的备注
-    'table_comment': '临时表，可删除',
+    'table_comment': '',
     # 导出表的基本信息 - 各字段长度，默认为空字典，导出时自动填充数据; 如填写则会和实际数据进行比较, dict[key: str, value: int]
     'table_structure': {},
     # 导出表的各个字段的备注, dict[str, str], key: column, value: comment for column. e.g. {'col1': 'comment1', 'col2': 'comment2'}
     'column_comments': {
-        'TABLE_AFFILIATION': '归属地'
+        # 'TABLE_AFFILIATION': '归属地'
     },
     # 选择导出的数据库类型，请注意大小写必须严格遵循下面的可选项
     'database': 'Oracle',

@@ -1,11 +1,11 @@
 {
     "import_params": {
-        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool\\input_dataset",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\input_dataset",
         "input_file": "02.input_test.csv",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
-        "chunksize": 2,
+        "chunksize": 50000,
         "import_index_size": 4,
         "batch_import_params": {
             "if_batch": false,
@@ -16,23 +16,23 @@
             "character_size": 5000000,
             "quote_none": false,
             "sep_to_sub_multi_char_sep": ";",
-            "repl_to_sub_sep": "."
+            "repl_to_sub_sep": ".|."
         },
         "xls_import_params": {
             "input_sheet": "Sheet1"
         }
     },
     "output_params": {
-        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool\\output_dataset",
-        "output_file": "test.sql",
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\output_dataset",
+        "output_file": "test.md",
         "output_encoding": "utf-8",
-        "if_sep": true,
+        "if_sep": false,
         "only_one_chunk": false,
         "overwrite": true,
-        "chunksize": 2,
+        "chunksize": 50000,
         "md_output_params": {
             "activation": true,
-            "output_index_size": 0
+            "output_index_size": 8
         },
         "csv_output_params": {
             "activation": true,
@@ -47,18 +47,10 @@
         },
         "sql_output_params": {
             "activation": true,
-            "table_name": "test",
-            "table_comment": "临时表，可删除",
-            "table_structure": {
-                "TABLE_AFFILIATION": 6,
-                "MINDATE": 10,
-                "MAXDATE": 10,
-                "START_ODMS_DATE": 8,
-                "TO_INCT_DATE": 8
-            },
-            "column_comments": {
-                "TABLE_AFFILIATION": "归属地"
-            },
+            "table_name": "table_for_temp_use",
+            "table_comment": "",
+            "table_structure": {},
+            "column_comments": {},
             "database": "Oracle",
             "database_options": [
                 "Oracle",
@@ -68,7 +60,7 @@
                 "SqlServer"
             ],
             "repl_to_sub_comma": ";",
-            "output_index_size": 4
+            "output_index_size": 0
         }
     },
     "basic_process_params": {

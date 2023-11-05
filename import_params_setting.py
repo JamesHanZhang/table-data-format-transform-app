@@ -42,7 +42,7 @@ csv_import_params = {
     # 当导入的CSV的分隔符>1位长度的时候，判断为变长分隔符，是不好导入为CSV的，需要替换为新的1位分隔符
     'sep_to_sub_multi_char_sep': ';',
     # 当导入的CSV分隔符>1位长的时候，替换为新的1位分隔符，可能内容里也有该分隔符，会导致错误，所以内容里该分隔符的部分要替换为新的符号
-    'repl_to_sub_sep': '.'
+    'repl_to_sub_sep': '.|.'
 }
 
 xls_import_params = {

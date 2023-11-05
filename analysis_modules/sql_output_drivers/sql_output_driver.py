@@ -193,7 +193,7 @@ class SqlOutputDriver(DfOutputDriver):
     
     def create_table_remark(self, columns):
         remark_sql = ""
-        if self.table_comment != "":
+        if self.table_comment.strip() != "":
             remark_sql = f"\nCOMMENT ON TABLE {self.table_name} IS '{self.table_comment}';\n"
         for col in columns:
             try:

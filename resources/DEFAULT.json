@@ -1,7 +1,7 @@
 {
     "import_params": {
         "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\input_dataset",
-        "input_file": "03.input_test.csv",
+        "input_file": "input_test.csv",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
@@ -24,7 +24,7 @@
     },
     "output_params": {
         "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\output_dataset",
-        "output_file": "test02.md",
+        "output_file": "output_test.md",
         "output_encoding": "utf-8",
         "if_sep": false,
         "only_one_chunk": false,
@@ -37,8 +37,8 @@
         "csv_output_params": {
             "activation": true,
             "output_sep": ",",
-            "repl_to_sub_sep": " ",
-            "output_index_size": 12
+            "repl_to_sub_sep": ";",
+            "output_index_size": 6
         },
         "xls_output_params": {
             "activation": true,
@@ -48,7 +48,7 @@
         "sql_output_params": {
             "activation": true,
             "table_name": "table_for_temp_use",
-            "table_comment": "",
+            "table_comment": "临时表, 可删除",
             "table_structure": {
                 "TABLE_AFFILIATION": 6,
                 "YEAR": 4,

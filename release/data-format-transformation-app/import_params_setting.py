@@ -3,7 +3,7 @@
 input_path = ""
 
 # 导入的文件名(需携带拓展名, e.g. test.csv), 如果if_batch = True, 则采用批量导入的方式, 无需填写
-input_file = "test.csv"
+input_file = "input_test.csv"
 
 # 批量导入的参数
 batch_import_params = {

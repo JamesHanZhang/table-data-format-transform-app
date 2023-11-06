@@ -6,3 +6,5 @@ CREATE TABLE table_for_temp_use(
     TRAN_NUMBER VARCHAR2(4),
     REMARK VARCHAR2(6)
 );
+
+COMMENT ON TABLE table_for_temp_use IS '临时表, 可删除';

@@ -1,1 +1,2 @@
 from analysis_modules.app_entrances.format_transformation import FormatTransformation
+from analysis_modules.app_entrances.diff_trans_batch_files import DiffTransBatchFiles

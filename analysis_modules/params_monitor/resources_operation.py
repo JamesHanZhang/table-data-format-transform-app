@@ -11,6 +11,7 @@ import io
 import os
 from os import listdir
 from os.path import isfile, join
+import time
 
 # self-made modules
 # 底层类，尽可能不调用外包，仅以直接调用的方式调用参数，不走包调用
@@ -23,19 +24,32 @@ class ResourcesOperation():
         self.iom = IoMethods('utf-8')
         self.resources_path = prop.RESOURCES_PATH
 
-    def list_resources(self) -> list[str]:
+    def list_resources(self, extension:str='.json') -> list[str]:
         file_list = [file for file in listdir(self.resources_path) if isfile(join(self.resources_path, file))]
-        file_name_list = []
+        target_list = list()
         for each_file in file_list:
+            if self.iom.get_file_extension(each_file) == extension:
+                target_list.append(each_file)
+        
+        file_name_list = []
+        for each_file in target_list:
             file_name_list.append(self.iom.get_main_file_name(each_file))
         return file_name_list
     
     @classmethod
-    def check_if_params_set_exists(cls, params_set):
+    def check_if_params_set_exists(cls, params_set, pop_error:bool=False) -> bool:
         ro = cls()
         params_sets = ro.list_resources()
+        if pop_error is False:
+            if params_set not in params_sets:
+                return False
+            return True
         if params_set not in params_sets:
-            return False
+            msg = f"parameters set '{params_set}.json' doesn't exist under the folder resources, so you can't import the parameters directly.\n" \
+                  f"参数表'{params_set}.json' 不存在, 请检查输入的参数表名称是否正确."
+            print(msg)
+            time.sleep(2)
+            raise FileNotFoundError(msg)
         return True
 
     @staticmethod
@@ -81,13 +95,16 @@ class ResourcesOperation():
 
 if __name__=="__main__":
     # test
-    test_dict = {
-        1: [111, 222, 333],
-        "test": 'nice weather'
-    }
+    # test_dict = {
+    #     1: [111, 222, 333],
+    #     "test": 'nice weather'
+    # }
     ro = ResourcesOperation()
-    ro.store_params_as_json('test', test_dict)
-    read_output = ro.read_resource('test')
-    print(read_output)
-
-    ro.read_resource('test_xxx')
+    # ro.store_params_as_json('test', test_dict)
+    # read_output = ro.read_resource('test')
+    # print(read_output)
+    #
+    # ro.read_resource('test_xxx')
+    print(ro.list_resources())
+    
+    

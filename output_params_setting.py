@@ -4,7 +4,7 @@ output_path = ""
 
 # 导出的文件名, 如采用based_on_activation模式导出则不能携带拓展名, 否则必须携带拓展名
 # 文件名不要有`.`, 以免被误识别为拓展名
-output_file = "test"
+output_file = "test02.csv"
 
 # 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
 output_encoding = "utf-8"

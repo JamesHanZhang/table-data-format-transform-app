@@ -42,7 +42,7 @@ class FormatTransformation:
             self.based_on_activation = based_on_activation
         return
     
-    def reset_params(self, params_set=prop.DEFAULT_PARAMS_SET, overwrite=True, input_file="", input_path="", output_file="", output_path="",table_name="", if_batch:bool=None,
+    def reset_params(self, params_set=prop.DEFAULT_PARAMS_SET, overwrite=True, input_file="", input_path="", output_file="", output_path="", table_name="", if_batch:bool=None,
                      if_circular:bool=None, if_sep:bool=None, only_one_chunk:bool=None, chunksize:int=0, based_on_activation:bool=None):
         """
         :param params_set: .json的参数表名称, 不加拓展名
@@ -60,8 +60,10 @@ class FormatTransformation:
         :param based_on_activation: true: 按照激活参数执行数据导出; false: 按照导出文件的拓展名执行数据导出; .sql文件的主体自动转为table name
         :return: 修订公用参数并保存到.json参数表
         """
+        if params_set != "":
+            self.params_set = params_set
         self.check_params_set(params_set, overwrite)
-        self.import_params, self.output_params, self.basic_process_params = self.get_params(params_set, overwrite)
+        self.import_params, self.output_params, self.basic_process_params = self.get_params(self.params_set, overwrite)
         self.activate_based_on_activation(output_file, based_on_activation)
         
         if IoMethods.get_file_extension(input_file) != "":
@@ -135,10 +137,11 @@ class FormatTransformation:
             params_set = self.params_set
         all_params_sets = self.ro.list_resources()
         if params_set not in all_params_sets:
-            msg = f"parameters set {params_set} doesn't exist under the folder resources, so you can't import the parameters directly.\n" \
-                  f"please use 'overwrite = True' instead, it can create parameters set based on _params_setting.py."
+            msg = f"parameters set '{params_set}.json' doesn't exist under the folder resources, so you can't import the parameters directly.\n" \
+                  f"please use 'overwrite = True' instead, it can create parameters set based on _params_setting.py.\n" \
+                  f"参数表'{params_set}.json' 不存在, 请检查输入的参数表名称是否正确."
             print(msg)
-            time.sleep(3)
+            time.sleep(2)
             raise FileNotFoundError(msg)
         
     
@@ -148,16 +151,28 @@ class FormatTransformation:
         :param params_set: .json的参数表名称, 不加拓展名
         :param overwrite: true: 适用_params_setting.py的参数, 生成/覆盖同名参数表; false: 直接引用同名参数表的参数
         :param based_on_activation: 判断是按照导出文件的拓展名来判断导出，还是按照激活功能activation来判断导出
+                        True: 1 <根据激活导出模式>: 采用'output_params_setting.py'中的激活功能判断是否导出对应格式的数据;
+                        该模式激活几个功能就导出几个文件(激活拆分功能则更多);
+                        该模式在导出'.sql'文件时, 采用参数'table_name'确定导出的表名及文件名;
+                        False: 2 <根据拓展名导出模式>采用导出文件output_file的拓展名(例如'test.xlsx')判断是导出哪种格式数据;
+                                模式一次仅激活一个导出功能;
+                                该模式在导出'.sql'文件时, 默认将临时表的表名设置为导出文件的主体名(去掉拓展名);
+                        None: 3 <自动模式>, 根据导出的文件名'output_file'是否有拓展名(例如'test.xlsx')来判断采取以上两种模式的哪种模式;
+                                如导出的文件名没有拓展名, 即只有纯粹的文件名(例如'test'), 则激活<根据激活导出模式>;
+                                如导出的文件名有拓展名(例如'test.xlsx'), 则激活<根据拓展名导出模式>;
         :param if_multi: 看是不是批量跑多个参数表的程序
         """
-        self.check_params_set(params_set, overwrite)
+        if params_set != "":
+            self.params_set = params_set
+        
+        self.check_params_set(self.params_set, overwrite)
         
         if if_multi is False:
             # 判断是否这个函数只跑一次
             start_time = start_program()
             
         # 执行程序
-        self.import_params, self.output_params, self.basic_process_params = self.get_params(params_set, overwrite)
+        self.import_params, self.output_params, self.basic_process_params = self.get_params(self.params_set, overwrite)
         self.activate_based_on_activation(based_on_activation=based_on_activation)
         if_batch = self.import_params.batch_import_params.if_batch
         if_circular = self.import_params.if_circular
@@ -171,8 +186,36 @@ class FormatTransformation:
             
         if if_multi is False:
             end_program(start_time)
+    def create_diff_params_sets(self, params_sets: list[str], base_params_set:str=prop.DEFAULT_PARAMS_SET):
+        """
+        另: 建立多重参数表和执行多重参数表中间必须重启一次程序，因为只有开启程序才会编译代码，进程开启是不会再次编译代码的，.py文件的参数修改就不会被纳入
+        所以无法建立多重参数表, 只能一个一个建立, 除非将多重参数表以.json文件的形式修改并导入
+        所以这里用DEFAULT.json来直接修改参数
+        """
+        if base_params_set == "":
+            base_params_set = prop.DEFAULT_PARAMS_SET
+        
+        count_num = len(params_sets)
+        for num in range(count_num):
+            while True:
+                ready = input(f"The params change based on default params_set '{base_params_set}.json'.\n"
+                              f"Total {count_num} params_sets waiting for creation, this is {num}th params set setting, create params_set ready? (Y/N)\n"
+                              f"根据基本参数表'{base_params_set}.json'来修改参数, 实现建立多个参数表.\n"
+                              f"总计{count_num}个参数表待建, 这是第{num}个参数表的设置, 是否准备完成? (完成选Y, 退出选N, 其他直接回车): ").strip()
+                if ready in ['Yes','YES','Y', 'y', 'yes']:
+                    break
+                elif ready in ['No','NO','no','n','N']:
+                    print("You choose to quit the program. \n您选择了退出.")
+                    time.sleep(2)
+                    exit()
+            SysLog.show_log(
+                f"[BASE PARAMS SETTING] creation for multi-params_sets files based on default params_set '{base_params_set}.json';\n"
+                f"And this file is now created or overwritten by `_params_setting.py` files.")
+            self.get_params(base_params_set, True)
+            
+        return
     
-    def run_multi_params_sets(self, params_sets:list[str], overwrite=False, based_on_activation=True):
+    def run_multi_params_sets(self, params_sets:list[str], based_on_activation=True):
         """
         :param params_sets: 把参数名称集中起来跑，常用来跑不同文件的批量
         :param overwrite: 因为是不同文件的批量，肯定不能直接拿setting来填, 所以要引入文件参数表
@@ -181,14 +224,17 @@ class FormatTransformation:
         start_time = start_program()
         for params_set in params_sets:
             # 先判断有没有参数表
-            self.check_params_set(params_set, overwrite)
+            self.check_params_set(params_set, overwrite=False)
             
         for params_set in params_sets:
             # 再执行参数表
-            self.run_based_on_params_set(params_set, overwrite, based_on_activation, if_multi=True)
+            self.run_based_on_params_set(params_set, overwrite=False, based_on_activation=based_on_activation, if_multi=True)
         end_program(start_time)
+        
         
 if __name__ == "__main__":
     # 单元测试
     ft = FormatTransformation()
-    ft.run_based_on_params_set(overwrite=True, based_on_activation=True)
+    # ft.run_based_on_params_set(overwrite=True, based_on_activation=True)
+    params_sets = ['test1','test2']
+    # ft.create_diff_params_sets(params_sets)

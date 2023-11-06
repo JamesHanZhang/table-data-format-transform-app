@@ -23,10 +23,15 @@ class ResourcesOperation():
         self.iom = IoMethods('utf-8')
         self.resources_path = prop.RESOURCES_PATH
 
-    def list_resources(self) -> list[str]:
+    def list_resources(self, extension:str='.json') -> list[str]:
         file_list = [file for file in listdir(self.resources_path) if isfile(join(self.resources_path, file))]
-        file_name_list = []
+        target_list = list()
         for each_file in file_list:
+            if self.iom.get_file_extension(each_file) == extension:
+                target_list.append(each_file)
+        
+        file_name_list = []
+        for each_file in target_list:
             file_name_list.append(self.iom.get_main_file_name(each_file))
         return file_name_list
     
@@ -81,13 +86,16 @@ class ResourcesOperation():
 
 if __name__=="__main__":
     # test
-    test_dict = {
-        1: [111, 222, 333],
-        "test": 'nice weather'
-    }
+    # test_dict = {
+    #     1: [111, 222, 333],
+    #     "test": 'nice weather'
+    # }
     ro = ResourcesOperation()
-    ro.store_params_as_json('test', test_dict)
-    read_output = ro.read_resource('test')
-    print(read_output)
-
-    ro.read_resource('test_xxx')
+    # ro.store_params_as_json('test', test_dict)
+    # read_output = ro.read_resource('test')
+    # print(read_output)
+    #
+    # ro.read_resource('test_xxx')
+    print(ro.list_resources())
+    
+    

@@ -11,7 +11,6 @@ class IntegrateParams:
         pass
 
     @staticmethod
-    @SysLog().direct_show_log("[PARAMS] parameters initialization from settings.")
     def get_params_from_settings(params_set: str = prop.DEFAULT_PARAMS_SET) -> tuple[ImportParams, OutputParams, BasicProcessParams]:
         ro = ResourcesOperation()
         import_params = ImportParams()
@@ -21,10 +20,10 @@ class IntegrateParams:
         import_params.store_import_params(params_set)
         output_params.store_output_params(params_set)
         basic_process_params.store_basic_process_params(params_set)
+        SysLog.show_log(f"[PARAMS] parameters initialization from settings, params set file '{params_set}.json' is created or overwritten.")
         return import_params, output_params, basic_process_params
 
     @staticmethod
-    @SysLog().direct_show_log("[PARAMS] parameters initialization from settings.")
     def get_params_from_resources(params_set: str=prop.DEFAULT_PARAMS_SET) -> tuple[ImportParams, OutputParams, BasicProcessParams]:
         import_params = ImportParams()
         output_params = OutputParams()
@@ -32,6 +31,8 @@ class IntegrateParams:
         import_params.load_import_params(params_set)
         output_params.load_output_params(params_set)
         basic_process_params.load_basic_process_params(params_set)
+        SysLog.show_log(
+            f"[PARAMS] parameters initialization from existing params file '{params_set}.json'.")
         return import_params, output_params, basic_process_params
 
 

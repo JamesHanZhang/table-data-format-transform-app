@@ -4,7 +4,7 @@ output_path = ""
 
 # 导出的文件名, 如采用based_on_activation模式导出则不能携带拓展名, 否则必须携带拓展名
 # 文件名不要有`.`, 以免被误识别为拓展名
-output_file = "test02.csv"
+output_file = "output_test.csv"
 
 # 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
 output_encoding = "utf-8"
@@ -22,7 +22,7 @@ csv_output_params = {
     'activation': True,
     'output_sep': ',',
     # 可能内容里也有该分隔符，容易导致错误，所以内容里该分隔符的部分可以替换为新的符号
-    'repl_to_sub_sep': ' ',
+    'repl_to_sub_sep': ';',
     # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
     'output_index_size': 0,
 }
@@ -45,7 +45,7 @@ sql_output_params = {
     # 导出表的基本信息 - 表名，默认值为temp_table
     'table_name': 'table_for_temp_use',
     # 导出表的备注
-    'table_comment': '',
+    'table_comment': '临时表, 可删除',
     # 导出表的基本信息 - 各字段长度，默认为空字典，导出时自动填充数据; 如填写则会和实际数据进行比较, dict[key: str, value: int]
     'table_structure': {},
     # 导出表的各个字段的备注, dict[str, str], key: column, value: comment for column. e.g. {'col1': 'comment1', 'col2': 'comment2'}

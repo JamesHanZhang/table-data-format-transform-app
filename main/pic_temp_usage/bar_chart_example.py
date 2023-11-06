@@ -9,7 +9,7 @@ ip.init_params()
 
 # 导入表
 dc = DfCreation()
-df = dc.import_on_extension("03.input_test.csv")
+df = dc.import_on_extension("test.csv")
 
 # 修改列类型
 change_types = {

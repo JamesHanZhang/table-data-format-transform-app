@@ -11,6 +11,7 @@ import io
 import os
 from os import listdir
 from os.path import isfile, join
+import time
 
 # self-made modules
 # 底层类，尽可能不调用外包，仅以直接调用的方式调用参数，不走包调用
@@ -36,11 +37,19 @@ class ResourcesOperation():
         return file_name_list
     
     @classmethod
-    def check_if_params_set_exists(cls, params_set):
+    def check_if_params_set_exists(cls, params_set, pop_error:bool=False) -> bool:
         ro = cls()
         params_sets = ro.list_resources()
+        if pop_error is False:
+            if params_set not in params_sets:
+                return False
+            return True
         if params_set not in params_sets:
-            return False
+            msg = f"parameters set '{params_set}.json' doesn't exist under the folder resources, so you can't import the parameters directly.\n" \
+                  f"参数表'{params_set}.json' 不存在, 请检查输入的参数表名称是否正确."
+            print(msg)
+            time.sleep(2)
+            raise FileNotFoundError(msg)
         return True
 
     @staticmethod

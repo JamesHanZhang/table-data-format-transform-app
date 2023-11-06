@@ -14,6 +14,19 @@ class ReplaceContent(FindChildPaths):
     def __init__(self, encoding):
         # 使用super函数
         super().__init__(encoding)
+        
+    def sub_single_file_content(self, file_path:str, target:str, substitution:str) -> None:
+        """
+        替换内容
+        target:= 正则表达式
+        substitution:= 替换的内容（非正则表达式）
+        """
+        old_content = self.read_content(file_path)
+        new_content = re.sub(target, substitution, old_content)
+        self.store_file(output_path=file_path, content=new_content, overwrite=True)
+        file_name = self.get_full_file_name(file_path)
+        print(f"substitution for file `{file_name}` is successfully done.")
+        return
 
     def sub_paths_content(self, file_paths: list[str], target: str, substitution: str) -> None:
         """
@@ -22,9 +35,7 @@ class ReplaceContent(FindChildPaths):
         substitution:= 替换的内容（非正则表达式）
         """
         for each_path in tqdm(file_paths,desc="to replace certain part of the files under archive..."):
-            each_content = self.read_content(each_path)
-            new_content = re.sub(target, substitution, each_content)
-            self.store_file(each_path, new_content)
+            self.sub_single_file_content(each_path, target, substitution)
         return
 
     def sub_path_common_content(self, parent_path: str, target: str, substitution: str) -> None:
@@ -44,11 +55,19 @@ class ReplaceContent(FindChildPaths):
         return
 
 if __name__ == '__main__':
-    parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool"
-    target_content = "\*\*\*       DATA\-CLEAN\-ANALYSIS\-TOOL    \*\*\*"
-    substitution = "***       DATA-FORMAT-ANALYSIS-TOOL   ***"
+    target_content = "overwrite"
+    substitution = "params_opt"
     encoding = "utf-8"
-    extension = '.py'
     rc = ReplaceContent(encoding)
-    rc.sub_type_path_common_content(parent_path, target_content, substitution, extension)
+    
+    # 批量或者单文件
+    if_batch = False
+    
+    # if if_batch is True:
+    #     parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool"
+    #     extension = '.py'
+    #     rc.sub_type_path_common_content(parent_path, target_content, substitution, extension)
+    if if_batch is False:
+        file_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\analysis_modules\\app_entrances\\format_transformation.py"
+        rc.sub_single_file_content(file_path, target_content, substitution)
 

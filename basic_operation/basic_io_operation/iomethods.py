@@ -134,6 +134,11 @@ class IoMethods(object):
         file_name = os.path.basename(file_name)
         file_name = os.path.splitext(file_name)[0]
         return file_name
+    
+    @classmethod
+    def get_full_file_name(cls, file_path):
+        full_file_name = cls.get_main_file_name(file_path) + cls.get_file_extension(file_path)
+        return full_file_name
 
     @staticmethod
     def get_last_folder_on_path(path: str) -> str:

@@ -1,10 +1,3 @@
-"""
-*****************************************
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
 
 from analysis_modules.df_import_drivers.md_import_driver import MdImportDriver
 from analysis_modules.df_import_drivers.csv_import_driver import CsvImportDriver

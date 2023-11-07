@@ -1,10 +1,3 @@
-"""
-*****************************************
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
 import pandas as pd
 
 from analysis_modules.params_monitor import SysLog

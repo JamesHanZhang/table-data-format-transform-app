@@ -1,10 +1,4 @@
-"""
-*****************************************
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
+
 
 from analysis_modules.params_monitor.sys_log import *
 from analysis_modules.params_monitor.resources_operation import ResourcesOperation

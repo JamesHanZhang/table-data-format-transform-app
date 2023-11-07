@@ -1,10 +1,3 @@
-"""
-*****************************************
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
 import pandas as pd
 from tqdm import tqdm
 # self-made modules

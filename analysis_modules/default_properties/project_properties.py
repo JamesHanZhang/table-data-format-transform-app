@@ -14,13 +14,13 @@ TIME_ZONE = "UTC/GMT+8hours"
 
 # log参数：程序启动提示语
 START_WORDS = """
-*****************************************
-***           PROGRAM STARTS          ***
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***            VERSION:2.01           ***
-***         AUTHOR: JamesHanZhang     ***
-***       jameshanzhang@foxmail.com   ***
-*****************************************
+*************************************************************************
+***                          PROGRAM STARTS                           ***
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.01                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+***   link: github.com/JamesHanZhang/table-data-format-transform-app  ***
+*************************************************************************
 """
 
 # 软件介绍

@@ -1,3 +1,12 @@
+"""
+*************************************************************************
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.01                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+***   link: github.com/JamesHanZhang/table-data-format-transform-app  ***
+*************************************************************************
+"""
+
 from analysis_modules import FormatTransformation, DiffTransBatchFiles
 from analysis_modules import default_properties as prop
 from main.format_transformation.mode_choices.same_struct_mode import *

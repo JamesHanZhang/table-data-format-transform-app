@@ -1,10 +1,3 @@
-"""
-*****************************************
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
 from analysis_modules.params_monitor import OutputParams, SysLog
 from analysis_modules.drawpics.image_creation import ImageCreation
 from analysis_modules import default_properties as prop

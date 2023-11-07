@@ -1,10 +1,4 @@
-"""
-*****************************************
-***       DATA-FORMAT-ANALYSIS-TOOL   ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
+
 
 import re
 from tqdm import tqdm
@@ -55,18 +49,18 @@ class ReplaceContent(FindChildPaths):
         return
 
 if __name__ == '__main__':
-    target_content = "overwrite"
-    substitution = "params_opt"
+    target_content = ""
+    substitution = "xaaxxaa"
     encoding = "utf-8"
     rc = ReplaceContent(encoding)
     
     # 批量或者单文件
-    if_batch = False
+    if_batch = True
     
-    # if if_batch is True:
-    #     parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-clean-analysis-tool"
-    #     extension = '.py'
-    #     rc.sub_type_path_common_content(parent_path, target_content, substitution, extension)
+    if if_batch is True:
+        parent_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app"
+        extension = '.py'
+        rc.sub_type_path_common_content(parent_path, target_content, substitution, extension)
     if if_batch is False:
         file_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\analysis_modules\\app_entrances\\format_transformation.py"
         rc.sub_single_file_content(file_path, target_content, substitution)

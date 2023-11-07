@@ -1,10 +1,4 @@
-"""
-*****************************************
-***     DATA-FORMAT-TRANSFORMATION    ***
-***         AUTHOR: JamesHanZhang     ***
-***        jameshanzhang@foxmail.com  ***
-*****************************************
-"""
+
 
 import os
 import codecs

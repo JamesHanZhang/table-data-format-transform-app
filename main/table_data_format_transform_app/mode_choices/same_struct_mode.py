@@ -12,11 +12,15 @@ import os
 from analysis_modules import FormatTransformation
 from analysis_modules import default_properties as prop
 from analysis_modules import SysLog
-from analysis_modules import ParamsMode, OutputMode, ParamsModeDesc, OutputModeDesc
+from analysis_modules import ParamsMode, OutputMode, ParamsModeDesc, OutputModeDesc, IntegrateParams
 from basic_operation import *
 from main.table_data_format_transform_app.mode_choices.mode_choices_enum import ModeChoicesDesc
 
+def sep_line():
+    print("****************************")
+
 def init_params_set() -> str:
+    sep_line()
     params_set = input(
         f"请输入参数表名(没有拓展名), 如不输入并直接回车则默认为'{prop.DEFAULT_PARAMS_SET}': ").strip()
     if params_set == "":
@@ -24,6 +28,7 @@ def init_params_set() -> str:
     return params_set
 
 def init_params_mode() -> Enum:
+    sep_line()
     print(f"请选择以下不同的参数生成及导入模式: \n{ParamsModeDesc.FROM_SETTING.value}\n"
           f"{ParamsModeDesc.FROM_EXISTS.value}\n"
           f"{ParamsModeDesc.FROM_BASE.value}\n")
@@ -33,6 +38,7 @@ def init_params_mode() -> Enum:
     return params_mode
 
 def init_output_mode() -> OutputMode:
+    sep_line()
     msg_line = "    ***********************************************************\n"
     msg = f"请根据数字选择数据导出模式:\n" \
           f"    {OutputModeDesc.ACTIVATION_MODE.value}\n{msg_line}" \
@@ -49,6 +55,7 @@ def init_output_mode() -> OutputMode:
     return output_mode
 
 def init_input_path():
+    sep_line()
     input_path = input("请输入您希望导入的不同数据结构的多个数据文件的绝对路径\n"
                        "如直接回车, 则默认采用本地`input_dataset`默认路径\n"
                        "请输入: ").strip()
@@ -60,6 +67,7 @@ def init_input_path():
     raise ValueError("路径输入错误! 必须是绝对路径!")
 
 def init_output_path():
+    sep_line()
     output_path = input("请输入您希望的导出路径(绝对路径)\n"
                        "如直接回车, 则默认采用本地`output_dataset`默认路径\n"
                        "请输入: ").strip()
@@ -120,8 +128,10 @@ def run_same_struct_mode():
     ft.run_based_on_params_set(params_set, params_mode, output_mode)
     msg = f"######################## 参数表'{params_set}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
+    import_params, output_params, basic_process_params = IntegrateParams.get_params(params_set, ParamsMode.FROM_EXISTS)
+    SysLog.show_log(f"共计转换数据量为: {import_params.import_index_size}条记录.")
     SysLog.show_log(prop.DISCLAIMER)
-    time.sleep(3)
+    time.sleep(4)
     
     
 if __name__ == "__main__":

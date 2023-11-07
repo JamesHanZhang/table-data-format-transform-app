@@ -16,6 +16,7 @@ from main.table_data_format_transform_app.mode_choices.mode_choices_enum import 
 
 
 def init_import_type():
+    sep_line()
     extension = input("请输入该路径下的数据类型, 仅输入拓展名即可, 例如 `.csv`, `.xlsx`等;\n"
                       "如希望导入所有文件, 则请直接回车: ").strip()
     return extension

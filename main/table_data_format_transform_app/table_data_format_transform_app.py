@@ -16,6 +16,7 @@ from main.table_data_format_transform_app.mode_choices import *
 print(prop.SOFTWARE_EXPLANATION)
 
 def init_mode():
+    sep_line()
     msg_line = "    ***********************************************************\n"
     msg = f"请根据数字选择数据导出模式:\n" \
           f"    {ModeChoicesDesc.SAME_STRUCT_MODE.value}\n{msg_line}" \

@@ -11,6 +11,7 @@ from main.table_data_format_transform_app.mode_choices.same_struct_mode import *
 from main.table_data_format_transform_app.mode_choices.mode_choices_enum import ModeChoicesDesc
 
 def init_params_creation_list() -> list[str]:
+    sep_line()
     params_sets = input("请输入需批量新建的参数表名, 以英文输入的逗号分隔(','): ").strip()
     params_sets = params_sets.split(',')
     new_params_sets = list()

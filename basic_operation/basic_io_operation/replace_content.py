@@ -50,7 +50,7 @@ class ReplaceContent(FindChildPaths):
 
 if __name__ == '__main__':
     target_content = ""
-    substitution = "xaaxxaa"
+    substitution = ""
     encoding = "utf-8"
     rc = ReplaceContent(encoding)
     

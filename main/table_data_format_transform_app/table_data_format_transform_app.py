@@ -11,7 +11,7 @@ import time
 
 from analysis_modules import default_properties as prop
 from basic_operation import *
-from main.format_transformation.mode_choices import *
+from main.table_data_format_transform_app.mode_choices import *
 
 print(prop.SOFTWARE_EXPLANATION)
 

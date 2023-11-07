@@ -31,7 +31,6 @@ class ParamsBasicSetting:
         if codecs.lookup(encoding):
             return encoding.lower()
         SysLog.show_log(f"[INCORRECT ENCODING] rewrite the encoding '{encoding}' with default encoding '{default_encoding}'")
-        time.sleep(2)
         return default_encoding.lower()
     
     def get_encoding(self, new_encoding, default_encoding):

@@ -1,5 +1,5 @@
 # 项目名称
-PROJECT_NAME = "data-format-analysis-tool"
+PROJECT_NAME = "table-data-format-transform-app"
 
 # 默认临时json参数文件
 DEFAULT_PARAMS_SET = "DEFAULT"
@@ -13,14 +13,14 @@ DEFAULT_ENCODING = 'gb18030'
 TIME_ZONE = "UTC/GMT+8hours"
 
 # log参数：程序启动提示语
-START_WORDS = """
+START_WORDS = f"""
 *************************************************************************
 ***                          PROGRAM STARTS                           ***
 ***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
 ***                           VERSION:2.01                            ***
 ***                  e-mail: jameshanzhang@foxmail.com                ***
-***   link: github.com/JamesHanZhang/table-data-format-transform-app  ***
 *************************************************************************
+link: github.com/JamesHanZhang/{PROJECT_NAME}
 """
 
 # 软件介绍
@@ -47,3 +47,11 @@ SOFTWARE_EXPLANATION = """
 ######################## 程序开始执行, 请耐心等候 ################################
 """
 
+# 免责声明
+DISCLAIMER=f"""
+*************************** 免责声明 ******************************
+    本程序遵循MIT开源协议, 如有疑问, 可依据以下链接查看源代码:
+    link: github.com/JamesHanZhang/{PROJECT_NAME}
+    请用户自行负责校验数据转换质量
+******************************************************************
+"""

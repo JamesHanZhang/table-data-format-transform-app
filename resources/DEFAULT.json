@@ -1,7 +1,7 @@
 {
     "import_params": {
-        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\input_dataset",
-        "input_file": "input_test.csv",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\input_dataset",
+        "input_file": "input_test.md",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
@@ -23,16 +23,16 @@
         }
     },
     "output_params": {
-        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\output_dataset",
-        "output_file": "output_test.md",
-        "output_encoding": "utf-8",
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\output_dataset",
+        "output_file": "output_test.csv",
+        "output_encoding": "gb18030",
         "if_sep": false,
         "only_one_chunk": false,
         "overwrite": true,
         "chunksize": 50000,
         "md_output_params": {
             "activation": true,
-            "output_index_size": 6
+            "output_index_size": 0
         },
         "csv_output_params": {
             "activation": true,
@@ -43,18 +43,13 @@
         "xls_output_params": {
             "activation": true,
             "output_sheet": "Sheet1",
-            "output_index_size": 6
+            "output_index_size": 0
         },
         "sql_output_params": {
             "activation": true,
             "table_name": "table_for_temp_use",
             "table_comment": "临时表, 可删除",
-            "table_structure": {
-                "TABLE_AFFILIATION": 6,
-                "YEAR": 4,
-                "TRAN_NUMBER": 4,
-                "REMARK": 6
-            },
+            "table_structure": {},
             "column_comments": {},
             "database": "Oracle",
             "database_options": [
@@ -65,7 +60,7 @@
                 "SqlServer"
             ],
             "repl_to_sub_comma": ";",
-            "output_index_size": 6
+            "output_index_size": 0
         }
     },
     "basic_process_params": {

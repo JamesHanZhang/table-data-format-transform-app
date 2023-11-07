@@ -23,7 +23,8 @@ class MdImportDriver(CsvImportDriver):
             how='all'
         ).iloc[1:]
         df.columns = df.columns.str.strip()
-
+        # strip() 每一列
+        df = df.map(lambda element: element.strip() if isinstance(element, str) else element)
         msg = f"[IMPORT MARKDOWN]: data from {self.input_file} is fully imported."
         self.log.show_log(msg)
         return df
@@ -45,5 +46,7 @@ class MdImportDriver(CsvImportDriver):
                 chunk = chunk.iloc[1:]
             # 重设列名
             chunk.columns = chunk.columns.str.strip()
+            # strip() 每一列
+            chunk = chunk.map(lambda element: element.strip() if isinstance(element, str) else element)
             chunk_no += 1
             yield chunk

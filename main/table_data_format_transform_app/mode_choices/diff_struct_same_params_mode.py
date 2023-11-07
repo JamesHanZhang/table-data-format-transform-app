@@ -9,8 +9,8 @@
 
 from analysis_modules import FormatTransformation, DiffTransBatchFiles
 from analysis_modules import default_properties as prop
-from main.format_transformation.mode_choices.same_struct_mode import *
-from main.format_transformation.mode_choices.mode_choices_enum import ModeChoicesDesc
+from main.table_data_format_transform_app.mode_choices.same_struct_mode import *
+from main.table_data_format_transform_app.mode_choices.mode_choices_enum import ModeChoicesDesc
 
 
 
@@ -71,6 +71,7 @@ def run_diff_struct_same_params_mode():
     dtbf.diff_trans_batch_files(params_set,params_mode,output_mode, import_type=import_type, input_path=input_path, output_path=output_path)
     msg = f"######################## 参数表'{params_set}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
+    SysLog.show_log(prop.DISCLAIMER)
     time.sleep(3)
 
 

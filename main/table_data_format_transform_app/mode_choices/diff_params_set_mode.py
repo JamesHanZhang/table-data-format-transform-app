@@ -7,8 +7,8 @@
 *************************************************************************
 """
 
-from main.format_transformation.mode_choices.same_struct_mode import *
-from main.format_transformation.mode_choices.mode_choices_enum import ModeChoicesDesc
+from main.table_data_format_transform_app.mode_choices.same_struct_mode import *
+from main.table_data_format_transform_app.mode_choices.mode_choices_enum import ModeChoicesDesc
 
 def init_params_creation_list() -> list[str]:
     params_sets = input("请输入需批量新建的参数表名, 以英文输入的逗号分隔(','): ").strip()
@@ -61,6 +61,7 @@ def run_diff_params_mode():
     ft.create_run_multi_params_sets(params_sets, output_mode)
     msg = f"######################## 参数表'{str(params_sets)}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
+    SysLog.show_log(prop.DISCLAIMER)
     time.sleep(3)
 
 

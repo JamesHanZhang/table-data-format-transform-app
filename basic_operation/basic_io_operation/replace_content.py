@@ -62,6 +62,6 @@ if __name__ == '__main__':
         extension = '.py'
         rc.sub_type_path_common_content(parent_path, target_content, substitution, extension)
     if if_batch is False:
-        file_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\analysis_modules\\app_entrances\\format_transformation.py"
+        file_path = "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\analysis_modules\\app_entrances\\table_data_format_transform_app.py"
         rc.sub_single_file_content(file_path, target_content, substitution)
 

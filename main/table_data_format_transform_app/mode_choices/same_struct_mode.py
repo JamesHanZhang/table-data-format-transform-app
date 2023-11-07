@@ -14,7 +14,7 @@ from analysis_modules import default_properties as prop
 from analysis_modules import SysLog
 from analysis_modules import ParamsMode, OutputMode, ParamsModeDesc, OutputModeDesc
 from basic_operation import *
-from main.format_transformation.mode_choices.mode_choices_enum import ModeChoicesDesc
+from main.table_data_format_transform_app.mode_choices.mode_choices_enum import ModeChoicesDesc
 
 def init_params_set() -> str:
     params_set = input(
@@ -120,6 +120,7 @@ def run_same_struct_mode():
     ft.run_based_on_params_set(params_set, params_mode, output_mode)
     msg = f"######################## 参数表'{params_set}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
+    SysLog.show_log(prop.DISCLAIMER)
     time.sleep(3)
     
     

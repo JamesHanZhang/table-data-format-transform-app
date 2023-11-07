@@ -57,6 +57,7 @@ class ImportParams(ParamsBasicSetting):
         self.quote_as_object = import_params['quote_as_object']
         self.if_circular = import_params['if_circular']
         self.chunksize = import_params['chunksize']
+        self.import_index_size = import_params['import_index_size']
         
         self.batch_import_params.if_batch = import_params['batch_import_params']['if_batch']
         self.batch_import_params.import_type = import_params['batch_import_params']['import_type']

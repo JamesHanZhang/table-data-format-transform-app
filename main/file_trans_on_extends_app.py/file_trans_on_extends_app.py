@@ -8,8 +8,11 @@ from analysis_modules import ParamsMode, OutputMode
 from basic_operation import IoMethods
 from analysis_modules import ImportParams, BasicProcessParams, OutputParams, IntegrateParams
 
+def sep_line():
+    print("****************************")
 
 def init_input_path():
+    sep_line()
     input_path = input("请输入您希望导入的不同数据结构的多个数据文件的绝对路径\n"
                        "如直接回车, 则默认采用本地`input_dataset`默认路径\n"
                        "请输入: ").strip()
@@ -24,6 +27,7 @@ def init_sep(file_name, version):
     extension = IoMethods.get_file_extension(file_name)
     csv_sep = ""
     if extension == '.csv':
+        sep_line()
         csv_sep = input(f"请输入您希望{version}的csv文件的分隔符, 并回车: ").strip()
         if csv_sep == "":
             raise ValueError("请正确输入分隔符!")
@@ -32,6 +36,7 @@ def init_sep(file_name, version):
 def init_encoding(file_name, version):
     extension = IoMethods.get_file_extension(file_name)
     if extension in ['.md', '.csv']:
+        sep_line()
         if version == "导入":
             print("如不填写编码encoding, 默认为自动识别文本的编码encoding.")
         if version == "导出":
@@ -47,6 +52,7 @@ def init_encoding(file_name, version):
 
 
 def init_output_path():
+    sep_line()
     output_path = input("请输入您希望的导出路径(绝对路径)\n"
                         "如直接回车, 则默认采用本地`output_dataset`默认路径\n"
                         "请输入: ").strip()
@@ -58,6 +64,7 @@ def init_output_path():
     raise ValueError("路径输入错误! 必须是绝对路径!")
 
 def init_file(version: str):
+    sep_line()
     file_name = input(f"请输入您希望{version}的文件名(含拓展名, e.g. test.csv): ").strip()
     extension = IoMethods.get_file_extension(file_name)
     if extension not in ['.xls', '.xlsx', '.xltx', '.xlsm', '.xlt', '.xltm', '.xlam', '.xla','.csv','.md']:
@@ -148,11 +155,12 @@ def run_same_struct_mode():
     ft = FormatTransformation()
     ft.run_based_on_params_set(params_set, ParamsMode.FROM_EXISTS, OutputMode.EXTENSION_MODE)
     import_params, output_params, basic_process_params = IntegrateParams.get_params(params_set, ParamsMode.FROM_EXISTS)
-    print(f"共计转换数据量为: {import_params.import_index_size}条记录.")
+    
     msg = f"######################## 参数表'{params_set}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
+    SysLog.show_log(f"共计转换数据量为: {import_params.import_index_size}条记录.")
     SysLog.show_log(prop.DISCLAIMER)
-    time.sleep(3)
+    time.sleep(4)
 
 
 if __name__ == "__main__":

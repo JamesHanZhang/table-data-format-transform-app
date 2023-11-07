@@ -18,8 +18,8 @@ class ReplaceContent(FindChildPaths):
         old_content = self.read_content(file_path)
         new_content = re.sub(target, substitution, old_content)
         self.store_file(output_path=file_path, content=new_content, overwrite=True)
-        file_name = self.get_full_file_name(file_path)
-        print(f"substitution for file `{file_name}` is successfully done.")
+        if old_content != new_content:
+            print(f"substitution for file `{file_path}` is successfully done.")
         return
 
     def sub_paths_content(self, file_paths: list[str], target: str, substitution: str) -> None:

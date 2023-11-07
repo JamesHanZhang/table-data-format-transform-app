@@ -7,7 +7,7 @@ output_path = ""
 output_file = "output_test.csv"
 
 # 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
-output_encoding = ""
+output_encoding = "gb18030"
 
 # 判断是否要拆分，如拆分，则按照导入的chunksize的大小进行拆分
 if_sep = False

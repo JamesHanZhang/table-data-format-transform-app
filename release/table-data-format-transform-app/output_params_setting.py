@@ -6,7 +6,7 @@ output_path = ""
 # 文件名不要有`.`, 以免被误识别为拓展名
 output_file = "output_test.csv"
 
-# 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk"
+# 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk", 如不填写, 导出默认为gb18030
 output_encoding = "gb18030"
 
 # 判断是否要拆分，如拆分，则按照导入的chunksize的大小进行拆分

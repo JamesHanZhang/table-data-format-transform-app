@@ -1,12 +1,12 @@
 {
     "import_params": {
         "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\input_dataset",
-        "input_file": "input_test4.csv",
+        "input_file": "input_test.csv",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
-        "chunksize": 50000,
-        "import_index_size": 21,
+        "chunksize": 3,
+        "import_index_size": 6,
         "batch_import_params": {
             "if_batch": false,
             "import_type": ".csv"
@@ -24,30 +24,30 @@
     },
     "output_params": {
         "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\output_dataset",
-        "output_file": "input_test4.csv",
+        "output_file": "output_test.xlsx",
         "output_encoding": "gb18030",
-        "if_sep": false,
+        "if_sep": true,
         "only_one_chunk": false,
         "overwrite": true,
-        "chunksize": 50000,
+        "chunksize": 3,
         "md_output_params": {
             "activation": true,
             "output_index_size": 0
         },
         "csv_output_params": {
             "activation": true,
-            "output_sep": ",",
+            "output_sep": "",
             "repl_to_sub_sep": ";",
-            "output_index_size": 21
+            "output_index_size": 0
         },
         "xls_output_params": {
             "activation": true,
             "output_sheet": "Sheet1",
-            "output_index_size": 0
+            "output_index_size": 6
         },
         "sql_output_params": {
             "activation": true,
-            "table_name": "input_test4",
+            "table_name": "table_for_temp_use",
             "table_comment": "临时表, 可删除",
             "table_structure": {},
             "column_comments": {},

@@ -48,6 +48,7 @@
 3. 仅支持excel, csv, markdown之间的或许转换；
 4. 支持大数据单文件转换；csv支持多字符分隔符；
 5. 会自动校验csv, markdown的导入数据，自动识别脏数据；
+6. 支持将大文件数据拆分成多个小文件数据；
 
 ### 主程序 - table_data_format_transform_app使用说明
 

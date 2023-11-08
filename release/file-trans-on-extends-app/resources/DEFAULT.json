@@ -1,12 +1,12 @@
 {
     "import_params": {
-        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\release\\file_trans_on_extends_app\\input_dataset",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\release\\file-trans-on-extends-app\\input_dataset",
         "input_file": "input_test.csv",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
         "chunksize": 50000,
-        "import_index_size": 6,
+        "import_index_size": 0,
         "batch_import_params": {
             "if_batch": false,
             "import_type": ".csv"
@@ -23,8 +23,8 @@
         }
     },
     "output_params": {
-        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\release\\file_trans_on_extends_app\\output_dataset",
-        "output_file": "try.md",
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\release\\file-trans-on-extends-app\\output_dataset",
+        "output_file": "test.xlsx",
         "output_encoding": "gb18030",
         "if_sep": false,
         "only_one_chunk": false,
@@ -32,12 +32,12 @@
         "chunksize": 50000,
         "md_output_params": {
             "activation": true,
-            "output_index_size": 6
+            "output_index_size": 0
         },
         "csv_output_params": {
             "activation": true,
             "output_sep": "",
-            "repl_to_sub_sep": ";",
+            "repl_to_sub_sep": "，",
             "output_index_size": 0
         },
         "xls_output_params": {

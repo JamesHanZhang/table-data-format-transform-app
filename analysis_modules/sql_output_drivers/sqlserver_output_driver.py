@@ -1,11 +1,11 @@
-
 # self-made modules
 import analysis_modules.default_properties as prop
 from analysis_modules.sql_output_drivers.sql_output_driver import SqlOutputDriver
 from analysis_modules.params_monitor import OutputParams
 
+
 class SqlServerOutputDriver(SqlOutputDriver):
-    def __init__(self, output_params: OutputParams, params_set: str=prop.DEFAULT_PARAMS_SET):
+    def __init__(self, output_params: OutputParams, params_set: str = prop.DEFAULT_PARAMS_SET):
         super().__init__(output_params, params_set)
         
         # 不同数据库的从pandas的类型到数据库的类型的转换
@@ -29,7 +29,7 @@ class SqlServerOutputDriver(SqlOutputDriver):
         需要依据数据库的不同，重写的函数
         如果元素为datetime64的时候，元素在sql里应该怎么写
         """
-        if col_type == 'datetime64':
+        if 'datetime' in col_type:
             # 这里可能会因为实际需要需时常改动
             element = f"CONVERT(datetime2, '{element}')"
         elif col_type == 'timedelta64':
@@ -54,5 +54,6 @@ class SqlServerOutputDriver(SqlOutputDriver):
         line_construct = ',\n'.join(line_construct)
         
         table_creation_sql = f"{remark_note}CREATE TABLE {self.table_name}(\n{line_construct}\n);\n"
-        self.log.show_log("[COMPLEX COMMENTS PROBLEM] the comments for sql server is complex, so that the user need to define it himself or herself.")
+        self.log.show_log(
+            "[COMPLEX COMMENTS PROBLEM] the comments for sql server is complex, so that the user need to define it himself or herself.")
         return table_creation_sql

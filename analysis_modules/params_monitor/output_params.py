@@ -1,10 +1,10 @@
-
 import copy
 # self-made modules
 from analysis_modules import default_properties as prop
 from analysis_modules.params_monitor.import_params import ImportParams
 from analysis_modules.params_monitor.params_basic_setting import ParamsBasicSetting
-import output_params_setting as oparams # 打包的时候要去掉
+import output_params_setting as oparams  # 打包的时候要去掉
+
 
 # pyinstaller打包专用, 将oparams.去掉后, 将output_params_setting.py放到主程序同目录下, 打包后该主程序对于output_params_setting.py强依赖, 可通过参数表修改程序
 
@@ -21,7 +21,7 @@ import output_params_setting as oparams # 打包的时候要去掉
 class OutputParams(ParamsBasicSetting):
     def __init__(self):
         super().__init__()
-
+        
         # 初始化变量
         self.output_path = self.get_abspath(prop.OUTPUT_PATH, oparams.output_path)
         self.output_file = oparams.output_file
@@ -35,11 +35,11 @@ class OutputParams(ParamsBasicSetting):
         self.csv_output_params = self.CsvOutputParams()
         self.xls_output_params = self.XlsOutputParams()
         self.sql_output_params = self.SqlOutputParams()
-        
+    
     def get_params_from_import_params(self):
         import_params = ImportParams()
         self.chunksize = import_params.chunksize
-
+    
     def get_output_params(self) -> dict:
         # 深拷贝: 完整将元素及嵌套的元素复制，确保没有共享引用;否则修改__dict__就是在修改该对象的元素
         params = copy.deepcopy(self.__dict__)
@@ -48,13 +48,13 @@ class OutputParams(ParamsBasicSetting):
         params['xls_output_params'] = copy.deepcopy(self.xls_output_params.__dict__)
         params['sql_output_params'] = copy.deepcopy(self.sql_output_params.__dict__)
         return params
-
-    def store_output_params(self, params_set: str=prop.DEFAULT_PARAMS_SET):
+    
+    def store_output_params(self, params_set: str = prop.DEFAULT_PARAMS_SET):
         # 将参数保存到json参数表内
         output_params_dict = self.get_output_params()
         self.store_params("output_params", output_params_dict, params_set)
-
-    def load_output_params(self, params_set: str=prop.DEFAULT_PARAMS_SET):
+    
+    def load_output_params(self, params_set: str = prop.DEFAULT_PARAMS_SET):
         # 从json参数表里读取参数
         process_params = self.read_process_params(params_set)
         output_params = process_params['output_params']
@@ -69,7 +69,7 @@ class OutputParams(ParamsBasicSetting):
         # md params
         self.md_output_params.activation = output_params['md_output_params']['activation']
         self.md_output_params.output_index_size = output_params['md_output_params']['output_index_size']
-
+        
         # csv params
         self.csv_output_params.activation = output_params['csv_output_params']['activation']
         self.csv_output_params.output_sep = output_params['csv_output_params']['output_sep']
@@ -89,16 +89,17 @@ class OutputParams(ParamsBasicSetting):
         self.sql_output_params.column_comments = output_params['sql_output_params']['column_comments']
         self.sql_output_params.database = output_params['sql_output_params']['database']
         self.sql_output_params.database_options = output_params['sql_output_params']['database_options']
+        self.sql_output_params.to_date_formats = output_params['sql_output_params']['to_date_formats']
         self.sql_output_params.repl_to_sub_comma = output_params['sql_output_params']['repl_to_sub_comma']
         self.sql_output_params.output_index_size = output_params['sql_output_params']['output_index_size']
-
+    
     class CsvOutputParams:
         def __init__(self):
             self.activation = oparams.csv_output_params['activation']
             self.output_sep = oparams.csv_output_params['output_sep']
             self.repl_to_sub_sep = oparams.csv_output_params['repl_to_sub_sep']
             self.output_index_size = oparams.csv_output_params['output_index_size']
-
+    
     class XlsOutputParams:
         def __init__(self):
             self.activation = oparams.xls_output_params['activation']
@@ -109,7 +110,7 @@ class OutputParams(ParamsBasicSetting):
         def __init__(self):
             self.activation = oparams.md_output_params['activation']
             self.output_index_size = oparams.md_output_params['output_index_size']
-
+    
     class SqlOutputParams:
         def __init__(self):
             self.activation = oparams.sql_output_params['activation']
@@ -119,5 +120,6 @@ class OutputParams(ParamsBasicSetting):
             self.column_comments = oparams.sql_output_params['column_comments']
             self.database = oparams.sql_output_params['database']
             self.database_options = oparams.sql_output_params['database_options']
+            self.to_date_formats = oparams.sql_output_params['to_date_formats']
             self.repl_to_sub_comma = oparams.sql_output_params['repl_to_sub_comma']
             self.output_index_size = oparams.sql_output_params['output_index_size']

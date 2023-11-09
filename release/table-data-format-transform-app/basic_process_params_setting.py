@@ -23,8 +23,18 @@ change_types_opt = {
     'activation': False,
     # key: column new name if changed else column old name, value: type in pandas as target type
     'change_types': {
-        'column_name': 'type_in_pandas'
+        'column_name': 'type_in_pandas',
     },
+    # how to turn datetime type data to object
+    # 用来设置如何将datetime类型的数据转为字符串, 其数据转换必须在change_types里先提到: '列': 'object', 然后这个列是datetime类型
+    'from_date_formats': {
+        'column_name': '%Y-%m-%d', # date-format in pandas
+    },
+    # how to turn object to certain datetime type data
+    # 用来设置如何将字段从字符串转为datetime数据类型, 其数据转换必须在change_types里先提到: '列': 'datetime64', 然后这个列是object类型
+    'to_date_formats': {
+        'column_name': '%Y-%m-%d', # date-format in pandas
+    }
 }
 
 pick_columns_opt = {

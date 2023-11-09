@@ -49,8 +49,8 @@ class ReplaceContent(FindChildPaths):
         return
 
 if __name__ == '__main__':
-    target_content = ""
-    substitution = ""
+    target_content = " VERSION\:2\.01"
+    substitution = " VERSION:2.2.0"
     encoding = "utf-8"
     rc = ReplaceContent(encoding)
     

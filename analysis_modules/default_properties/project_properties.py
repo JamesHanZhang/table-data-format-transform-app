@@ -17,7 +17,7 @@ START_WORDS = f"""
 *************************************************************************
 ***                          PROGRAM STARTS                           ***
 ***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
-***                           VERSION:2.01                            ***
+***                           VERSION:2.2.0                            ***
 ***                  e-mail: jameshanzhang@foxmail.com                ***
 *************************************************************************
 link: github.com/JamesHanZhang/{PROJECT_NAME}

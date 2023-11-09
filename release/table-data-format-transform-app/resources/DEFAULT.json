@@ -37,7 +37,7 @@
         "csv_output_params": {
             "activation": true,
             "output_sep": ",",
-            "repl_to_sub_sep": ";",
+            "repl_to_sub_sep": "，",
             "output_index_size": 6
         },
         "xls_output_params": {
@@ -59,6 +59,9 @@
                 "PostgreSql",
                 "SqlServer"
             ],
+            "to_date_formats": {
+                "column_name": "yyyy-mm-dd hh24:mi:ss"
+            },
             "repl_to_sub_comma": ";",
             "output_index_size": 0
         }
@@ -87,6 +90,12 @@
             "activation": false,
             "change_types": {
                 "column_name": "type_in_pandas"
+            },
+            "from_date_formats": {
+                "column_name": "%Y-%m-%d"
+            },
+            "to_date_formats": {
+                "column_name": "%Y-%m-%d"
             }
         },
         "pick_columns_opt": {

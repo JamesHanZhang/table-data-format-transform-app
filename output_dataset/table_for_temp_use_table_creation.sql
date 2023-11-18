@@ -7,4 +7,4 @@ CREATE TABLE table_for_temp_use(
     REMARK VARCHAR2(6)
 );
 
-COMMENT ON TABLE table_for_temp_use IS 'Д╦╢Ф≈╤Х║╗, Е▐╞Е┬═И≥╓';
+COMMENT ON TABLE table_for_temp_use IS 'аый╠╠М, ©ии╬ЁЩ';

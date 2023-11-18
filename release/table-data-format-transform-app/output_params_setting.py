@@ -4,7 +4,7 @@ output_path = ""
 
 # 导出的文件名, 如采用based_on_activation模式导出则不能携带拓展名, 否则必须携带拓展名
 # 文件名不要有`.`, 以免被误识别为拓展名
-output_file = "output_test.sql"
+output_file = "output_test.csv"
 
 # 加载时的解码格式默认值：INPUT_ENCODE = "utf-8" 或者中文环境下常用"gbk", 如不填写, 导出默认为gb18030
 output_encoding = "gb18030"
@@ -55,7 +55,7 @@ sql_output_params = {
     # 选择导出的数据库类型，请注意大小写必须严格遵循下面的可选项
     'database': 'Oracle',
     # DATABASE里的可选项，作用仅为提示DATABASE里可写的数据库引擎
-    'database_options': ['Oracle', 'GBase', 'MySql', 'PostgreSql', 'SqlServer'],
+    'database_options': ['Oracle', 'GBase', 'MySql', 'PostgreSql', 'SqlServer', 'TdSql'],
     # 如果涉及到需要将数据从字符串转为DATETIME, 或者需要pandas里数据类型为datetime64的转为合适的DATETIME的插入语句
     # key: 列名, value: 导出数据的格式(基于database); 如仅填写key,而value为""，则表示将字符串转DATETIME, 默认转换类型为2023-11-09 13:23:44
     # 如不填写, 则默认按照格式转换的部分来判断是否在INSERT语句中转为DATETIME的语句

@@ -1,16 +1,16 @@
 
 -- Oracle: table <table_for_temp_use>: sql table insertion commands from row 1 to row 6
--- Oracle: è¡¨ <table_for_temp_use>: ä»Žç¬¬1æ¡æ•°æ®åˆ°ç¬¬6æ¡æ•°æ®çš„æ’å…¥è¯­å¥
+-- Oracle: ±í <table_for_temp_use>: ´ÓµÚ1ÌõÊý¾Ýµ½µÚ6ÌõÊý¾ÝµÄ²åÈëÓï¾ä
 INSERT INTO table_for_temp_use (TABLE_AFFILIATION,YEAR,TRAN_NUMBER,REMARK) 
-VALUES('è¥¿åŒ—','2003','1233','åŽŸå§‹');
+VALUES('Î÷±±','2003','1233','Ô­Ê¼');
 INSERT INTO table_for_temp_use (TABLE_AFFILIATION,YEAR,TRAN_NUMBER,REMARK) 
-VALUES('è¥¿åŒ—','2005','2343','çŽ°ä»£');
+VALUES('Î÷±±','2005','2343','ÏÖ´ú');
 INSERT INTO table_for_temp_use (TABLE_AFFILIATION,YEAR,TRAN_NUMBER,REMARK) 
-VALUES('è¥¿åŒ—','2004','3212','è½¬å˜');
+VALUES('Î÷±±','2004','3212','×ª±ä');
 INSERT INTO table_for_temp_use (TABLE_AFFILIATION,YEAR,TRAN_NUMBER,REMARK) 
-VALUES('è¥¿å—','2003','1233','åŽŸå§‹');
+VALUES('Î÷ÄÏ','2003','1233','Ô­Ê¼');
 INSERT INTO table_for_temp_use (TABLE_AFFILIATION,YEAR,TRAN_NUMBER,REMARK) 
-VALUES('è¥¿å—','2005','2343','çŽ°ä»£');
+VALUES('Î÷ÄÏ','2005','2343','ÏÖ´ú');
 INSERT INTO table_for_temp_use (TABLE_AFFILIATION,YEAR,TRAN_NUMBER,REMARK) 
-VALUES('è¥¿å—','2004','3212','è½¬å˜');
+VALUES('Î÷ÄÏ','2004','3212','×ª±ä');
 COMMIT;

@@ -11,6 +11,7 @@ from analysis_modules.sql_output_drivers.mysql_output_driver import MySqlOutputD
 from analysis_modules.sql_output_drivers.gbase_output_driver import GBaseOutputDriver
 from analysis_modules.sql_output_drivers.postgresql_output_driver import PostgreSqlOutputDriver
 from analysis_modules.sql_output_drivers.sqlserver_output_driver import SqlServerOutputDriver
+from analysis_modules.sql_output_drivers.tdsql_output_driver import TdSqlOutputDriver
 
 class SqlOutput:
     def __init__(self):
@@ -64,6 +65,8 @@ class SqlOutput:
             self.sql_out_driver = PostgreSqlOutputDriver(output_params, params_set)
         elif self.database == "SqlServer":
             self.sql_out_driver = SqlServerOutputDriver(output_params, params_set)
+        elif self.database == "TdSql":
+            self.sql_out_driver = TdSqlOutputDriver(output_params, params_set)
         else:
             raise TypeError("[TypeError] the database you choose didn't follow the rule in the list of database choices.")
         output_params.store_output_params(params_set)

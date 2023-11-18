@@ -1,7 +1,7 @@
 {
     "import_params": {
-        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\input_dataset",
-        "input_file": "test.csv",
+        "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\input_dataset",
+        "input_file": "input_test.md",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
@@ -23,8 +23,8 @@
         }
     },
     "output_params": {
-        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\data-format-analysis-tool\\output_dataset",
-        "output_file": "test.csv",
+        "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\output_dataset",
+        "output_file": "output_test.csv",
         "output_encoding": "gb18030",
         "if_sep": false,
         "only_one_chunk": false,
@@ -37,7 +37,7 @@
         "csv_output_params": {
             "activation": true,
             "output_sep": ",",
-            "repl_to_sub_sep": ";",
+            "repl_to_sub_sep": "，",
             "output_index_size": 0
         },
         "xls_output_params": {
@@ -57,8 +57,12 @@
                 "GBase",
                 "MySql",
                 "PostgreSql",
-                "SqlServer"
+                "SqlServer",
+                "TdSql"
             ],
+            "to_date_formats": {
+                "column_name": "yyyy-mm-dd hh24:mi:ss"
+            },
             "repl_to_sub_comma": ";",
             "output_index_size": 0
         }
@@ -87,6 +91,12 @@
             "activation": false,
             "change_types": {
                 "column_name": "type_in_pandas"
+            },
+            "from_date_formats": {
+                "column_name": "%Y-%m-%d"
+            },
+            "to_date_formats": {
+                "column_name": "%Y-%m-%d"
             }
         },
         "pick_columns_opt": {

@@ -1,11 +1,11 @@
 {
     "import_params": {
         "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\input_dataset",
-        "input_file": "input_test.csv",
+        "input_file": "input_test.md",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
-        "chunksize": 3,
+        "chunksize": 50000,
         "import_index_size": 6,
         "batch_import_params": {
             "if_batch": false,
@@ -24,21 +24,21 @@
     },
     "output_params": {
         "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\output_dataset",
-        "output_file": "output_test.xlsx",
+        "output_file": "output_test.md",
         "output_encoding": "gb18030",
-        "if_sep": true,
+        "if_sep": false,
         "only_one_chunk": false,
         "overwrite": true,
-        "chunksize": 3,
+        "chunksize": 50000,
         "md_output_params": {
             "activation": true,
-            "output_index_size": 0
+            "output_index_size": 6
         },
         "csv_output_params": {
             "activation": true,
-            "output_sep": "",
-            "repl_to_sub_sep": ";",
-            "output_index_size": 0
+            "output_sep": ",",
+            "repl_to_sub_sep": "，",
+            "output_index_size": 6
         },
         "xls_output_params": {
             "activation": true,
@@ -49,7 +49,12 @@
             "activation": true,
             "table_name": "table_for_temp_use",
             "table_comment": "临时表, 可删除",
-            "table_structure": {},
+            "table_structure": {
+                "TABLE_AFFILIATION": 6,
+                "YEAR": 4,
+                "TRAN_NUMBER": 4,
+                "REMARK": 6
+            },
             "column_comments": {},
             "database": "Oracle",
             "database_options": [
@@ -57,10 +62,14 @@
                 "GBase",
                 "MySql",
                 "PostgreSql",
-                "SqlServer"
+                "SqlServer",
+                "TdSql"
             ],
+            "to_date_formats": {
+                "column_name": "yyyy-mm-dd hh24:mi:ss"
+            },
             "repl_to_sub_comma": ";",
-            "output_index_size": 0
+            "output_index_size": 6
         }
     },
     "basic_process_params": {
@@ -87,6 +96,12 @@
             "activation": false,
             "change_types": {
                 "column_name": "type_in_pandas"
+            },
+            "from_date_formats": {
+                "column_name": "%Y-%m-%d"
+            },
+            "to_date_formats": {
+                "column_name": "%Y-%m-%d"
             }
         },
         "pick_columns_opt": {

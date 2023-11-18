@@ -1,10 +1,8 @@
--- TABLE table_for_temp_use: table creation sql command based on database Oracle
+-- TABLE table_for_temp_use: table creation sql command based on database TdSql
 
 CREATE TABLE table_for_temp_use(
-    TABLE_AFFILIATION VARCHAR2(6),
-    YEAR VARCHAR2(4),
-    TRAN_NUMBER VARCHAR2(4),
-    REMARK VARCHAR2(6)
-);
-
-COMMENT ON TABLE table_for_temp_use IS '临时表, 可删除';
+    TABLE_AFFILIATION VARCHAR(6),
+    YEAR VARCHAR(4),
+    TRAN_NUMBER VARCHAR(4),
+    REMARK VARCHAR(6)
+) COMMENT '临时表, 可删除';

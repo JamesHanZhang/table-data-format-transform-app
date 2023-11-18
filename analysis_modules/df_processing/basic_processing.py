@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 from analysis_modules.params_monitor import SysLog
 from analysis_modules.df_processing.null_processing import NullProcessing
@@ -11,6 +12,19 @@ class BasicProcessing:
     def __init__(self):
         self.log = SysLog()
         self.replaceNaN = prop.REPLACE_NAN
+        
+    @staticmethod
+    def drop_useless_key(df: pd.DataFrame, change_dict: dict[str, str]) -> dict[str, str]:
+        """
+        删除不在表内的关键字
+        """
+        columns = df.columns.tolist()
+        keys = list(change_dict.keys())
+        for each in keys:
+            if each not in columns:
+                del change_dict[each]
+        return change_dict
+            
     
     @staticmethod
     def raise_not_found_element_error(df, pick_columns, func_name):
@@ -90,13 +104,23 @@ class BasicProcessing:
                 try:
                     date_format = from_date_formats[column]
                 except KeyError:
-                    date_format = '%Y-%m-%d'
+                    msg = "please make sure if you wanna turn the datetime type from original data to the target type,\n"\
+                          "you must complete the 'from_date_formats' with the same column and its own date transformation format.\n" \
+                          "请确认, 如果您希望将数据从时间格式转为目标格式, 您首先需要在`from_date_formats`参数内将目标列及列对应的转换的时间格式填写正确."
+                    print(msg)
+                    time.sleep(4)
+                    raise AttributeError(msg)
                 df = cls.turn_date_format_to_str(df, column, date_format)
             if 'datetime' in change_types[column]:
                 try:
                     date_format = to_date_formats[column]
                 except KeyError:
-                    date_format = '%Y-%m-%d'
+                    msg = "please make sure if you wanna turn the string type to datetime type,\n" \
+                          "you must complete the 'to_date_formats' with the same column and its own date transformation format.\n" \
+                          "请确认, 如果您希望将数据从字符串转为时间格式, 您首先需要在`to_date_formats`参数内将目标列及列对应的转换的时间格式填写正确."
+                    print(msg)
+                    time.sleep(4)
+                    raise AttributeError(msg)
                 df = cls.turn_str_to_date_format(df, column, date_format)
             else:
                 no_date_change_types[column] = change_types[column]
@@ -113,9 +137,17 @@ class BasicProcessing:
         """
         repl_null = False
         columns = df.columns.tolist()
+        # 先去掉多余的键值
+        change_types = cls.drop_useless_key(df, change_types)
+        from_date_formats = cls.drop_useless_key(df, from_date_formats)
+        to_date_formats = cls.drop_useless_key(df, to_date_formats)
+        
+        if change_types == {}:
+            return df
+        
         # 先过一遍时间类型转换的需求
         df, change_types = cls.change_date_types(df, change_types, from_date_formats, to_date_formats)
-        
+
         for column in change_types.keys():
             # 一次只修改一列类型，这样即便错误，也只针对这列进行空值转换
             if column in columns:
@@ -201,6 +233,12 @@ if __name__ == '__main__':
     
     df = pd.DataFrame(data)
     print(str(df['Task'].dtype))
-    df = BasicProcessing.turn_str_to_date_format(df, 'Start', '%Y-%m-%d')
-    df = BasicProcessing.turn_date_format_to_str(df, 'Start', '%Y%m%d')
+    change_dict = {
+        'Start': 'xxx',
+        'OK': 'XXX'
+    }
+    change_dict = BasicProcessing.drop_useless_key(df, change_dict)
+    print(change_dict)
+    # df = BasicProcessing.turn_str_to_date_format(df, 'Start', '%Y-%m-%d')
+    # df = BasicProcessing.turn_date_format_to_str(df, 'Start', '%Y%m%d')
     print(df)

@@ -56,7 +56,7 @@
                 "REMARK": 6
             },
             "column_comments": {},
-            "database": "Oracle",
+            "database": "TdSql",
             "database_options": [
                 "Oracle",
                 "GBase",

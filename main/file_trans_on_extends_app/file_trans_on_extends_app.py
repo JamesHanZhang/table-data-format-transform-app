@@ -104,6 +104,14 @@ def init_file(version: str):
         raise ValueError("文件输入不能为空, 或不能没有拓展名(.md, .csv, .xls, .xlsx等等)!")
     return file_name
 
+def get_msg(msg:str, value, null_value) -> str:
+    msg = f"您所输入的{msg}\n"
+    return msg if value != null_value else ""
+
+def check_if_exit():
+    if_exit = input("如想退出程序, 请在此输入括号内任意值(NO, N, n, no, No)并回车, 其他则默认继续执行程序: ").strip()
+    if if_exit in ['NO','No','N','n','no']:
+        exit()
 
 start_words = """
 ######################## 欢迎使用数据格式转换软件 ###############################
@@ -124,10 +132,13 @@ def init_same_struct_mode_params():
             count += 1
             
             print("仅支持markdown, excel, csv文件之间的互相转换!")
+            check_if_exit()
+            
             
             print("请输入导入文件的参数:")
             input_file = init_file("导入")
             input_sep = init_sep(input_file, "导入")
+            input_sheet = init_sheet(input_file, "导入")
             input_encoding = init_encoding(input_file, "导入")
             input_path = init_input_path()
             
@@ -135,20 +146,25 @@ def init_same_struct_mode_params():
             if_sep, chunksize = init_if_sep()
             output_file = init_file("导出")
             output_sep = init_sep(output_file, '导出')
+            output_sheet = init_sheet(output_file, '导出')
             output_encoding = init_encoding(output_file, "导出")
             output_path = init_output_path()
             
+            input_encoding_msg = get_msg(f"导入的编码encoding为'{input_encoding}'", input_encoding, "")
+            input_sep_msg = get_msg(f"导入的csv文件的分隔符为'{input_sep}'", input_sep, "")
+            input_sheet_msg = get_msg(f"导入的excel表的子表名为'{input_sheet}'", input_sheet, None)
             
-            input_encoding_msg = f"您所输入的导入的编码encoding为'{input_encoding}'\n" if input_encoding != "" else ""
-            output_encoding_msg = f"您所输入的导出的编码encoding为'{output_encoding}'\n" if output_encoding != "" else ""
-            input_sep_msg = f"您所输入的导入csv文件的分隔符为'{input_sep}'\n" if input_sep != "" else ""
-            output_sep_msg = f"您所输入的导出csv文件的分隔符为'{output_sep}'\n" if output_sep != "" else ""
-            if_sep_msg = f"您选择了对数据进行拆分, 各子文件的拆分记录上限为{chunksize}条记录\n" if if_sep is True else ""
+            output_encoding_msg = get_msg(f"导出的编码encoding为'{output_encoding}'", output_encoding, "")
+            output_sep_msg = get_msg(f"导出的csv文件的分隔符为'{output_sep}'", output_sep, "")
+            output_sheet_msg = get_msg(f"导出的excel表的子表名为'{output_sheet}'", output_sheet, None)
+            
+            if_sep_msg = get_msg(f"您选择了对数据进行拆分, 各子文件的拆分记录上限为{chunksize}条记录", if_sep, False)
+            
             
             print(f"\n######################## 您所输入的参数如下, 请重新确认 ################################\n\n"
-                  f"您所输入的导入文件名为: '{input_file}'\n{input_sep_msg}{input_encoding_msg}"
+                  f"您所输入的导入文件名为: '{input_file}'\n{input_sep_msg}{input_sheet_msg}{input_encoding_msg}"
                   f"您所选择的导入路径为: {input_path}\n"
-                  f"{if_sep_msg}您所输入的导出文件名为: '{output_file}'\n{output_sep_msg}{output_encoding_msg}"
+                  f"{if_sep_msg}您所输入的导出文件名为: '{output_file}'\n{output_sep_msg}{output_sheet_msg}{output_encoding_msg}"
                   f"您所选择的导出路径为: {output_path}\n"
                   f"请再次确认...")
             
@@ -163,16 +179,17 @@ def init_same_struct_mode_params():
             print(reason)
             continue
     
-    return input_file, input_path , input_sep, input_encoding, if_sep, chunksize, output_file, output_path, output_sep, output_encoding
+    return input_file, input_path , input_sep, input_sheet, input_encoding, if_sep, chunksize, output_file, output_path, output_sep,output_sheet, output_encoding
 
 
 def run_same_struct_mode():
-    input_file, input_path , input_sep, input_encoding, if_sep, chunksize, output_file, output_path, output_sep, output_encoding = init_same_struct_mode_params()
+    input_file, input_path , input_sep, input_sheet, input_encoding, if_sep, chunksize, output_file, output_path, output_sep,output_sheet, output_encoding = init_same_struct_mode_params()
     params_set = prop.DEFAULT_PARAMS_SET
     
     # 修改参数
     import_params, output_params, basic_process_params = IntegrateParams.get_params(params_set, ParamsMode.FROM_SETTING)
     import_params.csv_import_params.input_sep = input_sep
+    import_params.xls_import_params.input_sheet = input_sheet
     import_params.input_file = input_file
     import_params.input_path = input_path
     import_params.chunksize = chunksize
@@ -182,6 +199,7 @@ def run_same_struct_mode():
     output_params.output_file = output_file
     output_params.output_path = output_path
     output_params.csv_output_params.output_sep = output_sep
+    output_params.xls_output_params.output_sheet =output_sheet
     output_params.chunksize = chunksize
     output_params.if_sep = if_sep
     output_params.output_encoding = output_params.get_encoding(output_encoding, prop.DEFAULT_ENCODING)
@@ -198,8 +216,11 @@ def run_same_struct_mode():
     SysLog.show_log(msg)
     SysLog.show_log(f"共计转换数据量为: {import_params.import_index_size}条记录.")
     SysLog.show_log(prop.DISCLAIMER)
-    time.sleep(4)
+    
+def run_eternity_program():
+    while True:
+        run_same_struct_mode()
 
 
 if __name__ == "__main__":
-    run_same_struct_mode()
+    run_eternity_program()

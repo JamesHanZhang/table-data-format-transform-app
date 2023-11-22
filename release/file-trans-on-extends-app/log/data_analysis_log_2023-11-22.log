@@ -1,0 +1,465 @@
+UTC/GMT+8hours:2023-11-22 22:26:47.829875
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 22:32:11.348456
+[PARAMS] parameters initialization from settings, params set file 'DEFAULT.json' is created or overwritten.
+
+UTC/GMT+8hours:2023-11-22 22:32:11.361427
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+
+*************************************************************************
+***                          PROGRAM STARTS                           ***
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.2.0                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+*************************************************************************
+link: github.com/JamesHanZhang/table-data-format-transform-app
+UTC/GMT+8hours:2023-11-22 22:32:11.369405
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-22 22:32:11.374387
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 22:32:11.381367
+[COST TIME] the program <excel reading generator created> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 22:32:12.145809
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-11-22 22:32:12.146784
+[IMPORT EXCEL]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.xlsx is imported as reader generator for circular import in chunk size 50000.
+
+UTC/GMT+8hours:2023-11-22 22:32:12.158780
+[COST TIME] the program <basic processing> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 22:32:12.170707
+[CSV OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\output_dataset\test.csv
+
+UTC/GMT+8hours:2023-11-22 22:32:12.171702
+[COST TIME] the program <store as csv> costed time: 0:00:00.004951
+
+UTC/GMT+8hours:2023-11-22 22:32:12.176700
+[NameError] for sql output, file name test.csv must contains extension '.sql' as required.
+
+UTC/GMT+8hours:2023-11-22 22:32:12.191649
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.818260
+***************************************************
+
+
+
+
+UTC/GMT+8hours:2023-11-22 22:32:12.193681
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 22:32:12.197671
+######################## 参数表'DEFAULT'的数据转换进程已顺利结束执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-22 22:32:12.204616
+共计转换数据量为: 6条记录.
+
+UTC/GMT+8hours:2023-11-22 22:32:12.210115
+
+*************************** 免责声明 ******************************
+    本程序遵循MIT开源协议, 如有疑问, 可依据以下链接查看源代码:
+    link: github.com/JamesHanZhang/table-data-format-transform-app
+    请用户自行负责校验数据转换质量
+******************************************************************
+
+
+UTC/GMT+8hours:2023-11-22 22:33:10.622476
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:12:02.658249
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:12:19.512146
+[PARAMS] parameters initialization from settings, params set file 'DEFAULT.json' is created or overwritten.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.525146
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+
+*************************************************************************
+***                          PROGRAM STARTS                           ***
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.2.0                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+*************************************************************************
+link: github.com/JamesHanZhang/table-data-format-transform-app
+UTC/GMT+8hours:2023-11-22 23:12:19.531096
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-22 23:12:19.536082
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.544061
+[COST TIME] the program <markdown reading generator created (using csv reading method)> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:12:19.552039
+[INPUT ENCODING DETECTION] file D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.md charset detected automatically: utf-8
+
+UTC/GMT+8hours:2023-11-22 23:12:19.559022
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.566029
+[ParseError]: ParseError detected not by read_csv, but by self made method.
+Error tokenizing data. C error: EOF inside string starting at row 8.
+
+
+UTC/GMT+8hours:2023-11-22 23:12:19.571024
+[ERROR LINES EXTRACTION] error lines and correct lines are separated into 2 files for further reading.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.581961
+[IMPORT CSV]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.md is imported as reader generator for circular import in chunk size 50000.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.586963
+[COST TIME] the program <csv reading generator created> costed time: 0:00:00.036904
+
+UTC/GMT+8hours:2023-11-22 23:12:19.598438
+[COST TIME] the program <basic processing> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:12:19.624366
+[MARKDOWN OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\output_dataset\output_test.md
+
+UTC/GMT+8hours:2023-11-22 23:12:19.625362
+[COST TIME] the program <store as markdown> costed time: 0:00:00.016954
+
+UTC/GMT+8hours:2023-11-22 23:12:19.643313
+[NameError] for sql output, file name output_test.md must contains extension '.sql' as required.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.650293
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.114211
+***************************************************
+
+
+
+
+UTC/GMT+8hours:2023-11-22 23:12:19.662262
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.667247
+######################## 参数表'DEFAULT'的数据转换进程已顺利结束执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-22 23:12:19.672235
+共计转换数据量为: 6条记录.
+
+UTC/GMT+8hours:2023-11-22 23:12:19.678221
+
+*************************** 免责声明 ******************************
+    本程序遵循MIT开源协议, 如有疑问, 可依据以下链接查看源代码:
+    link: github.com/JamesHanZhang/table-data-format-transform-app
+    请用户自行负责校验数据转换质量
+******************************************************************
+
+
+UTC/GMT+8hours:2023-11-22 23:12:19.683207
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:12:47.861498
+[PARAMS] parameters initialization from settings, params set file 'DEFAULT.json' is created or overwritten.
+
+UTC/GMT+8hours:2023-11-22 23:12:47.868480
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+
+*************************************************************************
+***                          PROGRAM STARTS                           ***
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.2.0                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+*************************************************************************
+link: github.com/JamesHanZhang/table-data-format-transform-app
+UTC/GMT+8hours:2023-11-22 23:12:47.874464
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-22 23:12:47.880448
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:12:47.889438
+[COST TIME] the program <excel reading generator created> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:12:48.080130
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-11-22 23:12:48.080130
+[IMPORT EXCEL]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.xlsx is imported as reader generator for circular import in chunk size 50000.
+
+UTC/GMT+8hours:2023-11-22 23:12:48.100046
+[COST TIME] the program <basic processing> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:12:48.130962
+[EXCEL OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\output_dataset\output_test.xlsx
+
+UTC/GMT+8hours:2023-11-22 23:12:48.130962
+[COST TIME] the program <store as excel> costed time: 0:00:00.017951
+
+UTC/GMT+8hours:2023-11-22 23:12:48.138944
+[NameError] for sql output, file name output_test.xlsx must contains extension '.sql' as required.
+
+UTC/GMT+8hours:2023-11-22 23:12:48.155484
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.276034
+***************************************************
+
+
+
+
+UTC/GMT+8hours:2023-11-22 23:12:48.156483
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:12:48.161469
+######################## 参数表'DEFAULT'的数据转换进程已顺利结束执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-22 23:12:48.167454
+共计转换数据量为: 6条记录.
+
+UTC/GMT+8hours:2023-11-22 23:12:48.173435
+
+*************************** 免责声明 ******************************
+    本程序遵循MIT开源协议, 如有疑问, 可依据以下链接查看源代码:
+    link: github.com/JamesHanZhang/table-data-format-transform-app
+    请用户自行负责校验数据转换质量
+******************************************************************
+
+
+UTC/GMT+8hours:2023-11-22 23:12:48.178422
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:13:11.428635
+[PARAMS] parameters initialization from settings, params set file 'DEFAULT.json' is created or overwritten.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.435619
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+
+*************************************************************************
+***                          PROGRAM STARTS                           ***
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.2.0                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+*************************************************************************
+link: github.com/JamesHanZhang/table-data-format-transform-app
+UTC/GMT+8hours:2023-11-22 23:13:11.444629
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-22 23:13:11.453605
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.466535
+[INPUT ENCODING DETECTION] file D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.csv charset detected automatically: utf-8
+
+UTC/GMT+8hours:2023-11-22 23:13:11.467533
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.474514
+[ParseError]: ParseError detected not by read_csv, but by self made method.
+Error tokenizing data. C error: EOF inside string starting at row 7.
+
+
+UTC/GMT+8hours:2023-11-22 23:13:11.479504
+[ERROR LINES EXTRACTION] error lines and correct lines are separated into 2 files for further reading.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.489476
+[IMPORT CSV]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.csv is imported as reader generator for circular import in chunk size 50000.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.493561
+[COST TIME] the program <csv reading generator created> costed time: 0:00:00.031016
+
+UTC/GMT+8hours:2023-11-22 23:13:11.501562
+[COST TIME] the program <basic processing> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:13:11.514507
+[CSV OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\output_dataset\output_test.csv
+
+UTC/GMT+8hours:2023-11-22 23:13:11.515504
+[COST TIME] the program <store as csv> costed time: 0:00:00.004987
+
+UTC/GMT+8hours:2023-11-22 23:13:11.520490
+[NameError] for sql output, file name output_test.csv must contains extension '.sql' as required.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.526472
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.073899
+***************************************************
+
+
+
+
+UTC/GMT+8hours:2023-11-22 23:13:11.532456
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.538441
+######################## 参数表'DEFAULT'的数据转换进程已顺利结束执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-22 23:13:11.543427
+共计转换数据量为: 6条记录.
+
+UTC/GMT+8hours:2023-11-22 23:13:11.550409
+
+*************************** 免责声明 ******************************
+    本程序遵循MIT开源协议, 如有疑问, 可依据以下链接查看源代码:
+    link: github.com/JamesHanZhang/table-data-format-transform-app
+    请用户自行负责校验数据转换质量
+******************************************************************
+
+
+UTC/GMT+8hours:2023-11-22 23:13:11.556395
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:15:08.648391
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:39:01.619454
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:39:16.532793
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+
+UTC/GMT+8hours:2023-11-22 23:39:45.162709
+[PARAMS] parameters initialization from settings, params set file 'DEFAULT.json' is created or overwritten.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.178666
+######################## 围绕参数表'DEFAULT'的数据格式转换程序开始执行 ################################
+
+
+
+
+*************************************************************************
+***                          PROGRAM STARTS                           ***
+***                  TABLE-DATA-FORMAT-TRANSFORM-APP                  ***
+***                           VERSION:2.2.0                            ***
+***                  e-mail: jameshanzhang@foxmail.com                ***
+*************************************************************************
+link: github.com/JamesHanZhang/table-data-format-transform-app
+UTC/GMT+8hours:2023-11-22 23:39:45.184651
+***************************************************
+[PROGRAM STARTS]: program starts...
+
+UTC/GMT+8hours:2023-11-22 23:39:45.190635
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.198616
+[COST TIME] the program <excel reading generator created> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:39:45.384361
+[WARNING]: we turned all datavalues into string type in case losing the precision of data.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.384361
+[IMPORT EXCEL]: data from D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\input_dataset\input_test.xlsx is imported as reader generator for circular import in chunk size 50000.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.397326
+[COST TIME] the program <basic processing> costed time: 0:00:00
+
+UTC/GMT+8hours:2023-11-22 23:39:45.416274
+[MARKDOWN OUTPUT]: file created: D:\CODE-PROJECTS\PYTHON-PROJECTS\table-data-format-transform-app\release\file-trans-on-extends-app\output_dataset\ssss.md
+
+UTC/GMT+8hours:2023-11-22 23:39:45.417272
+[COST TIME] the program <store as markdown> costed time: 0:00:00.010967
+
+UTC/GMT+8hours:2023-11-22 23:39:45.423255
+[NameError] for sql output, file name ssss.md must contains extension '.sql' as required.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.438219
+[THE END]: The data analysis process is successfully finished.
+[COST TIME]: The whole process costed time: 0:00:00.249539
+***************************************************
+
+
+
+
+UTC/GMT+8hours:2023-11-22 23:39:45.439217
+[PARAMS] parameters initialization from existing params file 'DEFAULT.json'.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.444230
+######################## 参数表'DEFAULT'的数据转换进程已顺利结束执行 ################################
+
+
+
+UTC/GMT+8hours:2023-11-22 23:39:45.449817
+共计转换数据量为: 6条记录.
+
+UTC/GMT+8hours:2023-11-22 23:39:45.457754
+
+*************************** 免责声明 ******************************
+    本程序遵循MIT开源协议, 如有疑问, 可依据以下链接查看源代码:
+    link: github.com/JamesHanZhang/table-data-format-transform-app
+    请用户自行负责校验数据转换质量
+******************************************************************
+
+
+UTC/GMT+8hours:2023-11-22 23:39:45.463738
+
+######################## 欢迎使用数据格式转换软件 ###############################
+本软件仅支持excel, markdown, csv文件的互相转换
+根据文件的拓展名(例如.csv, .md, .xlsx)来判断输入输出的文件类型
+########################## 请输入参数并执行程序 #################################
+
+

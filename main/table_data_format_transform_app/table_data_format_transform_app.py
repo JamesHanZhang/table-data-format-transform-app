@@ -15,6 +15,13 @@ from main.table_data_format_transform_app.mode_choices import *
 
 print(prop.SOFTWARE_EXPLANATION)
 
+def check_if_exit():
+    msg_line = "********************* 可在此退出程序循环 **************************************"
+    print(msg_line)
+    if_exit = input("如想退出程序, 请在此输入括号内任意值(NO, N, n, no, No)并回车, 其他则默认继续执行程序: ").strip()
+    if if_exit in ['NO','No','N','n','no']:
+        exit()
+
 def init_mode():
     sep_line()
     msg_line = "    ***********************************************************\n"
@@ -65,13 +72,21 @@ def init_entrance_mode():
 def run():
     initial_mode = init_entrance_mode()
     if initial_mode == ModeChoices.SAME_STRUCT_MODE:
-        run_same_struct_mode()
+        while True:
+            check_if_exit()
+            run_same_struct_mode()
     if initial_mode == ModeChoices.SAME_PARAMS_MODE:
-        run_diff_struct_same_params_mode()
+        while True:
+            check_if_exit()
+            run_diff_struct_same_params_mode()
     if initial_mode == ModeChoices.DIFF_PARAMS_MODE:
-        run_diff_params_mode()
+        while True:
+            check_if_exit()
+            run_diff_params_mode()
     if initial_mode == ModeChoices.BATCH_PARAMS_MODE:
-        run_batch_params_mode()
+        while True:
+            check_if_exit()
+            run_batch_params_mode()
 
 if __name__=="__main__":
     run()

@@ -63,8 +63,8 @@ sql_output_params = {
     'to_date_formats': {
         'column_name': 'yyyy-mm-dd hh24:mi:ss', # 以oracle为样例
     },
-    # 可能内容里有半角逗号，这个在插入语句中是不被允许的，所以要替换成其他符号
-    'repl_to_sub_comma': ';',
+    # 可能内容里有半角逗号，需要判断在插入语句中是否被允许, 默认会保留逗号
+    'repl_to_sub_comma': ',',
     # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
     'output_index_size': 0,
 }

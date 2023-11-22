@@ -73,7 +73,6 @@ def run_diff_struct_same_params_mode():
     msg = f"######################## 参数表'{params_set}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
     SysLog.show_log(prop.DISCLAIMER)
-    time.sleep(3)
 
 
 if __name__ == "__main__":

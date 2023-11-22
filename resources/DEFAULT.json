@@ -16,7 +16,7 @@
             "character_size": 5000000,
             "quote_none": false,
             "sep_to_sub_multi_char_sep": ";",
-            "repl_to_sub_sep": ".|."
+            "repl_to_sub_sep": "%$*$%"
         },
         "xls_import_params": {
             "input_sheet": "Sheet1"

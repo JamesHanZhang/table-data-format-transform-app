@@ -55,6 +55,7 @@ sql_output_params = {
     # 选择导出的数据库类型，请注意大小写必须严格遵循下面的可选项
     'database': 'Oracle',
     # DATABASE里的可选项，作用仅为提示DATABASE里可写的数据库引擎
+    # 注意: 这里TDSQL默认为TDSQL MYSQL, 如需使用TDSQL PostgreSQL, 请直接拷贝'PostgreSql'作为database参数的内容
     'database_options': ['Oracle', 'GBase', 'MySql', 'PostgreSql', 'SqlServer', 'TdSql'],
     # 如果涉及到需要将数据从字符串转为DATETIME, 或者需要pandas里数据类型为datetime64的转为合适的DATETIME的插入语句
     # key: 列名, value: 导出数据的格式(基于database); 如仅填写key,而value为""，则表示将字符串转DATETIME, 默认转换类型为2023-11-09 13:23:44
@@ -63,8 +64,8 @@ sql_output_params = {
     'to_date_formats': {
         'column_name': 'yyyy-mm-dd hh24:mi:ss', # 以oracle为样例
     },
-    # 可能内容里有半角逗号，这个在插入语句中是不被允许的，所以要替换成其他符号
-    'repl_to_sub_comma': ';',
+    # 可能内容里有半角逗号，需要判断在插入语句中是否被允许, 默认会保留逗号
+    'repl_to_sub_comma': ',',
     # 导入数据的记录条数, 等于几就表示从几开始增加, 默认为0, 表示从0开始增加计算
     'output_index_size': 0,
 }

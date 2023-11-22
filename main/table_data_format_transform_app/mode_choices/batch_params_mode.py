@@ -64,8 +64,6 @@ def run_batch_params_mode():
     msg = f"######################## 参数表'{str(params_sets)}'的数据转换进程已顺利结束执行 ################################\n\n"
     SysLog.show_log(msg)
     SysLog.show_log(prop.DISCLAIMER)
-    time.sleep(3)
-
 
 if __name__ == "__main__":
     run_batch_params_mode()

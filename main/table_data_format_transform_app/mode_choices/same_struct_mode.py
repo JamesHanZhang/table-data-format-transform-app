@@ -131,7 +131,6 @@ def run_same_struct_mode():
     import_params, output_params, basic_process_params = IntegrateParams.get_params(params_set, ParamsMode.FROM_EXISTS)
     SysLog.show_log(f"共计转换数据量为: {import_params.import_index_size}条记录.")
     SysLog.show_log(prop.DISCLAIMER)
-    time.sleep(4)
     
     
 if __name__ == "__main__":

@@ -1,22 +1,22 @@
 {
     "import_params": {
         "input_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\release\\file-trans-on-extends-app\\input_dataset",
-        "input_file": "input_test.csv",
+        "input_file": "input_test.xlsx",
         "input_encoding": "",
         "quote_as_object": true,
         "if_circular": true,
         "chunksize": 50000,
-        "import_index_size": 0,
+        "import_index_size": 6,
         "batch_import_params": {
             "if_batch": false,
             "import_type": ".csv"
         },
         "csv_import_params": {
-            "input_sep": ",",
+            "input_sep": "",
             "character_size": 5000000,
             "quote_none": false,
             "sep_to_sub_multi_char_sep": ";",
-            "repl_to_sub_sep": ".|."
+            "repl_to_sub_sep": "%$*$%"
         },
         "xls_import_params": {
             "input_sheet": "Sheet1"
@@ -24,15 +24,15 @@
     },
     "output_params": {
         "output_path": "D:\\CODE-PROJECTS\\PYTHON-PROJECTS\\table-data-format-transform-app\\release\\file-trans-on-extends-app\\output_dataset",
-        "output_file": "test.xlsx",
-        "output_encoding": "gb18030",
+        "output_file": "ssss.md",
+        "output_encoding": "utf-8",
         "if_sep": false,
         "only_one_chunk": false,
         "overwrite": true,
         "chunksize": 50000,
         "md_output_params": {
             "activation": true,
-            "output_index_size": 0
+            "output_index_size": 6
         },
         "csv_output_params": {
             "activation": true,
@@ -42,7 +42,7 @@
         },
         "xls_output_params": {
             "activation": true,
-            "output_sheet": "Sheet1",
+            "output_sheet": null,
             "output_index_size": 0
         },
         "sql_output_params": {
@@ -57,8 +57,12 @@
                 "GBase",
                 "MySql",
                 "PostgreSql",
-                "SqlServer"
+                "SqlServer",
+                "TdSql"
             ],
+            "to_date_formats": {
+                "column_name": "yyyy-mm-dd hh24:mi:ss"
+            },
             "repl_to_sub_comma": ";",
             "output_index_size": 0
         }
@@ -87,6 +91,12 @@
             "activation": false,
             "change_types": {
                 "column_name": "type_in_pandas"
+            },
+            "from_date_formats": {
+                "column_name": "%Y-%m-%d"
+            },
+            "to_date_formats": {
+                "column_name": "%Y-%m-%d"
             }
         },
         "pick_columns_opt": {

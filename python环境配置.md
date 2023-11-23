@@ -1,9 +1,8 @@
 # python环境配置
-#programmingLanguage #python #environment
 
 | 主要贡献者    | 联系方式                      | 更新时间   | GitHub | 
 | :-----------: | ----------------------------- | :--------: | :----: |
-| (Main Attributor)<br/>JamesHanZhang | `jameshanzhang@foxmail.com` | 2023-11-19 | [链接](https://github.com/JamesHanZhang)        |
+| (Main Attributor)<br/>JamesHanZhang | `jameshanzhang@foxmail.com` | 2023-11-23 | [链接](https://github.com/JamesHanZhang)        |
 
 ## 目录Catalogue
 `注意, 在obsidian中直接点击会导致全选该模块, 小心不要误删除`
@@ -219,7 +218,7 @@ conda uninstall <package name>
 请参考后面的纯python环境安装包的部分：[离线安装包library](#离线安装包library)
 注意在windows系统需要以**管理员身份**打开**Anaconda Prompt**进行相关命令行的输入。
 
-## 直接安装纯python
+## 直接安装python
 ### windows环境安装python
   
 在 Windows 上直接安装 Python 通常是一个简单的过程。以下是一些步骤：
@@ -241,6 +240,7 @@ conda uninstall <package name>
 2. 安装 Python：`sudo apt install python3`
 
 ### Linux环境Ubuntu离线安装python
+#### 同架构安装
 1. **在有互联网连接的 Ubuntu 系统上下载 Python 安装包及其依赖项：**
 ```bash
 sudo apt update
@@ -266,6 +266,54 @@ sudo dpkg -i python3.11*.deb
 如果有任何缺失的依赖项，你可能需要使用相似的方式手动下载并安装它们。
 3. **验证 Python 安装：**
 打开终端并运行命令来验证 Python 是否成功安装：`python3 --version`
+#### 不同架构安装或离线安装（皆可用）
+例如说，下载的机器是`x86_64`，而目标机器是`aarch64`，则需要先下载python：
+- 登录python网站下载python, [登录链接](https://www.python.org/downloads/source/)
+- 选择下载原版`Python-3.xxx.tgz`文件；
+- 在目标系统解压：
+```bash
+tar -xzvf Python-3.xxx.tgz
+cd Python-3.xxx
+# 编译环境
+make
+# 开始安装
+make install
+# 如果想替换成所需要的路径
+make install DESTDIR=/path/to/installation/directory
+# 测试是否安装成功，如返回版本说明安装成功
+python3 --version
+```
+
+- 通过pip来查看包的安装情况
+```bash
+pip list
+```
+
+- 如果发现找不到`pip`命令，说明未安装`pip`，需要安装：
+```bash
+# 在线安装 - Debian/Ubuntu
+sudo apt-get update
+sudo apt-get install python3-pip
+
+# 或者通过脚本安装
+# 先下载脚本到本地：https://bootstrap.pypa.io/get-pip.py
+# 执行脚本
+sudo python3 get-pip.py
+
+# 查看安装情况
+pip3 --version
+```
+
+- 如果需要离线安装pip
+```bash
+# 下载pip的.tgz文件到本地
+# 解压.tgz文件
+# 在解压的文件目录下打开终端，输入命令
+sudo python3 setup.py install
+
+# 完成后查看安装情况
+pip3 --version
+```
 
 ## 搭建不同的纯python虚拟环境(非anaconda环境)
 ### `venv`方法
@@ -413,7 +461,6 @@ wmic os get osarchitecture
 	- a filename like `pyinstaller-X.Y.Z-py3-none-X.Y-linux_amd64.whl` would be for Python version X.Y on a 64-bit (x86_64) Linux system.
 
 ##### 下载安装包
-以**管理员身份**打开**Anaconda Prompt**：
 - **下载安装包**（默认下载当前使用平台的安装包）
 ```bash
 # 下载安装包
@@ -451,7 +498,7 @@ pip install /path/to/downloaded/pyinstaller-package.whl
 
 
 #### `pip`卸载库`library`
-以**管理员身份**打开**Anaconda Prompt**：
+
 ```bash
 # 卸载你想卸载的库，通常命令如下
 pip uninstall <package name>
